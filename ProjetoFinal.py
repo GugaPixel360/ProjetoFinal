@@ -45,46 +45,87 @@ def criar_conexao():
             host='127.0.0.1',
             user='root',
             password='Senac2026',
-            database='ProjetoFinal_Escola-Carrossel'
+            database='Carrossel'
         )
         return conexao
     except Error as e:
         print(f"Erro ao conectar: {e}")
         return None
-    
+
+Turma = []
+
+def Matricula():
+     while True:
+        print("Vamos fazer a seua Matricula! por favor preencha todos os requisitos corretamente | Obrigado pela compreensão (;")
+        print("================================================================================================================")
+        conn = criar_conexao()
+        if not conn:
+            return
+        
+        cursor = conn.cursor()
+         
+        
+
+        nome = input("Digite seu nome: ").strip()
+        if nome.strip() == "":
+            print("Vamo querer?")
+            continue
+        
+        elif nome.isdigit():
+            print("Não pode ser numero ;)")
+            cursor.close()
+            conn.close()
+            continue
+        
+        idade = input("Digite sua idade: ").strip()
+        if idade.strip() == "":
+            print("Sério?")
+            cursor.close()
+            conn.close()
+            continue
+        
+        elif idade <= "0":
+            print("Sério?")
+            cursor.close()
+            conn.close()
+            continue
+        
+        if not idade.isdigit():
+            print("Não pode em letras ;)")
+            cursor.close()
+            conn.close()
+            continue
+        
+        BtEmTurma = input("Em qual turma você gostaria de entrar? | Turmas: Turma01 |: ")
+        if BtEmTurma == "01":
+
+         Turma.append(nome)
+         Turma.append(idade)
+            
+         cursor.execute(
+        "INSERT INTO Alunos (NomeDoAluno, IdadeDoAluno, TurmaDoAluno) VALUES (%s, %s, %s)",
+        (nome, idade, BtEmTurma)
+        )
+         
+        else:
+            print("Opção inválida")
+        
+
+        conn.commit()
+
+        print(f"Aluno [{nome}] matriculado com sucesso!")
+
+        cursor.close()
+        conn.close()
 
 
-    
-Turmas = []
+        print("Obrigado por se matricular!")
+        print("=================================================================================================================")
+        Turma.append(nome)
+        Turma.append(idade)
+        break
 
-def validar_nome(nome):
-   conn = criar_conexao()
-   if not conn:
-        return
-
-  
-   if nome == "":
-      return False
-
-   for usuari in nome:
-      if usuari >= "0" and usuari <= "9":
-         return False
-   return True
+   
 
 
-def validar_idade(idade):
-   if idade == "":
-      return False
-
-   for usuari in idade:
-      if usuari <= "0" or usuari >= "9":
-         return False
-   return True
-
-
-
-  
-print("Bem vindo ao sistema de matriculas da escola Carrossel!!")
-
-
-
+Matricula()
