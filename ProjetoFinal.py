@@ -125,7 +125,7 @@ def Matricula():
         Turma.append(idade)
         break
 
-
+go
 
 Matricula()
 
