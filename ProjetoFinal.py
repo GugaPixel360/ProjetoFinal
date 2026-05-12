@@ -132,6 +132,6 @@ Matricula()
 
 while True:
     print("Bem vindo ao menu da escola Carrossel!\n" \
-    "Digite oque gostarias de fazer?\n | 1 - Entrar (Apenas para professores) | 2 - Matricular aluno(a)\n | 3 - ")
+    "Digite oque gostarias de fazer?\n | 1 - Entrar (Apenas para professores) | 2 - Matricular aluno(a)\n | 3 - josue ")
 
 
