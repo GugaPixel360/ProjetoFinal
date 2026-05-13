@@ -34,10 +34,8 @@
 
 # Drop Database Carrossel;
 
-
 import mysql.connector
 from mysql.connector import Error
-
 
 def criar_conexao():
     try:
@@ -52,11 +50,9 @@ def criar_conexao():
         print(f"Erro ao conectar: {e}")
         return None
 
-
-
 def Matricula():
      while True:
-        print("Vamos fazer a seua Matricula! por favor preencha todos os requisitos corretamente | Obrigado pela compreensão (;")
+        print("Vamos fazer a seua Matricula! por favor preencha todos os requisitos corretamente | Obrigado pela compreensão ")
         print("================================================================================================================")
         conn = criar_conexao()
         if not conn:
@@ -126,12 +122,12 @@ def Matricula():
         break
 
 
-
 Matricula()
-
 
 while True:
     print("Bem vindo ao menu da escola Carrossel!\n" \
-    "Digite oque gostarias de fazer?\n | 1 - Entrar (Apenas para professores) | 2 - Matricular aluno(a)\n | 3 - ")
+    "Você já tem login?\n | 0 - Sair\n | 1 - Entrar\n | 2 - Cadastrar ")
+
+    match
 
 
