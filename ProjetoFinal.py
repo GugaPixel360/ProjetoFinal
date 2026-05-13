@@ -52,7 +52,7 @@ def criar_conexao():
         print(f"Erro ao conectar: {e}")
         return None
 
-Turma = []
+
 
 def Matricula():
      while True:
