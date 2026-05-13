@@ -3,24 +3,31 @@ CREATE DATABASE IF NOT EXISTS Carrossel;
 USE carrossel;
 
 CREATE TABLE IF NOT EXISTS Alunos (
-NomeDoAluno VARCHAR (100) NOT NULL,
-IdadeDoAluno INT NOT NULL,
-TurmaDoAluno INT NOT NULL,
-Matricula_ID INT AUTO_INCREMENT PRIMARY KEY
+nomeDoAluno VARCHAR (100) NOT NULL,
+idadeDoAluno INT NOT NULL,
+turmaDoAluno INT NOT NULL,
+matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
+notasDoAluno INT
 );
 
 CREATE TABLE IF NOT EXISTS Situacao (
-NotasDoAluno INT NOT NULL,
-MediaDoAluno INT NOT NULL,
-SituacaoDoAluno VARCHAR (100),
-Matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
+notasDoAluno_FK INT,
+mediaDoAluno INT,
+situacaoDoAluno VARCHAR (100),
+matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
 FOREIGN KEY (Matricula_FK_ID) REFERENCES Alunos (Matricula_ID)
+
 );
 
-Select * From Alunos;
-Select * From Situacao;
+CREATE TABLE IF NOT EXISTS professor (
+id_docente int auto_increment primary key,
+nomeDoprofessor VARCHAR (100) NOT NULL,
+funcaoDoProfessor INT NOT NULL,
+emailDoProfessor INT NOT NULL,
+senha VARCHAR(15) NOT NULL
+);
 
 
-
+/*
 Drop Database Carrossel;
 
