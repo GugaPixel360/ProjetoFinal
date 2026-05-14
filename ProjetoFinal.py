@@ -119,6 +119,10 @@ def validar_senha(senha):
             print ("============")
             continue
             
+#def de cadastro
+def criar_login(Nome, Email, funcao, materia, Senha):
+    ...
+
 # entra no login do docente 
 def Entrar(id_docente, senha):
     conn = criar_conexao()
@@ -197,6 +201,7 @@ def verificar_docente(idf):
             print(f"O valor '{idf}' NÃO foi encontrado.")
             continue
 
+#excluir nota
 def excluir_nota(id_nota):
     cursor = criar_conexao()
     sql = "DELETE FROM notas WHERE id = %s"
@@ -274,7 +279,7 @@ while True:
             Senha = input("Crie a sua senha: ")    
             print("\33[31m===============\033[m")  
             verificar_funcao(funcao)
-            
+            criar_login(Nome, Email, funcao, materia, Senha)
 
         case _:
             print("Escolha uma das opções dadas")
