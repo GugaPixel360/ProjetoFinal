@@ -228,7 +228,7 @@ while True:
             validar_id() 
             Entrar(id_docente)
 
-            match verificar_docente(idf):
+            match verificar_docente(id_docente):
 
                 #professor
                 case 1:
