@@ -124,7 +124,7 @@ def criar_login(Nome, Email, funcao, materia, Senha):
     conn = criar_conexao()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO professor (nomeDoprofessor, emailDoProfessor, funcaoDoProfessor, materiaDoProfessor, senha) VALUES (%s, %s, %s, %s, %s)",
+        "INSERT INTO professor (nomeDoprofessor, emailDoProfessor, funcaoDoProfessor, materia_Professor, senha) VALUES (%s, %s, %s, %s, %s)",
         (Nome, Email, funcao, materia, Senha)
     )
 
