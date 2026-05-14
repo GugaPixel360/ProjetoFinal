@@ -7,7 +7,8 @@ nomeDoAluno VARCHAR (100) NOT NULL,
 idadeDoAluno INT NOT NULL,
 turmaDoAluno INT NOT NULL,
 matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
-notasDoAluno INT
+notasDoAluno INT,
+oqvce VARCHAR (100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Situacao (
@@ -24,7 +25,7 @@ id_docente int auto_increment primary key,
 nomeDoprofessor VARCHAR (100) NOT NULL,
 funcaoDoProfessor INT NOT NULL,             
 emailDoProfessor INT NOT NULL,
-senha VARCHAR(15) NOT NULL
+senha VARCHAR(15) NOT NULL,
 );
 
 
