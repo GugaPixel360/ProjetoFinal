@@ -164,6 +164,7 @@ while True:
             break
 
         case "1":
+            ler_docente()
             print("\33[31m===============\033[m")
             Nomef = input("Digite seu ID: ")
             Senhaf = input("Digite a sua senha: ")   
