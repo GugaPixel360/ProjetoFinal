@@ -6,37 +6,42 @@
 
 #SCRIPT SQL:
 
-#CREATE DATABASE IF NOT EXISTS Carrossel;
+# CREATE DATABASE IF NOT EXISTS Carrossel;
 
 # USE carrossel;
 
 # CREATE TABLE IF NOT EXISTS Alunos (
-# NomeDoAluno VARCHAR (100) NOT NULL,
-# IdadeDoAluno INT NOT NULL,
-# TurmaDoAluno INT NOT NULL,
-# Matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
-# NotasDoAluno INT PRIMARY KEY NOT NULL
+# nome_aluno VARCHAR (100) NOT NULL,
+# idade_aluno INT NOT NULL,
+# turma_aluno INT NOT NULL,
+# matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
+# notasDoAluno INT
 # );
 
 # CREATE TABLE IF NOT EXISTS Situacao (
-# NotasDoAluno_FK INT PRIMARY KEY NOT NULL,
-# MediaDoAluno INT NOT NULL,
-# SituacaoDoAluno VARCHAR (100),
-# Matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
-# FOREIGN KEY (Matricula_FK_ID) REFERENCES Alunos (Matricula_ID),
-# FOREIGN KEY (NotasDoAluno_FK) REFERENCES Alunos (NotasDoAluno)
+# notas_aluno_FK INT,
+# media_aluno INT,
+# situacao_aluno VARCHAR (100),
+# matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
+# FOREIGN KEY (Matricula_FK_ID) REFERENCES Alunos (Matricula_ID)
+
 # );
 
-# Select * From Alunos;
-# Select * From Situacao;
-
-
-
-# Drop Database Carrossel;
+# CREATE TABLE IF NOT EXISTS docente (
+# id_docente int auto_increment primary key,
+# nome_docente VARCHAR (100) NOT NULL,
+# funcao_docente VARCHAR(20) NOT NULL,
+# materia_docente VARCHAR(50) NOT NULL, 
+# email_docente VARCHAR (50) NOT NULL,
+# senha VARCHAR(10) NOT NULL
+# );
 
 
 import mysql.connector
 from mysql.connector import Error
+
+#Lista tendo todos as funcoes que um usuario pode ter no sistema
+escolha_de_funcoes = [professor, coordenador, diretor, prof, coord]
 
 #Cria conexao com o sql
 def criar_conexao():
@@ -151,6 +156,12 @@ def ler_docente():
 
     print ("=================")
 
+# verificacao da funcao do docente (se a funcao existe ou nao)
+def verificar_funcao(funcao, escolha_de_funcoes):
+    funcao = funcao.lower()
+    
+    if not funcao == escolha_de_funcoes:
+        return True
 
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
@@ -171,7 +182,7 @@ while True:
             Senhaf = input("Digite a sua senha: ")   
             print("\33[31m===============\033[m") 
 
-            id_docente = validar_id() 
+            validar_id() 
             Entrar(id_docente)
             
         case "2":
@@ -181,6 +192,7 @@ while True:
             Emailf = input("Digite a seu email: ")    
             Funcaof = input("Digite a sua função: ") 
             print("\33[31m===============\033[m")  
+            verificar_funcao()
 
         case _:
             print("Escolha uma das opções dadas")
