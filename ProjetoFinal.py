@@ -146,8 +146,17 @@ def ler_docente():
     cursor = conn.cursor()
     
     cursor.execute("SELECT*FROM professor")
+    resultado = cursor.fetchone()
 
-    resultado = cursor.fetchall()
+
+    # se nao tiver docente
+    if resultado is None or resultado[1] is None:
+        print("=================")
+        print("Nenhum usuário encontrado.")
+        print("=================")
+        return
+
+    # print docente    
     for linha in resultado:
         print (f"Código do docente: {linha[0]} | Nome: {linha[1]} | Função: {linha[2]}")
 
@@ -201,7 +210,10 @@ while True:
             break
         
         case "1":
-            ler_docente()
+            if not ler_docente():
+                print("Não ha nenhum usuário cadastrado")
+                continue
+
             print("\33[31m===============\033[m")
             id_docente = input("Digite seu ID: ")
             Senhaf = input("Digite a sua senha: ")   
