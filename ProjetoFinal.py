@@ -41,7 +41,7 @@ import mysql.connector
 from mysql.connector import Error
 
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
-escolha_de_funcoes = [professor, coordenador, diretor, prof, coord]
+escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
 
 #Cria conexao com o sql
 def criar_conexao():
@@ -157,7 +157,7 @@ def ler_docente():
     print ("=================")
 
 # verificacao da funcao do docente (se a funcao existe ou nao)
-def verificar_funcao(funcao, escolha_de_funcoes):
+def verificar_funcao(funcao):
     funcao = funcao.lower()
     
     if not funcao == escolha_de_funcoes:
@@ -203,7 +203,7 @@ while True:
         case "1":
             ler_docente()
             print("\33[31m===============\033[m")
-            idf = input("Digite seu ID: ")
+            id_docente = input("Digite seu ID: ")
             Senhaf = input("Digite a sua senha: ")   
             print("\33[31m===============\033[m") 
 
@@ -252,12 +252,13 @@ while True:
         case "2":
             print ("\33[34m===============\033[m")
             Nome = input("Digite seu nome completo: ")
-            Senha = input("Digite a sua senha: ")    
             Email = input("Digite a seu email: ")    
-            Funcao = input("Digite a sua função: ") 
+            funcao = input("Digite a sua função (Caso nao seja professor repita a sua função): ") 
             materia = input("Digite a sua matéria: ") 
+            Senha = input("Crie a sua senha: ")    
             print("\33[31m===============\033[m")  
-            verificar_funcao()
+            verificar_funcao(funcao)
+            
 
         case _:
             print("Escolha uma das opções dadas")
