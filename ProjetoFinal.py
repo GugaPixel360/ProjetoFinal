@@ -162,8 +162,6 @@ def Entrar(id_docente):
 def validar_senha():
     while True:
 
-        senha = input("Digite sua senha (São necessários letras, números e caracters especiais): ")
-
         letra = any(caracter.isalpha() for caracter in senha)
         num = any(caracter.isdigit() for caracter in senha)
         carac = any(not caracter.isalnum() for caracter in senha)
@@ -220,12 +218,18 @@ while True:
             break
 
         case "1":
-            senha = validar_senha()
+            print("\33[31m===============\033[m")
+            Nomef = input("Digite seu nome completo: ")
+            Senhaf = input("Digite a sua senha: ")    
+            Emailf = input("Digite a seu email: ")    
+            Senhaf = input("Digite a sua função: ") 
+            print("\33[31m===============\033[m")   
             
             id_docente = validar_id() 
             Entrar(id_docente)
         case "2":
-            print ("batata")
+            print ("\33[34m===============\033[m")
+            
 
         case _:
             print("Escolha uma das opções dadas")
