@@ -152,6 +152,89 @@ def ler_docente(id_docente):
 
 
 #Print inicial
+=======
+def validar_id():
+    while True:
+        id_docente = input("Qual seu ID?").strip().isdigit() #4
+
+
+        if not id_docente.isdigit():
+            print("Apenas números!")
+            continue
+
+        if id_docente.strip() == "":
+            print("Campo vazio!")
+            continue
+
+        return id_docente #4
+
+def Entrar(id_docente):
+    conn = criar_conexao()
+    cursor = conn.cursor()
+    sql = "SELECT * FROM professor WHERE id_docente = %s AND senha = %s"
+    valores = (id_docente, senha)
+    cursor.execute(sql, valores)
+    resultado = cursor.fetchone()  
+   
+    cursor.close()
+    conn.close()
+ 
+    if not resultado:
+        print (f"------------")
+        print("Senha não encontrada")
+        print (f"------------")
+        return False
+    else:
+        return True
+
+def validar_senha():
+    while True:
+
+        letra = any(caracter.isalpha() for caracter in senha)
+        num = any(caracter.isdigit() for caracter in senha)
+        carac = any(not caracter.isalnum() for caracter in senha)
+ 
+        if len(senha) > 10 or len(senha) < 1:
+            print("Coloque menos de 10 valores")
+            continue
+           
+ 
+ 
+        if letra and num and carac:
+            print("senha valida")
+            return senha
+            
+
+        else:
+            print ("=================")
+            if not letra:
+                print ("precisa de letra")
+                
+
+            if not num:
+                print ("precisa de numero")
+                
+                
+            if not carac:
+                print ("precisa de caracter especial")
+                
+                
+
+            print ("tente denovo")
+            print ("============")
+            continue
+            
+
+            
+            
+            
+            
+        
+
+
+
+
+>>>>>>> QA_Gabriel
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
 
@@ -171,7 +254,10 @@ while True:
             
             id_docente = validar_id() 
             Entrar(id_docente)
+<<<<<<< HEAD
             
+=======
+>>>>>>> QA_Gabriel
         case "2":
             print ("\33[34m===============\033[m")
             Nomef = input("Digite seu nome completo: ")
@@ -186,7 +272,10 @@ while True:
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> QA_Gabriel
 
 
