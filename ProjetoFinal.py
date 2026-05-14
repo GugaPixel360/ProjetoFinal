@@ -132,6 +132,7 @@ def criar_login(Nome, Email, funcao, materia, senha):
         "INSERT INTO professor (nome_docente, email_docente, funcao_docente, materia_docente, senha) VALUES (%s, %s, %s, %s, %s)",
         (Nome, Email, funcao, materia, senha)
     )
+    
 
 
 
