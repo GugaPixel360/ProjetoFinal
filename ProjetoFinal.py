@@ -157,7 +157,7 @@ print("Bem vindo ao menu da escola Carrossel!\n" )
 
 
 while True:
-    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n")
+    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n ? ")
 
     match op:
         case "0":
