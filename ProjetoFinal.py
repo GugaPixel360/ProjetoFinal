@@ -45,7 +45,7 @@ def criar_conexao():
             host='127.0.0.1',
             user='root',
             password='Senac2026',
-            database='Carrossel'
+            database='carrossel'
         )
         return conexao
     except Error as e:
