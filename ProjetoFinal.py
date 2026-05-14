@@ -151,13 +151,36 @@ def ler_docente():
 
     print ("=================")
 
+def verificar_docente(idf):
+    while True:
+        cursor = criar_conexao()
+
+        busca = "SELECT * FROM professor WHERE funcaoDoProfessor = %s"
+
+        cursor.execute(busca, (idf))
+
+        resultado = cursor.fetchone()
+
+        cursor.execute("SELECT * FROM professor WHERE funcaoDoProfessor = %s")
+
+        oqvce = cursor.fetchall()
+
+        for linha in oqvce:
+            print("Fazendo busca...")
+
+        if resultado:
+            print(f"O valor '{idf}' FOI encontrado.")
+            print(f"Você é {linha}")
+        else:
+            print(f"O valor '{idf}' NÃO foi encontrado.")
+            continue
 
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
 
 while True:
-    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n")
+    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n ? ")
 
     match op:
         case "0":
