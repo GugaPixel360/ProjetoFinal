@@ -85,8 +85,11 @@ def validar_id(id_docente):
         break
 
 # valida a senha na hora do create 
-def validar_senha(senha):
+def validar_senha():
     while True:
+
+        senha = input("Crie a sua senha: ")   
+
 
         letra = any(caracter.isalpha() for caracter in senha)
         num = any(caracter.isdigit() for caracter in senha)
@@ -98,7 +101,8 @@ def validar_senha(senha):
            
         if letra and num and carac:
             print("Senha valida")
-            break
+            return senha
+            
             
         else:
             print ("=================")
@@ -118,14 +122,15 @@ def validar_senha(senha):
             print ("Tente denovo")
             print ("============")
             continue
+        
             
 #def de cadastro
-def criar_login(Nome, Email, funcao, materia, Senha):
+def criar_login(Nome, Email, funcao, materia, senha):
     conn = criar_conexao()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO professor (nome_professor, email_docente, funcao_docente, materia_docente, senha) VALUES (%s, %s, %s, %s, %s)",
-        (Nome, Email, funcao, materia, Senha)
+        "INSERT INTO professor (nome_docente, email_docente, funcao_docente, materia_docente, senha) VALUES (%s, %s, %s, %s, %s)",
+        (Nome, Email, funcao, materia, senha)
     )
 
 
@@ -284,11 +289,10 @@ while True:
             Email = input("Digite a seu email: ")    
             funcao = input("Digite a sua função: ") 
             materia = input("Digite a sua matéria (Caso nao seja professor repita a sua função): ") 
-            Senha = input("Crie a sua senha: ")    
+            senha = validar_senha()
             print("\33[31m===============\033[m")  
             verificar_funcao(funcao)
-            validar_senha(Senha)
-            criar_login(Nome, Email, funcao, materia, Senha)
+            criar_login(Nome, Email, funcao, materia, senha)
 
         case _:
             print("Escolha uma das opções dadas")
