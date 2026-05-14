@@ -208,7 +208,7 @@ print("Bem vindo ao menu da escola Carrossel!\n" )
 
 
 while True:
-    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n ? ")
+    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ")
 
     match op:
         case "0":
@@ -262,16 +262,15 @@ while True:
 
                                 
                                 case 3:
+                                    ...
 
-                                                          
-                
-            
+        
         case "2":
             print ("\33[34m===============\033[m")
             Nome = input("Digite seu nome completo: ")
             Email = input("Digite a seu email: ")    
-            funcao = input("Digite a sua função (Caso nao seja professor repita a sua função): ") 
-            materia = input("Digite a sua matéria: ") 
+            funcao = input("Digite a sua função: ") 
+            materia = input("Digite a sua matéria (Caso nao seja professor repita a sua função): ") 
             Senha = input("Crie a sua senha: ")    
             print("\33[31m===============\033[m")  
             verificar_funcao(funcao)
