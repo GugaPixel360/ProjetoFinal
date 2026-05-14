@@ -164,16 +164,27 @@ while True:
             break
 
         case "1":
-            senha = validar_senha()
+            print("\33[31m===============\033[m")
+            Nomef = input("Digite seu ID: ")
+            Senhaf = input("Digite a sua senha: ")   
+            print("\33[31m===============\033[m") 
             
             id_docente = validar_id() 
             Entrar(id_docente)
+            
         case "2":
-            print ("batata")
+            print ("\33[34m===============\033[m")
+            Nomef = input("Digite seu nome completo: ")
+            Senhaf = input("Digite a sua senha: ")    
+            Emailf = input("Digite a seu email: ")    
+            Funcaof = input("Digite a sua função: ") 
+            print("\33[31m===============\033[m")  
 
         case _:
             print("Escolha uma das opções dadas")
             continue
+
+
 
 
 
