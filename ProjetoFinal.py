@@ -163,6 +163,7 @@ while True:
         case "0":
             print ("Você saiu")
             break
+        
 
         case "1":
             ler_docente()
@@ -173,6 +174,28 @@ while True:
 
             id_docente = validar_id() 
             Entrar(id_docente)
+
+            match verificar_docente():
+
+                #professor
+                case 1:
+                    print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                    op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n")
+
+                    if op == 0:
+                        print("Você saiu")
+                        break
+
+                    elif op == 1:
+                        
+
+
+
+                #coordenador
+                case 2:
+                #diretor
+                case 3:
+            
             
         case "2":
             print ("\33[34m===============\033[m")
