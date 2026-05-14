@@ -204,7 +204,9 @@ while True:
 
 
                                 case 2:
-                                    
+                                    ler_notas()
+                                    excluir_notas()
+                                
 
 
 
@@ -215,11 +217,7 @@ while True:
                         
 
 
-                #coordenador
-                case 2:
-                #diretor
-                case 3:
-            
+               
             
         case "2":
             print ("\33[34m===============\033[m")
