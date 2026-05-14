@@ -188,6 +188,12 @@ def verificar_docente(idf):
             print(f"O valor '{idf}' NÃO foi encontrado.")
             continue
 
+def excluir_nota(id_nota):
+    cursor = criar_conexao()
+    sql = "DELETE FROM notas WHERE id = %s"
+    cursor.execute(sql, (id_nota,))
+    cursor.commit()
+
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
@@ -241,13 +247,12 @@ while True:
                                 case 2:
                                     ler_notas()
                                     excluir_notas()
+
+                                
+                                case 3:
+
                                                           
-                #coordenador
-                case 2:
-                    ...
-                #diretor
-                case 3:
-                    ...
+                
             
         case "2":
             print ("\33[34m===============\033[m")
