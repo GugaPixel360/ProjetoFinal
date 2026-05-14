@@ -135,7 +135,8 @@ def Entrar(id_docente, senha):
         return True
 
 #read - table de docentes
-def ler_docente(id_docente):
+def ler_docente():
+    print ("=================")
     conn = criar_conexao()
     cursor = conn.cursor()
     
@@ -166,10 +167,10 @@ while True:
         case "1":
             ler_docente()
             print("\33[31m===============\033[m")
-            Nomef = input("Digite seu ID: ")
+            idf = input("Digite seu ID: ")
             Senhaf = input("Digite a sua senha: ")   
             print("\33[31m===============\033[m") 
-            
+
             id_docente = validar_id() 
             Entrar(id_docente)
             
