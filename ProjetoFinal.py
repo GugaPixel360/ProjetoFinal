@@ -186,6 +186,7 @@ while True:
         case "0":
             print ("Você saiu")
             break
+        
 
         case "1":
             ler_docente()
@@ -196,13 +197,60 @@ while True:
 
             id_docente = validar_id() 
             Entrar(id_docente)
+
+            match verificar_docente(idf):
+
+                #professor
+                case 1:
+                    print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                    op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n")
+
+                    if op == 0:
+                        print("Você saiu")
+                        break
+
+                    elif op == 1:
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir")
+                            
+                            match op:
+                                case 0:
+                                    print("Você saiu")
+                                    break
+
+                                case 1:
+                                     nota1 = input("Digite a 1° nota do alunos: ")
+                                     nota2 = input("Digite a 2° nota do alunos: ")
+                                     nota3 = input("Digite a 3° nota do alunos: ")
+
+                                     print("Essas são as três notas do alunos \n 1° nota: {nota1} \n | 2° nota: {nota2} | 3° nota: {nota3}")
+
+
+                                case 2:
+                                    
+
+
+
+
+
+                    
+
+                        
+
+
+                #coordenador
+                case 2:
+                #diretor
+                case 3:
+            
             
         case "2":
             print ("\33[34m===============\033[m")
-            Nomef = input("Digite seu nome completo: ")
-            Senhaf = input("Digite a sua senha: ")    
-            Emailf = input("Digite a seu email: ")    
-            Funcaof = input("Digite a sua função: ") 
+            Nome = input("Digite seu nome completo: ")
+            Senha = input("Digite a sua senha: ")    
+            Email = input("Digite a seu email: ")    
+            Funcao = input("Digite a sua função: ") 
+            materia = input("Digite a sua matéria: ") 
             print("\33[31m===============\033[m")  
 
         case _:
