@@ -79,6 +79,7 @@ def validar_id(id_docente):
 
         break
 
+<<<<<<< HEAD
 # valida a senha na hora do create 
 def validar_senha(senha):
     while True:
