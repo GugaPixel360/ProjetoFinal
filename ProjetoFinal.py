@@ -41,7 +41,7 @@ import mysql.connector
 from mysql.connector import Error
 
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
-escolha_de_funcoes = [professor, coordenador, diretor, prof, coord]
+escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
 
 #Cria conexao com o sql
 def criar_conexao():
@@ -203,14 +203,14 @@ while True:
         case "1":
             ler_docente()
             print("\33[31m===============\033[m")
-            idf = input("Digite seu ID: ")
-            Senhaf = input("Digite a sua senha: ")   
+            id_docente = input("Digite seu ID: ")
+            Senhaf = input(" a sua senha: ")   
             print("\33[31m===============\033[m") 
 
             validar_id() 
             Entrar(id_docente)
 
-            match verificar_docente(idf):
+            match verificar_docente(id_docente):
 
                 #professor
                 case 1:
