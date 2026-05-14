@@ -121,7 +121,15 @@ def validar_senha(senha):
             
 #def de cadastro
 def criar_login(Nome, Email, funcao, materia, Senha):
-    ...
+    conn = criar_conexao()
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO professor (nomeDoprofessor, emailDoProfessor, funcaoDoProfessor, materiaDoProfessor, senha) VALUES (%s, %s, %s, %s, %s)",
+        (Nome, Email, funcao, materia, Senha)
+    )
+
+
+
 
 # entra no login do docente 
 def Entrar(id_docente, senha):
@@ -149,7 +157,7 @@ def ler_docente():
     conn = criar_conexao()
     cursor = conn.cursor()
     
-    cursor.execute("SELECT*FROM professor")
+    cursor.execute("SELECT * FROM professor")
     resultado = cursor.fetchone()
 
 

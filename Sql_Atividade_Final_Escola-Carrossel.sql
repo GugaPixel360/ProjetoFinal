@@ -4,17 +4,16 @@ USE carrossel;
 
 CREATE TABLE IF NOT EXISTS Alunos (
 nome_aluno VARCHAR (100) NOT NULL,
-idadeDoAluno INT NOT NULL,
-turmaDoAluno INT NOT NULL,
+idade_aluno INT NOT NULL,
+turma_aluno INT NOT NULL,
 matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
-notasDoAluno INT,
-oqvce VARCHAR (100) NOT NULL
+notas_aluno INT
 );
 
 CREATE TABLE IF NOT EXISTS Situacao (
-notasDoAluno_FK INT,
-mediaDoAluno INT,
-situacaoDoAluno VARCHAR (100),
+notas_aluno_FK INT,
+media_aluno INT,
+situacao_aluno VARCHAR (100),
 matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
 FOREIGN KEY (Matricula_FK_ID) REFERENCES Alunos (Matricula_ID)
 
@@ -22,10 +21,11 @@ FOREIGN KEY (Matricula_FK_ID) REFERENCES Alunos (Matricula_ID)
 
 CREATE TABLE IF NOT EXISTS professor (
 id_docente int auto_increment primary key,  
-nomeDoprofessor VARCHAR (100) NOT NULL,
-funcaoDoProfessor INT NOT NULL,             
-emailDoProfessor INT NOT NULL,
-senha VARCHAR(15) NOT NULL,
+nome_docente VARCHAR (100) NOT NULL,
+funcao_docente INT NOT NULL,             
+email_docente INT NOT NULL,
+senha VARCHAR (15) NOT NULL,
+materia_docente VARCHAR (100) NOT NULL
 );
 
 
