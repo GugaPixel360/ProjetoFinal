@@ -200,7 +200,6 @@ while True:
             print ("Você saiu")
             break
         
-
         case "1":
             ler_docente()
             print("\33[31m===============\033[m")
@@ -240,16 +239,15 @@ while True:
 
 
                                 case 2:
-                                    ...
-
-
+                                    ler_notas()
+                                    excluir_notas()
+                                                          
                 #coordenador
                 case 2:
                     ...
                 #diretor
                 case 3:
                     ...
-            
             
         case "2":
             print ("\33[34m===============\033[m")
