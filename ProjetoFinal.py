@@ -15,7 +15,7 @@
 # idade_aluno INT NOT NULL,
 # turma_aluno INT NOT NULL,
 # matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
-# notasDoAluno INT
+# notas_aluno INT
 # );
 
 # CREATE TABLE IF NOT EXISTS Situacao (
@@ -27,13 +27,13 @@
 
 # );
 
-# CREATE TABLE IF NOT EXISTS docente (
-# id_docente int auto_increment primary key,
+# CREATE TABLE IF NOT EXISTS professor (
+# id_docente int auto_increment primary key,  
 # nome_docente VARCHAR (100) NOT NULL,
-# funcao_docente VARCHAR(20) NOT NULL,
-# materia_docente VARCHAR(50) NOT NULL, 
-# email_docente VARCHAR (50) NOT NULL,
-# senha VARCHAR(10) NOT NULL
+# funcao_docente INT NOT NULL,             
+# email_docente INT NOT NULL,
+# senha VARCHAR (15) NOT NULL,
+# materia_docente VARCHAR (100) NOT NULL
 # );
 
 
@@ -280,13 +280,14 @@ while True:
         
         case "2":
             print ("\33[34m===============\033[m")
-            Nome = input("Digite seu nome completo: ")
+            Nome = input("Digite seu nome completo: ").capitalize()
             Email = input("Digite a seu email: ")    
             funcao = input("Digite a sua função: ") 
             materia = input("Digite a sua matéria (Caso nao seja professor repita a sua função): ") 
             Senha = input("Crie a sua senha: ")    
             print("\33[31m===============\033[m")  
             verificar_funcao(funcao)
+            validar_senha(Senha)
             criar_login(Nome, Email, funcao, materia, Senha)
 
         case _:
