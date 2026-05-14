@@ -38,7 +38,7 @@
 import mysql.connector
 from mysql.connector import Error
 
-
+#Cria conexao com o sql
 def criar_conexao():
     try:
         conexao = mysql.connector.connect(
@@ -52,95 +52,70 @@ def criar_conexao():
         print(f"Erro ao conectar: {e}")
         return None
 
-Turma = []
-
-def Matricula():
-     while True:
-        print("Vamos fazer a seua Matricula! por favor preencha todos os requisitos corretamente | Obrigado pela compreensão (;")
-        print("================================================================================================================")
-        conn = criar_conexao()
-        if not conn:
-            return
-        
-        cursor = conn.cursor()
-         
-        
-
-        nome = input("Digite seu nome: ").strip()
-        if nome.strip() == "":
-            print("Vamo querer?")
-            continue
-        
-        elif nome.isdigit():
-            print("Não pode ser numero ;)")
-            cursor.close()
-            conn.close()
-            continue
-        
-        idade = input("Digite sua idade: ").strip()
-        if idade.strip() == "":
-            print("Sério?")
-            cursor.close()
-            conn.close()
-            continue
-        
-        elif idade <= "0":
-            print("Sério?")
-            cursor.close()
-            conn.close()
-            continue
-        
-        if not idade.isdigit():
-            print("Não pode em letras ;)")
-            cursor.close()
-            conn.close()
-            continue
-        
-        BtEmTurma = input("Em qual turma você gostaria de entrar? | Turmas: Turma01 |: ")
-        if BtEmTurma == "01":
-
-         Turma.append(nome)
-         Turma.append(idade)
-            
-         cursor.execute(
-        "INSERT INTO Alunos (NomeDoAluno, IdadeDoAluno, TurmaDoAluno) VALUES (%s, %s, %s)",
-        (nome, idade, BtEmTurma)
-        )
-         
-        else:
-            print("Opção inválida")
-        
-
-        conn.commit()
-
-        print(f"Aluno [{nome}] matriculado com sucesso!")
-
-        cursor.close()
-        conn.close()
-
-
-        print("Obrigado por se matricular!")
-        print("=================================================================================================================")
-        Turma.append(nome)
-        Turma.append(idade)
-        break
-
-def validar_id():
+#def fazer denovo
+def denovo():
     while True:
-        id_docente = input("Qual seu ID?").strip().isdigit() #4
+        print("=================")
+        continuar = input("Deseja fazer mais alguma coisa? \n1 - Sim \n2 - Não \nDigite aqui: ")
+        if continuar == "1":
+            break
+        elif continuar == "2":
+            print("Muito obrigado por utilizar nossa loja.")
+            exit()
+        else:
+            print("Valor inválido por favor responda com 1 ou 2.")
+        print("=================")
 
+# valida o id do docente que o usuario colocou 
+def validar_id(id_docente):
+    while True:
+        if id_docente.strip() == "":
+            print("Campo vazio!")
+            continue
 
         if not id_docente.isdigit():
             print("Apenas números!")
             continue
 
-        if id_docente.strip() == "":
-            print("Campo vazio!")
+        break
+
+# valida a senha na hora do create 
+def validar_senha(senha):
+    while True:
+
+        letra = any(caracter.isalpha() for caracter in senha)
+        num = any(caracter.isdigit() for caracter in senha)
+        carac = any(not caracter.isalnum() for caracter in senha)
+ 
+        if len(senha) > 10 or len(senha) < 1:
+            print("Coloque menos de 10 valores")
             continue
+           
+        if letra and num and carac:
+            print("Senha valida")
+            break
+            
+        else:
+            print ("=================")
+            if not letra:
+                print ("Precisa de letra")
+                
 
-        return id_docente #4
+            if not num:
+                print ("Precisa de numero")
+                
+                
+            if not carac:
+                print ("Precisa de caracter especial")
+                
+                
 
-def Entrar(id_docente):
+            print ("Tente denovo")
+            print ("============")
+            continue
+            
+# entra no login do docente 
+def Entrar(id_docente, senha):
     conn = criar_conexao()
     cursor = conn.cursor()
     sql = "SELECT * FROM professor WHERE id_docente = %s AND senha = %s"
@@ -159,55 +134,24 @@ def Entrar(id_docente):
     else:
         return True
 
-def validar_senha():
-    while True:
+#read - table de docentes
+def ler_docente(id_docente):
+    conn = criar_conexao()
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT*FROM professor")
 
-        senha = input("Digite sua senha (São necessários letras, números e caracters especiais): ")
+    resultado = cursor.fetchall()
+    for linha in resultado:
+        print (f"Código do docente: {linha[0]} | Nome: {linha[1]} | Função: {linha[2]}")
 
-        letra = any(caracter.isalpha() for caracter in senha)
-        num = any(caracter.isdigit() for caracter in senha)
-        carac = any(not caracter.isalnum() for caracter in senha)
- 
-        if len(senha) > 10 or len(senha) < 1:
-            print("Coloque menos de 10 valores")
-            continue
-           
- 
- 
-        if letra and num and carac:
-            print("senha valida")
-            return senha
-            
+    cursor.close()
+    conn.close()
 
-        else:
-            print ("=================")
-            if not letra:
-                print ("precisa de letra")
-                
-
-            if not num:
-                print ("precisa de numero")
-                
-                
-            if not carac:
-                print ("precisa de caracter especial")
-                
-                
-
-            print ("tente denovo")
-            print ("============")
-            continue
-            
-
-            
-            
-            
-            
-        
+    print ("=================")
 
 
-
-
+#Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
 
@@ -220,18 +164,23 @@ while True:
             break
 
         case "1":
-            senha = validar_senha()
+            print("\33[31m===============\033[m")
+            Nomef = input("Digite seu ID: ")
+            Senhaf = input("Digite a sua senha: ")   
+            print("\33[31m===============\033[m") 
             
             id_docente = validar_id() 
             Entrar(id_docente)
+            
         case "2":
-            print ("batata")
+            print ("\33[34m===============\033[m")
+            Nomef = input("Digite seu nome completo: ")
+            Senhaf = input("Digite a sua senha: ")    
+            Emailf = input("Digite a seu email: ")    
+            Funcaof = input("Digite a sua função: ") 
+            print("\33[31m===============\033[m")  
 
         case _:
             print("Escolha uma das opções dadas")
             continue
-
-
-
-
 
