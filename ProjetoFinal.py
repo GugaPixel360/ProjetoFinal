@@ -205,11 +205,11 @@ while True:
                     print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
                     op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n")
 
-                    if op == 0:
+                    if op == "0":
                         print("Você saiu")
                         break
 
-                    elif op == 1:
+                    elif op == "1":
                             print("O que você gostaria de mexer?")
                             op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir")
                             
@@ -223,7 +223,7 @@ while True:
                                      nota2 = input("Digite a 2° nota do alunos: ")
                                      nota3 = input("Digite a 3° nota do alunos: ")
 
-                                     print("Essas são as três notas do alunos \n 1° nota: {nota1} \n | 2° nota: {nota2} | 3° nota: {nota3}")
+                                     print(f"Essas são as três notas do alunos \n 1° nota: {nota1} \n | 2° nota: {nota2} | 3° nota: {nota3}")
 
 
                                 case 2:
