@@ -22,8 +22,8 @@ FOREIGN KEY (Matricula_FK_ID) REFERENCES Alunos (Matricula_ID)
 CREATE TABLE IF NOT EXISTS professor (
 id_docente int auto_increment primary key,  
 nome_docente VARCHAR (100) NOT NULL,
-funcao_docente INT NOT NULL,             
-email_docente INT NOT NULL,
+funcao_docente VARCHAR (50) NOT NULL,             
+email_docente VARCHAR (50) NOT NULL,
 senha VARCHAR (15) NOT NULL,
 materia_docente VARCHAR (100) NOT NULL
 );
