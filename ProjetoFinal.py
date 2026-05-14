@@ -127,11 +127,24 @@ def validar_senha():
 #def de cadastro
 def criar_login(Nome, Email, funcao, materia, senha):
     conn = criar_conexao()
+
+    if conn is None:
+        print("Falha na conexão")
+        return
+
     cursor = conn.cursor()
+
     cursor.execute(
         "INSERT INTO professor (nome_docente, email_docente, funcao_docente, materia_docente, senha) VALUES (%s, %s, %s, %s, %s)",
         (Nome, Email, funcao, materia, senha)
     )
+
+    conn.commit()
+
+    print("Usuário cadastrado com sucesso!")
+
+    cursor.close()
+    conn.close()
 
 
 
