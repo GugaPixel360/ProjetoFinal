@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS Carrossel;
+CREATE DATABASE IF NOT EXISTS carrossel;
 
 USE carrossel;
 
-CREATE TABLE IF NOT EXISTS Alunos (
+CREATE TABLE IF NOT EXISTS alunos (
 nome_aluno VARCHAR (100) NOT NULL,
 idade_aluno INT NOT NULL,
 turma_aluno INT NOT NULL,
@@ -10,7 +10,7 @@ matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
 notas_aluno INT
 );
 
-CREATE TABLE IF NOT EXISTS Situacao (
+CREATE TABLE IF NOT EXISTS situacao (
 notas_aluno_FK INT,
 media_aluno INT,
 situacao_aluno VARCHAR (100),

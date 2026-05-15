@@ -6,11 +6,11 @@
 
 #SCRIPT SQL:
 
-# CREATE DATABASE IF NOT EXISTS Carrossel;
+# CREATE DATABASE IF NOT EXISTS carrossel;
 
 # USE carrossel;
 
-# CREATE TABLE IF NOT EXISTS Alunos (
+# CREATE TABLE IF NOT EXISTS alunos (
 # nome_aluno VARCHAR (100) NOT NULL,
 # idade_aluno INT NOT NULL,
 # turma_aluno INT NOT NULL,
@@ -18,7 +18,7 @@
 # notas_aluno INT
 # );
 
-# CREATE TABLE IF NOT EXISTS Situacao (
+# CREATE TABLE IF NOT EXISTS situacao (
 # notas_aluno_FK INT,
 # media_aluno INT,
 # situacao_aluno VARCHAR (100),
@@ -30,11 +30,12 @@
 # CREATE TABLE IF NOT EXISTS professor (
 # id_docente int auto_increment primary key,  
 # nome_docente VARCHAR (100) NOT NULL,
-# funcao_docente INT NOT NULL,             
-# email_docente INT NOT NULL,
+# funcao_docente VARCHAR (50) NOT NULL,             
+# email_docente VARCHAR (50) NOT NULL,
 # senha VARCHAR (15) NOT NULL,
 # materia_docente VARCHAR (100) NOT NULL
 # );
+
 
 
 import mysql.connector
@@ -42,6 +43,10 @@ from mysql.connector import Error
 
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
 escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
+
+
+#DEFs BASICOS!!!!
+
 
 #Cria conexao com o sql
 def criar_conexao():
@@ -57,6 +62,12 @@ def criar_conexao():
         print(f"Erro ao conectar: {e}")
         return None
 
+#bloco de prinst para erro
+def erro():
+    print("---------------------------")
+    print("*Ocorreu um erro tente novamente*")
+    print("---------------------------")
+
 #def fazer denovo
 def denovo():
     while True:
@@ -71,6 +82,10 @@ def denovo():
             print("Valor inválido por favor responda com 1 ou 2.")
         print("=================")
 
+
+#DEFs DE VALIDACAO!!!!
+
+
 # valida o id do docente que o usuario colocou 
 def validar_id(id_docente):
     while True:
@@ -83,6 +98,13 @@ def validar_id(id_docente):
             continue
 
         break
+
+# verificacao da funcao do docente (se a funcao existe ou nao)
+def verificar_funcao(funcao):
+    funcao = funcao.lower()
+    
+    if not funcao == escolha_de_funcoes:
+        return True
 
 # valida a senha na hora do create 
 def validar_senha():
@@ -122,8 +144,11 @@ def validar_senha():
             print ("Tente denovo")
             print ("============")
             continue
-        
-            
+
+
+#DEFs DE LOGIN E CREATE                  
+
+
 #def de cadastro
 def criar_login(Nome, Email, funcao, materia, senha):
     conn = criar_conexao()
@@ -146,10 +171,6 @@ def criar_login(Nome, Email, funcao, materia, senha):
     cursor.close()
     conn.close()
 
-
-
-
-
 # entra no login do docente 
 def Entrar(id_docente, senha):
     conn = criar_conexao()
@@ -170,6 +191,10 @@ def Entrar(id_docente, senha):
     else:
         return True
 
+
+#DEFs LER
+
+
 #read - table de docentes
 def ler_docente():
     print ("=================")
@@ -177,11 +202,11 @@ def ler_docente():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM professor")
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
 
     # se nao tiver docente
-    if resultado is None or resultado[1] is None:
+    if resultado is None:
         print("=================")
         print("Nenhum usuário encontrado.")
         print("=================")
@@ -196,37 +221,36 @@ def ler_docente():
 
     print ("=================")
 
-# verificacao da funcao do docente (se a funcao existe ou nao)
-def verificar_funcao(funcao):
-    funcao = funcao.lower()
-    
-    if not funcao == escolha_de_funcoes:
-        return True
-
 #retorna a funcao do docente
-def verificar_docente(idf):
-    while True:
-        cursor = criar_conexao()
+def ler_funcao(id_docente):
+    conn = criar_conexao()
+    cursor = conn.cursor()
+    sql = "SELECT * FROM professor WHERE id_docente = %s"
 
-        busca = "SELECT * FROM professor WHERE funcaoDoProfessor = %s"
+    cursor.execute(sql, (id_docente,))
 
-        cursor.execute(busca, (idf))
+    resultado = cursor.fetchone()
 
-        resultado = cursor.fetchone()
 
-        cursor.execute("SELECT * FROM professor WHERE funcaoDoProfessor = %s")
+    for linha in resultado:
+        funcao_docente = linha
 
-        oqvce = cursor.fetchall()
+    if resultado:
+        print(f"Seja bem vindo(a) {funcao_docente}")
+        match funcao_docente:
+            case "professor":
+                return 1
+            case "coordenador":
+                return 2
+            case "diretor":
+                return 3
 
-        for linha in oqvce:
-            print("Fazendo busca...")
+    else:
+        print(f"O valor '{id_docente}' NÃO foi encontrado.")
 
-        if resultado:
-            print(f"O valor '{idf}' FOI encontrado.")
-            print(f"Você é {linha}")
-        else:
-            print(f"O valor '{idf}' NÃO foi encontrado.")
-            continue
+
+#DEFs EXCLUIR
+
 
 #excluir nota
 def excluir_nota(id_nota):
@@ -235,9 +259,10 @@ def excluir_nota(id_nota):
     cursor.execute(sql, (id_nota,))
     cursor.commit()
 
+
+
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
-
 
 while True:
     op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ")
@@ -248,19 +273,17 @@ while True:
             break
         
         case "1":
-            if not ler_docente():
-                print("Não ha nenhum usuário cadastrado")
-                continue
+            ler_docente()
 
             print("\33[31m===============\033[m")
             id_docente = input("Digite seu ID: ")
-            Senhaf = input("Digite a sua senha: ")   
+            senha = input("Digite a sua senha: ")   
             print("\33[31m===============\033[m") 
 
-            validar_id() 
-            Entrar(id_docente)
+            validar_id(id_docente) 
+            Entrar(id_docente, senha)
 
-            match verificar_docente(id_docente):
+            match ler_funcao(id_docente):
 
                 #professor
                 case 1:
@@ -273,7 +296,7 @@ while True:
 
                     elif op == "1":
                             print("O que você gostaria de mexer?")
-                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir")
+                            op = input("0 - Sair \n | 1 - Adicionar nota \n | 2 - Excluir nota")
                             
                             match op:
                                 case 0:
@@ -281,11 +304,7 @@ while True:
                                     break
 
                                 case 1:
-                                     nota1 = input("Digite a 1° nota do alunos: ")
-                                     nota2 = input("Digite a 2° nota do alunos: ")
-                                     nota3 = input("Digite a 3° nota do alunos: ")
-
-                                     print(f"Essas são as três notas do alunos \n 1° nota: {nota1} \n | 2° nota: {nota2} | 3° nota: {nota3}")
+                                    adicionar_nota()
 
 
                                 case 2:
@@ -295,7 +314,6 @@ while True:
                                 
                                 case 3:
                                     ...
-
         
         case "2":
             print ("\33[34m===============\033[m")
@@ -309,6 +327,7 @@ while True:
             criar_login(Nome, Email, funcao, materia, senha)
 
         case _:
+            erro()
             print("Escolha uma das opções dadas")
             continue
 
