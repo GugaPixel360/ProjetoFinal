@@ -102,12 +102,12 @@ def validar_materia(materia):
         return False
 
     if materia not in materias_escola:
-        print("Selecione uma matéria válida")
+        print("Selecione uma matéria válida ou cargo")
         return False
 
 
 #def validar email
-def validar_email(email):
+def validar_email(Email):
     if Email.strip() == "":
         erro()
         print("Campo vazio!")
@@ -115,8 +115,13 @@ def validar_email(email):
 
 #defs validacao nome
 def validar_nome(Nome):
-    if not Nome.isalpha():
-        return False
+
+    Nome = " ".join("-")
+
+    print (Nome)
+
+    if Nome.isalpha():
+        return True
     
     if Nome.strip() == "":
         erro()
@@ -381,7 +386,7 @@ while True:
                 
                 #nome
                 Nome = input("Digite seu nome completo: ").capitalize()               
-                if not validar_nome():
+                if not validar_nome(Nome):
                     erro()
                     print("Preencha o campo corretamente")
                     continue
