@@ -44,6 +44,9 @@ from mysql.connector import Error
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
 escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
 
+#materias aceitas
+materias_escola = ["biologia", "matematica","matemática", "geografia", "filosofia", "sociologia", "artes", "historia","história", "ingles", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
+
 
 #DEFs BASICOS!!!!
 
@@ -73,10 +76,16 @@ def denovo():
     while True:
         print("=================")
         continuar = input("Deseja fazer mais alguma coisa? \n1 - Sim \n2 - Não \nDigite aqui: ")
-        if continuar == "1":
+
+        if continuar.strip() == "":
+            print("Campo vazio!")
+            continue
+
+        elif continuar == "1":
             break
+
         elif continuar == "2":
-            print("Muito obrigado por utilizar nossa loja.")
+            print("Sério? Ok né...")
             exit()
         else:
             print("Valor inválido por favor responda com 1 ou 2.")
@@ -85,6 +94,34 @@ def denovo():
 
 #DEFs DE VALIDACAO!!!!
 
+
+#def validacao de materia
+def validar_materia(materia):
+    if materia.strip() == "":
+        print("Campo vazio!")
+        return False
+
+    if materia not in materias_escola:
+        print("Selecione uma matéria válida")
+        return False
+
+
+#def validar email
+def validar_email(email):
+    if Email.strip() == "":
+        erro()
+        print("Campo vazio!")
+        return False
+
+#defs validacao nome
+def validar_nome(Nome):
+    if not Nome.isalpha():
+        return False
+    
+    if Nome.strip() == "":
+        erro()
+        print("Campo vazio!")
+        return False
 
 # valida o id do docente que o usuario colocou 
 def validar_id(id_docente):
@@ -103,14 +140,21 @@ def validar_id(id_docente):
 def verificar_funcao(funcao):
     funcao = funcao.lower()
     
-    if not funcao == escolha_de_funcoes:
-        return True
+    if not funcao in escolha_de_funcoes:
+        erro()
+        print("Escreva uma função existente!")
+        print("----Funções: professor, coordenador, diretor----")
+
+        return False
 
 # valida a senha na hora do create 
 def validar_senha():
     while True:
 
-        senha = input("Crie a sua senha: ")   
+        senha = input("Crie a sua senha: ")
+
+        if senha.strip() == "":
+            print("Campo vazio!")   
 
 
         letra = any(caracter.isalpha() for caracter in senha)
@@ -247,6 +291,8 @@ def ler_funcao(id_docente):
 
     else:
         print(f"O valor '{id_docente}' NÃO foi encontrado.")
+    
+    cursor.close()
 
 
 #DEFs EXCLUIR
@@ -265,7 +311,11 @@ def excluir_nota(id_nota):
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
 while True:
-    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ")
+    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ").strip()
+
+    if op.strip() == "":
+        print("Campo vazio!")
+        continue
 
     match op:
         case "0":
@@ -281,22 +331,31 @@ while True:
             print("\33[31m===============\033[m") 
 
             validar_id(id_docente) 
-            Entrar(id_docente, senha)
+            if not Entrar(id_docente, senha):
+                continue
 
             match ler_funcao(id_docente):
 
                 #professor
                 case 1:
                     print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-                    op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n")
+                    op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n").strip()
 
-                    if op == "0":
+                    if op.strip() == "":
+                        print("Campo vazio!")
+                        continue
+
+                    elif op == "0":
                         print("Você saiu")
                         break
 
                     elif op == "1":
                             print("O que você gostaria de mexer?")
-                            op = input("0 - Sair \n | 1 - Adicionar nota \n | 2 - Excluir nota")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
                             
                             match op:
                                 case 0:
@@ -316,18 +375,51 @@ while True:
                                     ...
         
         case "2":
-            print ("\33[34m===============\033[m")
-            Nome = input("Digite seu nome completo: ").capitalize()
-            Email = input("Digite a seu email: ")    
-            funcao = input("Digite a sua função: ") 
-            materia = input("Digite a sua matéria (Caso nao seja professor repita a sua função): ") 
-            senha = validar_senha()
-            print("\33[31m===============\033[m")  
-            verificar_funcao(funcao)
-            criar_login(Nome, Email, funcao, materia, senha)
+            while True:
+
+                print ("\33[34m===============\033[m")
+                
+                #nome
+                Nome = input("Digite seu nome completo: ").capitalize()               
+                if not validar_nome():
+                    erro()
+                    print("Preencha o campo corretamente")
+                    continue
+
+                #email
+                Email = input("Digite a seu email: ")
+                if not validar_email(Email):
+                    continue
+                
+                #funcao do docente
+                funcao = input(f"Digite a sua função | funçoes: {escolha_de_funcoes}\n: ").lower()
+                if not verificar_funcao(funcao):
+                    continue
+
+                #materia
+                materia = input(f"Digite a sua matéria (Caso nao seja professor repita a sua função)\n| Matérias aceitas:\n {materias_escola} : ").lower()
+                if not validar_materia(materia):
+                    erro()
+                    continue
+                
+                #senha
+                senha = validar_senha()
+                print("\33[31m===============\033[m")  
+                
+                
+                #criar login
+                criar_login(Nome, Email, funcao, materia, senha)
+                denovo()
 
         case _:
             erro()
             print("Escolha uma das opções dadas")
             continue
+    
+        
+
+                
+
+
+            
 
