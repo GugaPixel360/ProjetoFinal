@@ -242,7 +242,7 @@ def Entrar(id_docente, senha):
 
 #def adicionar nota
 def adicionar_nota():
-    
+    ...
 
 #DEFs LER
 
@@ -302,8 +302,36 @@ def ler_funcao(id_docente):
     
     cursor.close()
 
+#ler notas
+def ler_notas():
+    conexao = criar_conexao() 
+    cursor = conexao.cursor()
+    
+
+    cursor.execute("SELECT nome_aluno, notas_aluno FROM alunos")
+    resultado = cursor.fetchall()
+    
+ 
+    dados_alunos = {i [0].lower(): i [1] for i in resultado}
+    
+ 
+    cursor.close()
+    conexao.close()
+
+    while True:
+        print(dados_alunos)
+        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
+        
+      
+        if oq in dados_alunos:
+            print(f"Notas do aluno: {dados_alunos[oq]}")
+            break 
+        else:
+            print("Digite uma opção válida (Aluno não encontrado).")
+
 
 #DEFs EXCLUIR
+
 
 #excluir aluno
 def excluir_aluno(matricula_ID):
@@ -316,6 +344,27 @@ def excluir_aluno(matricula_ID):
     conexao.commit()  
     cursor.close()
     conexao.close()
+
+#excluir professor
+def excluir_professor():
+    conexao = criar_conexao()  
+    cursor = conexao.cursor()  
+    
+    sql = "DELETE FROM professor WHERE id_docente = %s"
+    cursor.execute(sql, (id_docente,)) 
+    
+    conexao.commit()  
+    cursor.close()
+    conexao.close()
+
+#excluir nota
+def excluir_nota(id_nota):
+    cursor = criar_conexao()
+    sql = "DELETE FROM notas WHERE id = %s"
+    cursor.execute(sql, (id_nota,))
+    cursor.commit()
+
+
 
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
@@ -442,3 +491,8 @@ while True:
             erro()
             print("Escolha uma das opções dadas")
             continue
+    
+        
+
+                
+
