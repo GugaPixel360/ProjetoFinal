@@ -422,15 +422,18 @@ while True:
                         print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
                         op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n").strip()
 
+                        # espaço vazio
                         if op.strip() == "":
                             print("Campo vazio!")
                             erro()
                             continue
 
+                        # sair
                         elif op == "0":
                             print("Você saiu")
                             exit()
 
+                        # manipular nota
                         elif op == "1":
                             print("O que você gostaria de mexer?")
                             op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
@@ -462,6 +465,28 @@ while True:
                                     print("tente novamente")
                                     continue
         
+                        #situaçao do aluno
+                        elif op == "2":
+                            ler_alunos()
+                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if not verificar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
+                            media(matricula)
+
+                        #informacoes do aluno
+                        elif op == "3":
+                        ler_alunos()
+                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if not verificar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
+                            media(matricula)
+
                 #coodenador
                 case 2:
                     while True:
