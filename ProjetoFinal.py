@@ -105,7 +105,6 @@ def validar_materia(materia):
         print("Selecione uma matéria válida ou cargo")
         return False
 
-
 #def validar email
 def validar_email(Email):
     if Email.strip() == "":
@@ -348,11 +347,12 @@ while True:
 
                     if op.strip() == "":
                         print("Campo vazio!")
+                        erro()
                         continue
 
                     elif op == "0":
                         print("Você saiu")
-                        break
+                        exit()
 
                     elif op == "1":
                             print("O que você gostaria de mexer?")
@@ -378,6 +378,12 @@ while True:
                                 
                                 case 3:
                                     ...
+                    
+                    elif op == "2":
+                        ...
+                    
+                case 2:
+                    ...
         
         case "2":
             while True:
