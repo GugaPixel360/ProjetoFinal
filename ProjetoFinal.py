@@ -105,7 +105,6 @@ def validar_materia(materia):
         print("Selecione uma matéria válida ou cargo")
         return False
 
-
 #def validar email
 def validar_email(Email):
     if Email.strip() == "":
@@ -373,39 +372,46 @@ while True:
 
                         if op.strip() == "":
                             print("Campo vazio!")
+                            erro()
                             continue
 
                         elif op == "0":
                             print("Você saiu")
-                            break
+                            exit()
 
                         elif op == "1":
-                                print("O que você gostaria de mexer?")
-                                op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
-
-                                if op.strip() == "":
-                                    print("Campo vazio!")
-                                    continue
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                            
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
                                 
-                                match op:
-                                    case 0:
-                                        print("Você saiu")
-                                        break
+                            match op:
+                                case "0":
+                                    print("Você saiu")
+                                    break
 
-                                    case 1:
-                                        adicionar_nota()
-
-
-                                    case 2:
-                                        ler_notas()
-                                        excluir_notas()
-
-                                    
-                                    case _:
-                                        erro()
-                                        print("tente novamente")
-                                        continue
+                                case "1":
+                                    adicionar_nota()
+                                        
+                                case "2":
+                                    ler_notas()
+                                    excluir_notas()
+                                        
+                                case _:
+                                    erro()
+                                    print("tente novamente")
+                                    continue
         
+                #coodenador
+                case 2:
+                    ...
+
+                #diretor
+                case 3:  
+                    ...  
+
         case "2":
             while True:
 
