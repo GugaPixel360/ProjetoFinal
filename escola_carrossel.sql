@@ -14,7 +14,7 @@ notas_aluno INT,
 media_aluno INT,
 situacao_aluno VARCHAR (100),
 matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
-FOREIGN KEY (Matricula_FK_ID) REFERENCES Alunos (Matricula_ID)
+FOREIGN KEY (matricula_FK_ID) REFERENCES Alunos (matricula_ID)
 
 );
 
