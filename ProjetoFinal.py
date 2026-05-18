@@ -343,41 +343,44 @@ while True:
 
                 #professor
                 case 1:
-                    print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-                    op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n").strip()
+                    while True:
+                        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                        op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n").strip()
 
-                    if op.strip() == "":
-                        print("Campo vazio!")
-                        continue
+                        if op.strip() == "":
+                            print("Campo vazio!")
+                            continue
 
-                    elif op == "0":
-                        print("Você saiu")
-                        break
+                        elif op == "0":
+                            print("Você saiu")
+                            break
 
-                    elif op == "1":
-                            print("O que você gostaria de mexer?")
-                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                        elif op == "1":
+                                print("O que você gostaria de mexer?")
+                                op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
 
-                            if op.strip() == "":
-                                print("Campo vazio!")
-                                continue
-                            
-                            match op:
-                                case 0:
-                                    print("Você saiu")
-                                    break
-
-                                case 1:
-                                    adicionar_nota()
-
-
-                                case 2:
-                                    ler_notas()
-                                    excluir_notas()
-
+                                if op.strip() == "":
+                                    print("Campo vazio!")
+                                    continue
                                 
-                                case 3:
-                                    ...
+                                match op:
+                                    case 0:
+                                        print("Você saiu")
+                                        break
+
+                                    case 1:
+                                        adicionar_nota()
+
+
+                                    case 2:
+                                        ler_notas()
+                                        excluir_notas()
+
+                                    
+                                    case _:
+                                        erro()
+                                        print("tente novamente")
+                                        continue
         
         case "2":
             while True:
