@@ -298,6 +298,36 @@ def ler_funcao(id_docente):
     
     cursor.close()
 
+#ler notas
+def ler_notas():
+    conexao = criar_conexao() 
+    cursor = conexao.cursor()
+    
+
+    cursor.execute("SELECT nome_aluno, notas_aluno FROM alunos")
+    resultado = cursor.fetchall()
+    
+ 
+    dados_alunos = {i [0].lower(): i [1] for i in resultado}
+    
+ 
+    cursor.close()
+    conexao.close()
+
+    while True:
+        ler_alunos()
+        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
+        
+      
+        if oq in dados_alunos:
+            print(f"Notas do aluno: {dados_alunos[oq]}")
+            break 
+        else:
+            print("Digite uma opção válida (Aluno não encontrado).")
+
+
+
+
 
 #DEFs EXCLUIR
 
@@ -459,5 +489,4 @@ while True:
                 
 
 
-            
 
