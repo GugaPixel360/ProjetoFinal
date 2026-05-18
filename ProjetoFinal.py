@@ -325,7 +325,6 @@ def ler_notas():
 
 
 
-
 #DEFs EXCLUIR
 
 #excluir aluno
@@ -365,126 +364,126 @@ def excluir_nota(id_nota):
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
-# while True:
-#     op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ").strip()
+while True:
+    op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ").strip()
 
-#     if op.strip() == "":
-#         print("Campo vazio!")
-#         continue
+    if op.strip() == "":
+        print("Campo vazio!")
+        continue
 
-#     match op:
-#         case "0":
-#             print ("Você saiu")
-#             break
+    match op:
+        case "0":
+            print ("Você saiu")
+            break
         
-#         case "1":
-#             ler_docente()
+        case "1":
+            ler_docente()
 
-#             print("\33[31m===============\033[m")
-#             id_docente = input("Digite seu ID: ")
-#             senha = input("Digite a sua senha: ")   
-#             print("\33[31m===============\033[m") 
+            print("\33[31m===============\033[m")
+            id_docente = input("Digite seu ID: ")
+            senha = input("Digite a sua senha: ")   
+            print("\33[31m===============\033[m") 
 
-#             validar_id(id_docente) 
-#             if not Entrar(id_docente, senha):
-#                 continue
+            validar_id(id_docente) 
+            if not Entrar(id_docente, senha):
+                continue
 
-#             match ler_funcao(id_docente):
+            match ler_funcao(id_docente):
 
-#                 #professor
-#                 case 1:
-#                     while True:
-#                         print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-#                         op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n").strip()
+                #professor
+                case 1:
+                    while True:
+                        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                        op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n").strip()
 
-#                         if op.strip() == "":
-#                             print("Campo vazio!")
-#                             erro()
-#                             continue
+                        if op.strip() == "":
+                            print("Campo vazio!")
+                            erro()
+                            continue
 
-#                         elif op == "0":
-#                             print("Você saiu")
-#                             exit()
+                        elif op == "0":
+                            print("Você saiu")
+                            exit()
 
-#                         elif op == "1":
-#                             print("O que você gostaria de mexer?")
-#                             op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                        elif op == "1":
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
                             
-#                             if op.strip() == "":
-#                                 print("Campo vazio!")
-#                                 continue
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
                                 
-#                             match op:
-#                                 case "0":
-#                                     print("Você saiu")
-#                                     break
+                            match op:
+                                case "0":
+                                    print("Você saiu")
+                                    break
 
-#                                 case "1":
-#                                     adicionar_nota()
+                                case "1":
+                                    adicionar_nota()
                                         
-#                                 case "2":
-#                                     ler_notas()
-#                                     excluir_nota()
+                                case "2":
+                                    ler_notas()
+                                    excluir_nota()
                                         
-#                                 case _:
-#                                     erro()
-#                                     print("tente novamente")
-#                                     continue
+                                case _:
+                                    erro()
+                                    print("tente novamente")
+                                    continue
         
-#                 #coodenador
-#                 case 2:
-#                     ...
+                #coodenador
+                case 2:
+                    ...
 
-#                 #diretor
-#                 case 3:  
-#                     ...  
+                #diretor
+                case 3:  
+                    ...  
 
-#         case "2":
+        case "2":
 
-#             while True:
+            while True:
 
-#                 print ("\33[34m===============\033[m")
+                print ("\33[34m===============\033[m")
                 
-#                 #nome
-#                 Nome = input("Digite seu nome completo: ").capitalize()               
-#                 if not validar_nome(Nome):
-#                     erro()
-#                     print("Preencha o campo corretamente")
-#                     continue
+                #nome
+                Nome = input("Digite seu nome completo: ").capitalize()               
+                if not validar_nome(Nome):
+                    erro()
+                    print("Preencha o campo corretamente")
+                    continue
 
-#                 #email
-#                 Email = input("Digite a seu email: ")
-#                 if not validar_email(Email):
-#                     continue
+                #email
+                Email = input("Digite a seu email: ")
+                if not validar_email(Email):
+                    continue
                 
-#                 #funcao do docente
-#                 funcao = input(f"Digite a sua função | funçoes: {escolha_de_funcoes}\n: ").lower()
-#                 if not verificar_funcao(funcao):
-#                     continue
+                #funcao do docente
+                funcao = input(f"Digite a sua função | funçoes: {escolha_de_funcoes}\n: ").lower()
+                if not verificar_funcao(funcao):
+                    continue
 
-#                 #materia
-#                 materia = input(f"Digite a sua matéria (Caso nao seja professor repita a sua função)\n| Matérias aceitas:\n {materias_escola} : ").lower()
-#                 if not validar_materia(materia):
-#                     erro()
-#                     continue
+                #materia
+                materia = input(f"Digite a sua matéria (Caso nao seja professor repita a sua função)\n| Matérias aceitas:\n {materias_escola} : ").lower()
+                if not validar_materia(materia):
+                    erro()
+                    continue
                 
-#                 #senha
-#                 senha = validar_senha()
-#                 print("\33[31m===============\033[m")  
+                #senha
+                senha = validar_senha()
+                print("\33[31m===============\033[m")  
                 
                 
-#                 #criar login
-#                 criar_login(Nome, Email, funcao, materia, senha)
-#                 denovo()
+                #criar login
+                criar_login(Nome, Email, funcao, materia, senha)
+                denovo()
 
-#         case _:
-#             erro()
-#             print("Escolha uma das opções dadas")
-#             continue
+        case _:
+            erro()
+            print("Escolha uma das opções dadas")
+            continue
     
         
 
                 
 
 
-ler_notas()
+

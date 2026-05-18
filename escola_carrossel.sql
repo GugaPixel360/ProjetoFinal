@@ -7,11 +7,10 @@ nome_aluno VARCHAR (100) NOT NULL,
 idade_aluno INT NOT NULL,
 turma_aluno INT NOT NULL,
 matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
-notas_aluno INT
 );
 
 CREATE TABLE IF NOT EXISTS notas (
-notas_aluno_FK INT,
+notas_aluno INT,
 media_aluno INT,
 situacao_aluno VARCHAR (100),
 matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,6 +27,8 @@ senha VARCHAR (15) NOT NULL,
 materia_docente VARCHAR (100) NOT NULL
 );
 
+SELECT notas_aluno FROM notas
+INNER JOIN notas_aluno ON alunos;
 
 /*
 Drop Database Carrossel;
