@@ -190,6 +190,10 @@ def validar_senha():
             print ("============")
             continue
 
+#def validacao de matricula
+def verificar_matricula():
+    ...
+
 
 #DEFs DE LOGIN E CREATE                  
 
@@ -236,6 +240,9 @@ def Entrar(id_docente, senha):
     else:
         return True
 
+#def adicionar nota
+def adicionar_nota():
+    
 
 #DEFs LER
 
@@ -310,28 +317,6 @@ def excluir_aluno(matricula_ID):
     cursor.close()
     conexao.close()
 
-#excluir professor
-def excluir_professor():
-    conexao = criar_conexao()  
-    cursor = conexao.cursor()  
-    
-    sql = "DELETE FROM professor WHERE id_docente = %s"
-    cursor.execute(sql, (id_docente,)) 
-    
-    conexao.commit()  
-    cursor.close()
-    conexao.close()
-
-
-#excluir nota
-def excluir_nota(id_nota):
-    cursor = criar_conexao()
-    sql = "DELETE FROM notas WHERE id = %s"
-    cursor.execute(sql, (id_nota,))
-    cursor.commit()
-
-
-
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
@@ -390,6 +375,12 @@ while True:
                                     break
 
                                 case "1":
+                                    matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                                    if not verificar_matricula(matricula):
+                                        print("Selecione uma das opcoes")
+                                        erro()
+                                        continue
+
                                     adicionar_nota()
                                         
                                 case "2":
