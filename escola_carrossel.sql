@@ -10,7 +10,7 @@ matricula_ID INT AUTO_INCREMENT PRIMARY KEY,
 notas_aluno INT
 );
 
-CREATE TABLE IF NOT EXISTS situacao (
+CREATE TABLE IF NOT EXISTS notas (
 notas_aluno_FK INT,
 media_aluno INT,
 situacao_aluno VARCHAR (100),

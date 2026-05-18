@@ -113,19 +113,16 @@ def validar_email(Email):
         return False
 
 #defs validacao nome
-def validar_nome(Nome):
+def validar_nome(nome):
+    nome.strip()
 
-    Nome = " ".join("-")
-
-    print (Nome)
-
-    if Nome.isalpha():
-        return True
-    
-    if Nome.strip() == "":
-        erro()
+    if nome == "":
         print("Campo vazio!")
         return False
+    if nome.replace(" ", "").isalpha():
+        return True
+
+    return False
 
 # valida o id do docente que o usuario colocou 
 def validar_id(id_docente):
@@ -427,7 +424,7 @@ while True:
                                         
                                 case "2":
                                     ler_notas()
-                                    excluir_notas()
+                                    excluir_nota()
                                         
                                 case _:
                                     erro()
@@ -443,6 +440,7 @@ while True:
                     ...  
 
         case "2":
+
             while True:
 
                 print ("\33[34m===============\033[m")
