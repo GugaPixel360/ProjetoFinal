@@ -192,7 +192,21 @@ def validar_senha():
 
 #def validacao de matricula
 def verificar_matricula():
-    ...
+    # validações
+    if matricula.strip() == "" or nota.strip() == "":
+        print("Campo vazio!")
+        return
+
+    if not matricula.isdigit():
+        print("A matrícula deve ter apenas números!")
+        return
+
+    try:
+        nota = float(nota)
+    except:
+        print("Digite uma nota válida!")
+        return
+
 
 
 #DEFs DE LOGIN E CREATE                  
@@ -248,20 +262,9 @@ def adicionar_nota():
     matricula = input("Digite a matrícula do aluno: ")
     nota = input("Digite a nota: ")
 
-    # validações
-    if matricula.strip() == "" or nota.strip() == "":
-        print("Campo vazio!")
-        return
-
-    if not matricula.isdigit():
-        print("A matrícula deve ter apenas números!")
-        return
-
-    try:
-        nota = float(nota)
-    except:
-        print("Digite uma nota válida!")
-        return
+    if not validar_matricula(matricula):
+        erro()
+        return False
 
     valores = (nota, matricula)
     sql = ("INSERT INTO pedidos (matricula_FK_ID, notas_aluno_FK) VALUES (%s, %s)", (matricula, nota))
