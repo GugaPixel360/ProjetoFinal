@@ -303,7 +303,7 @@ def ler_funcao(id_docente):
 #DEFs EXCLUIR
 
 #excluir aluno
-def excluir_pessoa(matricula_ID):
+def excluir_aluno(matricula_ID):
     conexao = criar_conexao()  
     cursor = conexao.cursor()  
     
@@ -313,6 +313,19 @@ def excluir_pessoa(matricula_ID):
     conexao.commit()  
     cursor.close()
     conexao.close()
+
+#excluir professor
+def excluir_professor():
+    conexao = criar_conexao()  
+    cursor = conexao.cursor()  
+    
+    sql = "DELETE FROM professor WHERE id_docente = %s"
+    cursor.execute(sql, (id_docente,)) 
+    
+    conexao.commit()  
+    cursor.close()
+    conexao.close()
+
 
 #excluir nota
 def excluir_nota(id_nota):
