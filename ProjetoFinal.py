@@ -91,6 +91,20 @@ def denovo():
             print("Valor inválido por favor responda com 1 ou 2.")
         print("=================")
 
+#def fazer a media do aluno
+def media(matricula):
+    conn = criar_conexao()
+    cursor = conn.cursor()
+    sql = "SELECT * FROM alunos WHERE matricula_ID = %s"
+    valores = (id_docente, senha)
+    cursor.execute(sql, valores)
+    resultado = cursor.fetchone()  
+    for i in resultado:
+        
+   
+    cursor.close()
+    conn.close()
+
 
 #DEFs DE VALIDACAO!!!!
 
@@ -191,7 +205,7 @@ def validar_senha():
             continue
 
 #def validacao de matricula
-def verificar_matricula():
+def validar_matricula():
     ...
 
 
@@ -243,6 +257,7 @@ def Entrar(id_docente, senha):
 #def adicionar nota
 def adicionar_nota():
     ...
+
 
 #DEFs LER
 
@@ -365,6 +380,12 @@ def excluir_nota(id_nota):
     cursor.commit()
 
 
+############################################################
+
+# MENU PRINCIPAL!!!!!!!!!!!
+
+############################################################
+
 
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
@@ -443,7 +464,66 @@ while True:
         
                 #coodenador
                 case 2:
-                    ...
+                    while True:
+                        print("\33[30m==== OLÁ COORDENADOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                        op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos ").strip()
+
+                        #Espaço vazio
+                        if op.strip() == "":
+                            print("Campo vazio!")
+                            erro()
+                            continue
+
+                        # sair
+                        elif op == "0":
+                            print("Você saiu")
+                            exit()
+
+                        # manipular nota 
+                        elif op == "1":
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                            
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
+                                
+                            match op:
+                                case "0":
+                                    print("Você saiu")
+                                    break
+                                
+                                #adicionar
+                                case "1":
+                                    matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                                    if not verificar_matricula(matricula):
+                                        print("Selecione uma das opcoes")
+                                        erro()
+                                        continue
+
+                                    adicionar_nota()
+                                        
+                                # excluir
+                                case "2":
+                                    ler_notas()
+                                    excluir_nota()
+                                        
+                                # validacao
+                                case _:
+                                    erro()
+                                    print("tente novamente")
+                                    continue
+                        
+                        #situaçao do aluno
+                        elif op == "2":
+                            ler_alunos()
+                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if not verificar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
+                            media(matricula)
 
                 #diretor
                 case 3:  
