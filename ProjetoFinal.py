@@ -514,13 +514,13 @@ while True:
                         #informacoes do aluno
                         elif op == "3":
                         ler_alunos()
-                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
-                            if not verificar_matricula(matricula):
+                        matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                        if not verificar_matricula(matricula):
                                 print("Selecione uma das opcoes")
                                 erro()
                                 continue
 
-                            media(matricula)
+                        media(matricula)
 
                 #coodenador
                 case 2:
