@@ -102,7 +102,7 @@ def media(matricula):
     for i in resultado:
         
    
-    cursor.close()
+     cursor.close()
     conn.close()
 
 
@@ -323,6 +323,45 @@ def ler_docente():
 
     print ("=================")
 
+
+
+
+#ler os alunos
+def ler_alunos():
+    conexao = criar_conexao()
+
+    if conexao is None:
+        print("Erro ao conectar com o banco!")
+        return
+
+    cursor = conexao.cursor()
+
+    sql = "SELECT * FROM alunos"
+    cursor.execute(sql)
+
+    resultado = cursor.fetchall()
+
+    if not resultado:
+        print("======================")
+        print("Nenhum aluno cadastrado")
+        print("======================")
+    else:
+        print("======================")
+        print("LISTA DE ALUNOS")
+        print("======================")
+
+        for aluno in resultado:
+            print(
+                f"Matrícula: {aluno[3]} | "
+                f"Nome: {aluno[0]} | "
+                f"Idade: {aluno[1]} | "
+                f"Turma: {aluno[2]} | "
+                f"Nota: {aluno[4]}"
+            )
+
+    cursor.close()
+    conexao.close()
+
 #retorna a funcao do docente
 def ler_funcao(id_docente):
     conn = criar_conexao()
@@ -515,7 +554,7 @@ while True:
 
                         #informacoes do aluno
                         elif op == "3":
-                        ler_alunos()
+                            ler_alunos()
                         matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
                         if not verificar_matricula(matricula):
                                 print("Selecione uma das opcoes")
