@@ -626,6 +626,13 @@ while True:
 
                             media(matricula)
 
+                        elif op == "3":
+                            ...
+                        
+                        #alunos, create e delete
+                        elif op == "4":
+                            
+
                 #diretor
                 case 3:  
                     ...  
