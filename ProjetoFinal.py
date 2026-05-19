@@ -380,6 +380,8 @@ def ler_notas():
             print("Digite uma opção válida (Aluno não encontrado).")
 
 
+
+
 #DEFs EXCLUIR
 
 
@@ -635,4 +637,6 @@ while True:
         
 
                 
+
+
 
