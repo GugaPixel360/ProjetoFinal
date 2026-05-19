@@ -576,13 +576,13 @@ while True:
                         #informacoes do aluno
                         elif op == "3":
                             ler_alunos()
-                        matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
-                        if verificar_matricula(matricula):
-                                print("Selecione uma das opcoes")
-                                erro()
-                                continue
+                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if verificar_matricula(matricula):
+                                    print("Selecione uma das opcoes")
+                                    erro()
+                                    continue
 
-                        media(matricula)
+                            media(matricula)
 
                 #coodenador
                 case 2:
@@ -618,7 +618,7 @@ while True:
                                 #adicionar
                                 case "1":
                                     matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                                    if not verificar_matricula(matricula):
+                                    if not validar_matricula(matricula):
                                         print("Selecione uma das opcoes")
                                         erro()
                                         continue
@@ -640,12 +640,19 @@ while True:
                         elif op == "2":
                             ler_alunos()
                             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
-                            if not verificar_matricula(matricula):
+                            if not validar_matricula(matricula):
                                 print("Selecione uma das opcoes")
                                 erro()
                                 continue
 
                             media(matricula)
+
+                        elif op == "3":
+                            ...
+                        
+                        #alunos, create e delete
+                        elif op == "4":
+                            
 
                 #diretor
                 case 3:  
