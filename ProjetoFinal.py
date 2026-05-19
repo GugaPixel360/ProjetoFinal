@@ -92,18 +92,6 @@ def denovo():
         print("=================")
 
 #def fazer a media do aluno
-def media(matricula):
-    conn = criar_conexao()
-    cursor = conn.cursor()
-    sql = "SELECT * FROM alunos WHERE matricula_ID = %s"
-    valores = (id_docente, senha)
-    cursor.execute(sql, valores)
-    resultado = cursor.fetchone()  
-    for i in resultado:
-        
-   
-     cursor.close()
-    conn.close()
 
 
 #DEFs DE VALIDACAO!!!!
@@ -302,7 +290,7 @@ def verificar_matricula(matricula):
 
     cursor.execute(sql)
 
-    resultado = sql
+    resultado = cursor.fetchone()
 
     if matricula not in resultado:
         print("Matricula não encontrada")
@@ -312,6 +300,52 @@ def verificar_matricula(matricula):
     conexao.close()
 
     
+def media():
+    while True:
+
+        conn = criar_conexao()
+        cursor = conn.cursor()
+
+        id_aluno = int(input("Digite a matricula do aluno"))
+        validar_aluno(id_aluno)
+
+        if id_aluno.strip() == "":
+            print("Campo vazio!")
+            continue
+
+        elif not id_aluno.isdigit():
+            print("Apenas numeros!")
+            continue
+
+        ver = 
+    
+    
+
+
+        sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_ID = %s"
+        cursor.execute(sql, (id_aluno,))
+
+        resultado = cursor.fetchone()
+
+
+        cursor.close()
+        conn.close()
+
+
+        if resultado:
+            nota1, nota2, nota3, nota4 = resultado    
+            media = (nota1 + nota2 + nota3 + nota4) / 4
+        
+            print(f"Notas do aluno {id_aluno}: {nota1}, {nota2}, {nota3}, {nota4}")
+            print(f"Média final: {media}")
+        
+        
+            if media >= 7.0:
+                print("Status: Aprovado")
+            else:
+                print("Status: Recuperação")
+        else:
+            print(f"Nenhuma nota encontrada para o aluno com ID {id_aluno}.")
 
 
 #DEFs LER
@@ -652,7 +686,7 @@ while True:
                         
                         #alunos, create e delete
                         elif op == "4":
-                            
+                            ...        
 
                 #diretor
                 case 3:  
