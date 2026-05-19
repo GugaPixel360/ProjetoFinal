@@ -206,7 +206,7 @@ def validar_senha():
 
 #def validacao de matricula
 def validar_matricula():
-    if matricula.strip() == "" or nota.strip() == "":
+    if matricula.strip() == "":
         print("Campo vazio!")
         return
 
@@ -292,6 +292,26 @@ def adicionar_nota():
 
     cursor.close()
     conexao.close()
+
+
+def verificar_matricula(matricula):
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    sql = "SELECT matricula_ID FROM alunos"
+
+    cursor.execute(sql)
+
+    resultado = sql
+
+    if matricula not in resultado:
+        print("Matricula não encontrada")
+        return
+    
+    cursor.close()
+    conexao.close()
+
+    
 
 
 #DEFs LER
@@ -414,9 +434,10 @@ def ler_notas():
       
         if oq in dados_alunos:
             print(f"Notas do aluno: {dados_alunos[oq]}")
-            break 
+            break
         else:
             print("Digite uma opção válida (Aluno não encontrado).")
+            continue
 
 
 
@@ -525,7 +546,7 @@ while True:
 
                                 case "1":
                                     matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                                    if not verificar_matricula(matricula):
+                                    if not validar_matricula(matricula):
                                         print("Selecione uma das opcoes")
                                         erro()
                                         continue
@@ -545,7 +566,7 @@ while True:
                         elif op == "2":
                             ler_alunos()
                             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
-                            if not verificar_matricula(matricula):
+                            if verificar_matricula(matricula):
                                 print("Selecione uma das opcoes")
                                 erro()
                                 continue
@@ -556,7 +577,7 @@ while True:
                         elif op == "3":
                             ler_alunos()
                         matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
-                        if not verificar_matricula(matricula):
+                        if verificar_matricula(matricula):
                                 print("Selecione uma das opcoes")
                                 erro()
                                 continue
