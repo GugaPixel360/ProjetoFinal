@@ -42,6 +42,8 @@ def validar_email(Email):
         erro()
         return False
 
+    return True
+
 #defs validacao nome
 def validar_nome(nome):
     nome.strip()
