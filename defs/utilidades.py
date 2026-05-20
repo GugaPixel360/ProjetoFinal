@@ -1,7 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
 
-from validacoes import *
+from defs.validacoes import *
+
 
 #DEFs BASICOS!!!!
 
@@ -261,7 +262,6 @@ def ler_alunos():
     cursor.close()
     conexao.close()
 
-
 #retorna a funcao do docente
 def ler_funcao(id_docente):
     conn = criar_conexao()
@@ -354,3 +354,4 @@ def excluir_nota(id_nota):
     sql = "DELETE FROM notas WHERE id = %s"
     cursor.execute(sql, (id_nota,))
     cursor.commit()
+

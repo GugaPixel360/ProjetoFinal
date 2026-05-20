@@ -1,19 +1,20 @@
-from ultilidades import *
+from defs.utilidades import *
+
 
 #DEFs DE VALIDACAO!!!!
 
 
 #validar nota
 def validar_nota(nota):
-    if nota > 10 or nota < 0:
-        print("Sua nota precisa ser entra 0 e 10")
-        erro()
-        return
-    
     try:
         nota = float(nota)
     except:
         print("Digite uma nota válida!")
+        return
+
+    if nota > 10 or nota < 0:
+        print("Sua nota precisa ser entra 0 e 10")
+        erro()
         return
 
 #def validacao de materia
@@ -31,6 +32,14 @@ def validar_email(Email):
     if Email.strip() == "":
         erro()
         print("Campo vazio!")
+        return False
+
+    letras = []
+    for i in Email:
+        letras.append(i)
+    if not "@" in letras:
+        print("Coloque o email corretamente")
+        erro()
         return False
 
 #defs validacao nome

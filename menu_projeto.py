@@ -1,4 +1,7 @@
-from defs import *
+from defs.utilidades import *
+from defs.validacoes import *
+
+
 
 
 ############################################################
