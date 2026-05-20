@@ -104,8 +104,8 @@ def adicionar_nota(matricula):
     
     validar_nota(nota1)
 
-    valores = (nota, matricula)
-    sql = ("INSERT INTO pedidos (matricula_FK_ID, notas_aluno_FK) VALUES (%s, %s)", (matricula, nota))
+    valores = (nota1, matricula)
+    sql = ("INSERT INTO pedidos (matricula_FK_ID, notas_aluno_FK) VALUES (%s, %s)", (matricula, nota1))
     cursor.execute (sql, valores)
     conexao.commit()
 
