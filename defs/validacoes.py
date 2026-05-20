@@ -1,4 +1,6 @@
-from defs.utilidades import *
+import mysql.connector
+from mysql.connector import Error
+from .utilidades import *
 
 
 #DEFs DE VALIDACAO!!!!
