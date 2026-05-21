@@ -32,11 +32,10 @@ while True:
                 continue
 
             print("\33[31m===============\033[m")
-            id_docente = input("Digite seu ID: ")
+            id_docente = validar_id() 
             senha = input("Digite a sua senha: ")   
             print("\33[31m===============\033[m") 
 
-            validar_id(id_docente) 
             if not Entrar(id_docente, senha):
                 continue
 
@@ -203,7 +202,7 @@ while True:
                     continue
                 
                 #funcao do docente
-                funcao = input(f"Digite a sua função | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
+                funcao = input(f"Digite a sua função\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
                 if not verificar_funcao(funcao):
                     continue
 
@@ -220,7 +219,8 @@ while True:
                 
                 #criar login
                 criar_login(Nome, Email, funcao, materia, senha)
-                denovo()
+                break
+            denovo()
 
         case _:
             erro()
@@ -229,6 +229,3 @@ while True:
     
 
                 
-
-
-
