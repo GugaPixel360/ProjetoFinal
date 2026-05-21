@@ -1,5 +1,4 @@
-from defs.utilidades import *
-from defs.validacoes import *
+from defs import *
 
 
 
