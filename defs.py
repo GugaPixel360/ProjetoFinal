@@ -49,6 +49,7 @@ def denovo():
 #DEFs DE VALIDACAO!!!!
 
 
+
 #validar nota
 def validar_nota(nota):
     try:
@@ -79,10 +80,12 @@ def validar_email(Email):
         print("Campo vazio!")
         return False
 
+    arroba = ["@gmail.com", "@hotmail.com", "@outlook.com", ]
     letras = []
+
     for i in Email:
         letras.append(i)
-    if not "@" in letras:
+    if not arroba in letras:
         print("Coloque o email corretamente")
         erro()
         return False
@@ -328,7 +331,8 @@ def ler_docente():
 
     # se nao tiver docente
     if resultado is None:
-        return
+        return False
+    
 
     # print docente    
     for linha in resultado:
@@ -338,6 +342,7 @@ def ler_docente():
     conn.close()
 
     print ("=================")
+    return True
 
 #ler os alunos com todas as informaçoes
 def ler_alunos_completo():
@@ -463,7 +468,6 @@ def ler_notas():
         else:
             print("Digite uma opção válida (Aluno não encontrado).")
             continue
-
 
 
 #DEFs EXCLUIR
