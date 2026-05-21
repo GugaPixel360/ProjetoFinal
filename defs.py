@@ -124,6 +124,8 @@ def verificar_funcao(funcao):
         print("----Funções: professor, coordenador, diretor----")
 
         return False
+    
+    return True
 
 # valida a senha na hora do create 
 def validar_senha():
@@ -326,9 +328,6 @@ def ler_docente():
 
     # se nao tiver docente
     if resultado is None:
-        print("=================")
-        print("Nenhum usuário encontrado.")
-        print("=================")
         return
 
     # print docente    
@@ -507,6 +506,8 @@ def excluir_nota(id_nota):
 
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
 escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
+escolha_de_funcoes1 = (', '.join(escolha_de_funcoes))
 
 #materias aceitas
 materias_escola = ["biologia", "matematica","matemática", "geografia", "filosofia", "sociologia", "artes", "historia","história", "ingles", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
+materias_escola1 = (', '.join(materias_escola))

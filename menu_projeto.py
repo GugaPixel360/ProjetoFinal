@@ -28,7 +28,12 @@ while True:
             break
         
         case "1":
-            ler_docente()
+            if not ler_docente():
+                print("=================")
+                print("Nenhum usuário encontrado.")
+                print("=================")
+                erro()
+                continue
 
             print("\33[31m===============\033[m")
             id_docente = input("Digite seu ID: ")
@@ -200,12 +205,12 @@ while True:
                     continue
                 
                 #funcao do docente
-                funcao = input(f"Digite a sua função | funçoes: {escolha_de_funcoes}\n: ").lower()
+                funcao = input(f"Digite a sua função | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
                 if not verificar_funcao(funcao):
                     continue
 
                 #materia
-                materia = input(f"Digite a sua matéria (Caso nao seja professor repita a sua função)\n| Matérias aceitas:\n {materias_escola} : ").lower()
+                materia = input(f"Digite a sua matéria (Caso nao seja professor repita a sua função)\n| Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
                 if not validar_materia(materia):
                     erro()
                     continue
@@ -224,7 +229,6 @@ while True:
             print("Escolha uma das opções dadas")
             continue
     
-        
 
                 
 
