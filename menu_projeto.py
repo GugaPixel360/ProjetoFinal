@@ -107,6 +107,8 @@ while True:
 
                             media(matricula)
 
+                            media()
+
                         #informacoes do aluno
                         elif op == "3":
                             ler_alunos_completo()
