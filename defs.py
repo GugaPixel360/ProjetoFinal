@@ -328,14 +328,15 @@ def ler_docente():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM professor")
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
 
     # se nao tiver docente
     if resultado is None:
+        print("Nenhum usuário cadastrado")
+        erro()
         return False
     
-
     # print docente    
     for linha in resultado:
         print (f"Código do docente: {linha[0]} | Nome: {linha[1]} | Função: {linha[2]}")
