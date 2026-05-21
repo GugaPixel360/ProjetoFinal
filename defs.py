@@ -73,6 +73,8 @@ def validar_materia(materia):
         print("Selecione uma matéria válida ou cargo")
         return False
 
+    return True
+
 #def validar email
 def validar_email(Email):
     if Email.strip() == "":
