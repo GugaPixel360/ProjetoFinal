@@ -29,10 +29,6 @@ while True:
         
         case "1":
             if not ler_docente():
-                print("=================")
-                print("Nenhum usuário encontrado.")
-                print("=================")
-                erro()
                 continue
 
             print("\33[31m===============\033[m")
