@@ -49,7 +49,6 @@ def denovo():
 
 
 
-
 #DEFs DE LOGIN E CREATE                  
 
 
@@ -337,7 +336,7 @@ def excluir_aluno(matricula_ID):
     conexao.close()
 
 #excluir professor
-def excluir_professor():
+def excluir_professor(id_docente):
     conexao = criar_conexao()  
     cursor = conexao.cursor()  
     
@@ -355,3 +354,12 @@ def excluir_nota(id_nota):
     cursor.execute(sql, (id_nota,))
     cursor.commit()
 
+
+#LISTAS
+
+
+#Lista tendo todos as funcoes que um usuario pode ter no sistema
+escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
+
+#materias aceitas
+materias_escola = ["biologia", "matematica","matemática", "geografia", "filosofia", "sociologia", "artes", "historia","história", "ingles", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]

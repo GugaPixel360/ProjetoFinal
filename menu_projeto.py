@@ -11,6 +11,8 @@ from defs.validacoes import *
 ############################################################
 
 
+
+
 #Print inicial
 print("Bem vindo ao menu da escola Carrossel!\n" )
 
