@@ -260,6 +260,9 @@ def adicionar_nota(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
+    ler_notas(matricula)
+
+
     try:
         nota1 = float(input("Digite a nota 1: "))
         nota2 = float(input("Digite a nota 2: "))
@@ -460,33 +463,48 @@ def ler_funcao(id_docente):
     cursor.close()
 
 #ler notas
-def ler_notas():
-    conexao = criar_conexao() 
+def ler_notas(matricula = 1):
+    conexao = criar_conexao()
     cursor = conexao.cursor()
-    
 
-    cursor.execute("SELECT nome_aluno, notas_aluno FROM alunos")
-    resultado = cursor.fetchall()
-    
- 
-    dados_alunos = {i [0].lower(): i [1] for i in resultado}
-    
- 
+    sql = """
+    SELECT
+        alunos.nome_aluno,
+        notas.nota1,
+        notas.nota2,
+        notas.nota3,
+        notas.nota4,
+        notas.media_aluno,
+        notas.situacao_aluno
+    FROM alunos
+    INNER JOIN notas
+    ON alunos.matricula_ID = notas.matricula_FK_ID
+    WHERE alunos.matricula_ID = %s
+    """
+
+    cursor.execute(sql, (matricula,))
+
+    resultado = cursor.fetchone()
+
+    if resultado:
+        print(f"""
+            Aluno: {resultado[0]}
+
+            Nota 1: {resultado[1]}
+            Nota 2: {resultado[2]}
+            Nota 3: {resultado[3]}
+            Nota 4: {resultado[4]}
+
+            Média: {resultado[5]}
+            Situação: {resultado[6]}
+            """)
+    else:
+        print("Aluno não encontrado.")
+
     cursor.close()
     conexao.close()
 
-    while True:
-        print(dados_alunos)
-        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
-        
-      
-        if oq in dados_alunos:
-            print(f"Notas do aluno: {dados_alunos[oq]}")
-            break
-        else:
-            print("Digite uma opção válida (Aluno não encontrado).")
-            continue
-
+   
 
 #DEFs EXCLUIR
 
@@ -533,3 +551,7 @@ escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 #materias aceitas
 materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia", "sociologia", "artes","hist", "historia","história", "ingles","ef", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
+
+
+
+ler_notas(1)
