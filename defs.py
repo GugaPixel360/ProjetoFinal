@@ -39,7 +39,7 @@ def denovo():
             break
 
         elif continuar == "2":
-            print("Sério? Ok né...")
+            print("Você saiu, obrigado por ultilizar nosso sistema!")
             exit()
         else:
             print("Valor inválido por favor responda com 1 ou 2.")
@@ -106,7 +106,7 @@ def validar_nome(nome):
 # valida o id do docente que o usuario colocou 
 def validar_id():
     while True:
-        id_docente = input("Digite seu ID: ")
+        id_docente = input("Digite seu código do docente: ")
 
         if id_docente.strip() == "":
             print("Campo vazio!")
@@ -215,6 +215,11 @@ def criar_login(Nome, Email, funcao, materia, senha):
 
     cursor = conn.cursor()
 
+    if funcao == "prof":
+        funcao = "professor"
+    if funcao == "coord":
+        funcao = "coordenador"
+
     cursor.execute(
         "INSERT INTO professor (nome_docente, email_docente, funcao_docente, materia_docente, senha) VALUES (%s, %s, %s, %s, %s)",
         (Nome, Email, funcao, materia, senha)
@@ -269,27 +274,11 @@ def adicionar_nota(matricula):
     conexao.close()
 
 #Cria a media de um aluno    
-def media():
+def media(matricula):
     while True:
 
         conn = criar_conexao()
         cursor = conn.cursor()
-
-        id_aluno = int(input("Digite a matricula do aluno"))
-        validar_matricula(id_aluno)
-
-        if id_aluno.strip() == "":
-            print("Campo vazio!")
-            continue
-
-        elif not id_aluno.isdigit():
-            print("Apenas numeros!")
-            continue
-
-        ver = ...
-    
-    
-
 
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_ID = %s"
         cursor.execute(sql, (id_aluno,))
@@ -327,15 +316,14 @@ def ler_docente():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM professor")
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     # se nao tiver docente
-    if resultado is None:
+    if not resultado:
         print("Nenhum usuário cadastrado")
         erro()
         return False
     
-    resultado = cursor.fetchall()
 
     # print docente    
     for linha in resultado:
@@ -384,13 +372,13 @@ def ler_alunos_completo():
 
 #ler alunos - informaçoes basicas
 def ler_alunos():
-    conexao = criar_conexao()
+    conn = criar_conexao()
 
-    if conexao is None:
+    if conn is None:
         print("Erro ao conectar com o banco!")
         return
 
-    cursor = conexao.cursor()
+    cursor = conn.cursor()
 
     sql = "SELECT * FROM alunos"
     cursor.execute(sql)
@@ -419,15 +407,14 @@ def ler_alunos():
 def ler_funcao(id_docente):
     conn = criar_conexao()
     cursor = conn.cursor()
-    sql = "SELECT * FROM professor WHERE id_docente = %s"
+    sql = "SELECT funcao_docente FROM professor WHERE id_docente = %s"
 
     cursor.execute(sql, (id_docente,))
 
     resultado = cursor.fetchone()
 
-
-    for linha in resultado:
-        funcao_docente = linha
+    if resultado:
+        funcao_docente = resultado[0]
 
     if resultado:
         print(f"Seja bem vindo(a) {funcao_docente}")
