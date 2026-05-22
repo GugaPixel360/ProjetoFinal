@@ -102,7 +102,8 @@ while True:
 
                             media(matricula)
 
-                            media()
+                            
+
 
                         #informacoes do aluno
                         elif op == "3":
