@@ -62,6 +62,9 @@ def validar_nota(nota):
         print("Sua nota precisa ser entra 0 e 10")
         erro()
         return
+    
+
+
 
 #def validacao de materia
 def validar_materia(materia):
@@ -247,24 +250,49 @@ def Entrar(id_docente, senha):
 
     return True
 
-#def adicionar nota
+
 def adicionar_nota(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
-    
-    nota1 = input("Digite a nota: ")
+    try:
+        nota1 = float(input("Digite a nota 1: "))
+        nota2 = float(input("Digite a nota 2: "))
+        nota3 = float(input("Digite a nota 3: "))
+        nota4 = float(input("Digite a nota 4: "))
+
+    except:
+        print("Digite apenas números!")
+        erro()
+        return
+
+    notas = [nota1, nota2, nota3, nota4]
+
+    for nota in notas:
+        if nota < 0 or nota > 10:
+            print("As notas precisam ser entre 0 e 10")
+            erro()
+            return
 
     
-    validar_nota(nota1)
 
-    valores = (nota1, matricula)
-    sql = ("INSERT INTO pedidos (matricula_FK_ID, notas_aluno_FK) VALUES (%s, %s)", (matricula, nota1))
-    cursor.execute (sql, valores)
+    sql = """
+    INSERT INTO notas
+    (nota1, nota2, nota3, nota4, media_aluno, situacao_aluno, matricula_FK_ID)
+
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
+    """
+
+    valores = (
+        nota1,
+        nota2,
+        nota3,
+        nota4,
+        matricula
+    )
+
+    cursor.execute(sql, valores)
     conexao.commit()
-
-    print("Nota adicionada com sucesso!")
-
     cursor.close()
     conexao.close()
 
