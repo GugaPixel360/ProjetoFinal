@@ -73,6 +73,8 @@ def validar_materia(materia):
         print("Selecione uma matéria válida ou cargo")
         return False
 
+    return True
+
 #def validar email
 def validar_email(Email):
     if Email.strip() == "":
@@ -80,12 +82,9 @@ def validar_email(Email):
         print("Campo vazio!")
         return False
 
-    # arroba = ["@gmail.com", "@hotmail.com", "@outlook.com", ]
-    letras = []
+    arroba = ["@gmail.com", "@hotmail.com", "@outlook.com", ]
 
-    for i in Email:
-        letras.append(i)
-    if not "@" in letras:
+    if not any(a in Email for a in arroba):
         print("Coloque o email corretamente")
         erro()
         return False
@@ -105,8 +104,10 @@ def validar_nome(nome):
     return False
 
 # valida o id do docente que o usuario colocou 
-def validar_id(id_docente):
+def validar_id():
     while True:
+        id_docente = input("Digite seu ID: ")
+
         if id_docente.strip() == "":
             print("Campo vazio!")
             continue
@@ -115,7 +116,7 @@ def validar_id(id_docente):
             print("Apenas números!")
             continue
 
-        break
+        return id_docente
 
 # verificacao da funcao do docente (se a funcao existe ou nao)
 def verificar_funcao(funcao):
@@ -173,7 +174,7 @@ def validar_senha():
             continue
 
 #def validacao de matricula
-def validar_matricula():
+def validar_matricula(matricula):
     if matricula.strip() == "":
         print("Campo vazio!")
         return
@@ -243,8 +244,8 @@ def Entrar(id_docente, senha):
         print("Senha não encontrada")
         print (f"------------")
         return False
-    else:
-        return True
+
+    return True
 
 #def adicionar nota
 def adicionar_nota(matricula):
@@ -275,7 +276,7 @@ def media():
         cursor = conn.cursor()
 
         id_aluno = int(input("Digite a matricula do aluno"))
-        validar_aluno(id_aluno)
+        validar_matricula(id_aluno)
 
         if id_aluno.strip() == "":
             print("Campo vazio!")
@@ -326,13 +327,15 @@ def ler_docente():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM professor")
-    resultado = cursor.fetchall()
-
+    resultado = cursor.fetchone()
 
     # se nao tiver docente
     if resultado is None:
+        print("Nenhum usuário cadastrado")
+        erro()
         return False
     
+    resultado = cursor.fetchall()
 
     # print docente    
     for linha in resultado:
@@ -510,8 +513,8 @@ def excluir_nota(id_nota):
 
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
 escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
-escolha_de_funcoes1 = (', '.join(escolha_de_funcoes))
+escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 
 #materias aceitas
-materias_escola = ["biologia", "matematica","matemática", "geografia", "filosofia", "sociologia", "artes", "historia","história", "ingles", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
-materias_escola1 = (', '.join(materias_escola))
+materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia", "sociologia", "artes","hist", "historia","história", "ingles","ef", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
+materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
