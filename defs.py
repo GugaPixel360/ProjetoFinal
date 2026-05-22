@@ -82,7 +82,7 @@ def validar_email(Email):
         print("Campo vazio!")
         return False
 
-    arroba = ["@gmail.com", "@hotmail.com", "@outlook.com", ]
+    arroba = ["@gmail.com", "@hotmail.com", "@outlook.com","@yahoo.com", "@icloud.com"]
 
     if not any(a in Email for a in arroba):
         print("Coloque o email corretamente")
@@ -106,7 +106,7 @@ def validar_nome(nome):
 # valida o id do docente que o usuario colocou 
 def validar_id():
     while True:
-        id_docente = input("Digite seu ID: ")
+        id_docente = input("Digite seu código do docente: ")
 
         if id_docente.strip() == "":
             print("Campo vazio!")
