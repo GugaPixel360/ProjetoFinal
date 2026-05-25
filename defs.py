@@ -314,7 +314,7 @@ def media():
             print("Apenas numeros!")
             continue
 
-        ver = ...
+        
     
     
 
@@ -536,6 +536,36 @@ def excluir_nota(id_nota):
     cursor.commit()
 
 
+
+#adicionar alunos
+def add_alunos():
+    while True:
+
+        conexao = criar_conexao()  
+        cursor = conexao.cursor()
+
+        nome = input("Digite o nome do aluno: ")
+        print()
+        idade = int(input("Digie a idade do aluno:"))
+        print()
+        print(turmas)
+        turma = input("Digite a turma do aluno: ")
+
+        if turma not in turmas:
+            print("Turma não encontrada")
+            continue
+
+        cursor.execute(
+            "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
+            (nome, idade, turma)
+        )
+
+        conexao.close()
+        cursor.close()
+        break   
+
+
+
 #LISTAS
 
 
@@ -546,3 +576,6 @@ escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 #materias aceitas
 materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia", "sociologia", "artes","hist", "historia","história", "ingles","ef", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
+
+#array de turmas
+turmas = ["001", "002", "003", "004", "005"]
