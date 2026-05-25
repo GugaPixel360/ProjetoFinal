@@ -63,9 +63,6 @@ def validar_nota(nota):
         erro()
         return
     
-
-
-
 #def validacao de materia
 def validar_materia(materia):
     if materia.strip() == "":
@@ -185,6 +182,8 @@ def validar_matricula(matricula):
     if not matricula.isdigit():
         print("A matrícula deve ter apenas números!")
         return
+    
+    return True
 
 #def validar matricula
 def verificar_matricula(matricula):
@@ -195,7 +194,7 @@ def verificar_matricula(matricula):
 
     cursor.execute(sql)
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     if matricula not in resultado:
         print("Matricula não encontrada")
@@ -255,16 +254,46 @@ def Entrar(id_docente, senha):
 
     return True
 
-
+#adiciona nota ao aluno selecionado
 def adicionar_nota(matricula):
-    conexao = criar_conexao()
-    cursor = conexao.cursor()
+    conn = criar_conexao()
+    cursor = conn.cursor()
+    while True:
+        print ("Qual nota você gostaria de alterar?")
+        ler_notas(matricula)
+        escolha = input("Escreva aqui: ").strip().lower()
 
-    ler_notas(matricula)
+        
+        match escolha:
+            case "nota 1":
+                if resultado[0]:
+                    print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
+                    escolha = input("Escreva aqui: ")
+                    match escolha:
+                        case "1":
+                            nota1 = float(input("Digite a nota 1: "))
+                        case "2":
+                            return 
+                        case _:
+                            erro()
+                            print("Escolha uma das opções dadas")
+                            continue
+
+                nota1 = float(input("Digite a nota 1: "))
+                 
+
+
+
+
+
+
+
+
+
+
 
 
     try:
-        nota1 = float(input("Digite a nota 1: "))
         nota2 = float(input("Digite a nota 2: "))
         nota3 = float(input("Digite a nota 3: "))
         nota4 = float(input("Digite a nota 4: "))
@@ -404,12 +433,12 @@ def ler_alunos_completo():
 #ler alunos - informaçoes basicas
 def ler_alunos():
     conn = criar_conexao()
+    cursor = conn.cursor()
 
     if conn is None:
         print("Erro ao conectar com o banco!")
         return
 
-    cursor = conn.cursor()
 
     sql = "SELECT * FROM alunos"
     cursor.execute(sql)
@@ -432,7 +461,7 @@ def ler_alunos():
             )
 
     cursor.close()
-    conexao.close()
+    conn.close()
 
 #retorna a funcao do docente
 def ler_funcao(id_docente):
@@ -461,9 +490,10 @@ def ler_funcao(id_docente):
         print(f"O valor '{id_docente}' NÃO foi encontrado.")
     
     cursor.close()
+    conn.close()
 
 #ler notas
-def ler_notas(matricula = 1):
+def ler_notas(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
@@ -500,6 +530,8 @@ def ler_notas(matricula = 1):
             """)
     else:
         print("Aluno não encontrado.")
+
+    return resultado
 
     cursor.close()
     conexao.close()
@@ -553,5 +585,3 @@ materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "ge
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 
-
-ler_notas(1)

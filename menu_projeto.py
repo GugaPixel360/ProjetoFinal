@@ -84,6 +84,7 @@ while True:
                                         verificar_matricula(matricula)
                                         
                                         adicionar_nota(matricula)
+                                        denovo()
                                             
                                     case "2":
                                         ler_notas()
