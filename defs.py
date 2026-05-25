@@ -296,6 +296,72 @@ def adicionar_nota(matricula):
     cursor.close()
     conexao.close()
 
+
+
+def adicionar_professor():
+
+    
+    while True:
+        Nome = input("Digite o nome do professor: ").strip()
+
+        if not validar_nome(Nome):
+            print("Nome inválido!")
+            erro()
+            continue
+
+        break
+
+  
+    while True:
+        Email = input("Digite o email do professor: ").strip()
+
+        if not validar_email(Email):
+            continue
+
+        break
+
+    while True:
+        materia = input("Digite a matéria do professor: ").strip().lower()
+
+        if not validar_materia(materia):
+            continue
+
+        break
+
+    senha = validar_senha()
+
+    
+    conexao = criar_conexao()
+
+    cursor = conexao.cursor()
+
+    try:
+        sql = """
+        INSERT INTO professor
+        (nome_docente, email_docente, funcao_docente, materia_docente, senha)
+
+        VALUES (%s, %s, %s, %s, %s)
+        """
+
+        valores = (
+            Nome,
+            Email,
+        
+            materia,
+            senha
+        )
+
+        cursor.execute(sql, valores)
+        conexao.commit()
+
+
+    except Error as professor:
+        print(f"Erro ao cadastrar professor: {professor}")
+        erro()
+
+        cursor.close()
+        conexao.close()
+    
 #Cria a media de um aluno    
 def media():
     while True:
