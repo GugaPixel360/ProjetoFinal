@@ -206,6 +206,32 @@ def verificar_matricula(matricula):
 
 #DEFs DE LOGIN E CREATE                  
 
+#adicionar alunos
+def add_alunos():
+    while True:
+
+        conexao = criar_conexao()  
+        cursor = conexao.cursor()
+
+        nome = input("Digite o nome do aluno: ")
+        print()
+        idade = int(input("Digie a idade do aluno:"))
+        print()
+        print(turmas)
+        turma = input("Digite a turma do aluno: ")
+
+        if turma not in turmas:
+            print("Turma não encontrada")
+            continue
+
+        cursor.execute(
+            "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
+            (nome, idade, turma)
+        )
+
+        conexao.close()
+        cursor.close()
+        break   
 
 #def de cadastro
 def criar_login(Nome, Email, funcao, materia, senha):
@@ -253,83 +279,148 @@ def Entrar(id_docente, senha):
 def adicionar_nota(matricula):
     conn = criar_conexao()
     cursor = conn.cursor()
+
     while True:
         print ("Qual nota você gostaria de alterar?")
-        ler_notas(matricula)
-        escolha = input("Escreva aqui: ").strip().lower()
+        resultado = ler_notas_notas(matricula)
+        nota = input("Escreva aqui: ").strip().lower()
 
-        
-        match escolha:
-            case "nota 1":
-                if resultado[0]:
-                    print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
-                    escolha = input("Escreva aqui: ")
-                    match escolha:
-                        case "1":
-                            nota1 = float(input("Digite a nota 1: "))
-                        case "2":
-                            return 
-                        case _:
+        if nota == "nota 1" or nota == "1":
+            nota = "nota1"
+            if resultado[1]:
+                print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
+                escolha = input("Escreva aqui: ")
+                match escolha:
+                    case "1":
+                        try:
+                            notaX = float(input("Digite a nova nota 1: "))
+                        except:
                             erro()
-                            print("Escolha uma das opções dadas")
+                            print("Digite apenas números!")
                             continue
-
+                    case "2":
+                        return 
+                    case _:
+                        erro()
+                        print("Escolha uma das opções dadas")
+                        continue
+            else:
                 nota1 = float(input("Digite a nota 1: "))
-                 
+        
+        elif nota == "nota 2" or nota == "2":
+            nota = "nota2"
+            if resultado[2]:
+                print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
+                escolha = input("Escreva aqui: ")
+                match escolha:
+                    case "1":
+                        try:
+                            notaX = float(input("Digite a nova nota 2: "))
+                        except:
+                            erro()
+                            print("Digite apenas números!")
+                            continue
+                    case "2":
+                        return 
+                    case _:
+                        erro()
+                        print("Escolha uma das opções dadas")
+                        continue
+            else:
+                nota2 = float(input("Digite a nota 2: "))
+        
+        elif nota == "nota 3" or nota == "3":
+            nota = "nota3"
+            if resultado[3]:
+                print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
+                escolha = input("Escreva aqui: ")
+                match escolha:
+                    case "1":
+                        try:
+                            notaX = float(input("Digite a nova nota 2: "))
+                        except:
+                            erro()
+                            print("Digite apenas números!")
+                            continue
+                    case "2":
+                        return 
+                    case _:
+                        erro()
+                        print("Escolha uma das opções dadas")
+                        continue
+            else:
+                nota3 = float(input("Digite a nota 3: "))
+        
+        elif nota == "nota 4" or nota == "4":
+            nota = "nota4"
+            if resultado[4]:
+                print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
+                escolha = input("Escreva aqui: ")
+                match escolha:
+                    case "1":
+                        try:
+                            notaX = float(input("Digite a nova nota 4: "))
+                        except:
+                            erro()
+                            print("Digite apenas números!")
+                            continue
+                    case "2":
+                        return 
+                    case _:
+                        erro()
+                        print("Escolha uma das opções dadas")
+                        continue
+            else:
+                nota4 = float(input("Digite a nota 4: "))
 
+        else:
+            erro()
+            print("Escolha uma das opções dadas")
+            continue
 
+        try:
+            notaX = int(notaX)
+        except:
+            print("Sua nota precisa ser um número")
+            erro()
+            continue
 
-
-
-
-
-
-
-
-
-
-    try:
-        nota2 = float(input("Digite a nota 2: "))
-        nota3 = float(input("Digite a nota 3: "))
-        nota4 = float(input("Digite a nota 4: "))
-
-    except:
-        print("Digite apenas números!")
-        erro()
-        return
-
-    notas = [nota1, nota2, nota3, nota4]
-
-    for nota in notas:
-        if nota < 0 or nota > 10:
+        if notaX < 0 or notaX > 10:
             print("As notas precisam ser entre 0 e 10")
             erro()
             return
 
-    
+        sql = f"""
+        INSERT INTO notas
+            ({nota}, matricula_FK_ID)
 
-    sql = """
-    INSERT INTO notas
-    (nota1, nota2, nota3, nota4, media_aluno, situacao_aluno, matricula_FK_ID)
+        VALUES (%s, %s)
+        """
 
-    VALUES (%s, %s, %s, %s, %s, %s, %s)
-    """
+        valores = (
+            notaX,
+            matricula
+        )
 
-    valores = (
-        nota1,
-        nota2,
-        nota3,
-        nota4,
-        matricula
-    )
+        ler_notas_notas(matricula)
+
+        print("Você gostaria de adicionar mais notas?")
+        print(" | 1 - Sim \n | 2 - não")
+        op = input("Escreva aqui: ")
+        match op:
+            case "1":
+                continue
+            case "2":
+                break 
+
+        
 
     cursor.execute(sql, valores)
     conexao.commit()
     cursor.close()
     conexao.close()
 
-
-
+#adicionar professor (funcao diretor)
 def adicionar_professor():
 
     
@@ -453,15 +544,13 @@ def ler_docente():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM professor")
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     # se nao tiver docente
     if resultado is None:
         print("Nenhum usuário cadastrado")
         erro()
         return False
-    
-    resultado = cursor.fetchall()
 
     # print docente    
     for linha in resultado:
@@ -513,11 +602,11 @@ def ler_alunos():
     conn = criar_conexao()
     cursor = conn.cursor()
 
-    if conexao is None:
+    if conn is None:
         print("Erro ao conectar com o banco!")
         return
 
-    cursor = conexao.cursor()
+    cursor = conn.cursor()
 
     sql = "SELECT * FROM alunos"
     cursor.execute(sql)
@@ -629,6 +718,52 @@ def ler_notas(matricula):
             print("Digite uma opção válida (Aluno não encontrado).")
             continue
 
+#ler notas, apenas notas
+def ler_notas_notas(matricula):
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+    
+
+    sql = """
+    SELECT
+        alunos.nome_aluno,
+        notas.nota1,
+        notas.nota2,
+        notas.nota3,
+        notas.nota4,
+        notas.media_aluno,
+        notas.situacao_aluno
+    FROM alunos
+    INNER JOIN notas
+    ON alunos.matricula_ID = notas.matricula_FK_ID
+    WHERE alunos.matricula_ID = %s
+    """
+
+    cursor.execute(sql, (matricula,))
+
+    resultado = cursor.fetchone()
+
+    if resultado:
+        print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
+    else:
+        print("Aluno não encontrado.")
+
+    return resultado
+
+    cursor.close()
+    conexao.close()
+
+    while True:
+        print(dados_alunos)
+        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
+        
+      
+        if oq in dados_alunos:
+            print(f"Notas do aluno: {dados_alunos[oq]}")
+            break
+        else:
+            print("Digite uma opção válida (Aluno não encontrado).")
+            continue
 
 #DEFs EXCLUIR
 
@@ -665,33 +800,6 @@ def excluir_nota(id_nota):
     cursor.commit()
 
 
-
-#adicionar alunos
-def add_alunos():
-    while True:
-
-        conexao = criar_conexao()  
-        cursor = conexao.cursor()
-
-        nome = input("Digite o nome do aluno: ")
-        print()
-        idade = int(input("Digie a idade do aluno:"))
-        print()
-        print(turmas)
-        turma = input("Digite a turma do aluno: ")
-
-        if turma not in turmas:
-            print("Turma não encontrada")
-            continue
-
-        cursor.execute(
-            "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
-            (nome, idade, turma)
-        )
-
-        conexao.close()
-        cursor.close()
-        break   
 
 
 
