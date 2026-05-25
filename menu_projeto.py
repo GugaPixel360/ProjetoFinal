@@ -44,8 +44,8 @@ while True:
                 #professor
                 case 1:
                     while True:
-                        print("\33[34m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-                        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | Escreva aqui: ").strip()
+                        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                        op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n").strip()
 
                         # espaço vazio
                         if op.strip() == "":
@@ -62,7 +62,7 @@ while True:
                         elif op == "1":
                             while True:
                                 print("O que você gostaria de mexer?")
-                                op = input(" | 0 - Sair \n | 1 - adicionar \n | 2 - excluir \n | Escreva aqui: ").strip()
+                                op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
                                 
                                 if op.strip() == "":
                                     print("Campo vazio!")
@@ -74,15 +74,12 @@ while True:
                                         exit()
 
                                     case "1":
-                                        ler_alunos()
                                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
                                         if not validar_matricula(matricula):
                                             print("Selecione uma das opcoes")
                                             erro()
                                             continue
 
-                                        verificar_matricula(matricula)
-                                        
                                         adicionar_nota(matricula)
                                         denovo()
                                             
@@ -107,6 +104,7 @@ while True:
                             media(matricula)
 
                             
+
 
                         #informacoes do aluno
                         elif op == "3":

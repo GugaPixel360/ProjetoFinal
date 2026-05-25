@@ -39,7 +39,7 @@ def denovo():
             break
 
         elif continuar == "2":
-            print("Você saiu, obrigado por ultilizar nosso sistema!")
+            print("Sério? Ok né...")
             exit()
         else:
             print("Valor inválido por favor responda com 1 ou 2.")
@@ -106,7 +106,7 @@ def validar_nome(nome):
 # valida o id do docente que o usuario colocou 
 def validar_id():
     while True:
-        id_docente = input("Digite seu código do docente: ")
+        id_docente = input("Digite seu ID: ")
 
         if id_docente.strip() == "":
             print("Campo vazio!")
@@ -216,11 +216,6 @@ def criar_login(Nome, Email, funcao, materia, senha):
         return
 
     cursor = conn.cursor()
-
-    if funcao == "prof":
-        funcao = "professor"
-    if funcao == "coord":
-        funcao = "coordenador"
 
     cursor.execute(
         "INSERT INTO professor (nome_docente, email_docente, funcao_docente, materia_docente, senha) VALUES (%s, %s, %s, %s, %s)",
@@ -333,12 +328,94 @@ def adicionar_nota(matricula):
     cursor.close()
     conexao.close()
 
+
+
+def adicionar_professor():
+
+    
+    while True:
+        Nome = input("Digite o nome do professor: ").strip()
+
+        if not validar_nome(Nome):
+            print("Nome inválido!")
+            erro()
+            continue
+
+        break
+
+  
+    while True:
+        Email = input("Digite o email do professor: ").strip()
+
+        if not validar_email(Email):
+            continue
+
+        break
+
+    while True:
+        materia = input("Digite a matéria do professor: ").strip().lower()
+
+        if not validar_materia(materia):
+            continue
+
+        break
+
+    senha = validar_senha()
+
+    
+    conexao = criar_conexao()
+
+    cursor = conexao.cursor()
+
+    try:
+        sql = """
+        INSERT INTO professor
+        (nome_docente, email_docente, funcao_docente, materia_docente, senha)
+
+        VALUES (%s, %s, %s, %s, %s)
+        """
+
+        valores = (
+            Nome,
+            Email,
+        
+            materia,
+            senha
+        )
+
+        cursor.execute(sql, valores)
+        conexao.commit()
+
+
+    except Error as professor:
+        print(f"Erro ao cadastrar professor: {professor}")
+        erro()
+
+        cursor.close()
+        conexao.close()
+    
 #Cria a media de um aluno    
-def media(matricula):
+def media():
     while True:
 
         conn = criar_conexao()
         cursor = conn.cursor()
+
+        id_aluno = int(input("Digite a matricula do aluno"))
+        validar_matricula(id_aluno)
+
+        if id_aluno.strip() == "":
+            print("Campo vazio!")
+            continue
+
+        elif not id_aluno.isdigit():
+            print("Apenas numeros!")
+            continue
+
+        
+    
+    
+
 
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_ID = %s"
         cursor.execute(sql, (id_aluno,))
@@ -376,14 +453,15 @@ def ler_docente():
     cursor = conn.cursor()
     
     cursor.execute("SELECT * FROM professor")
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
     # se nao tiver docente
-    if not resultado:
+    if resultado is None:
         print("Nenhum usuário cadastrado")
         erro()
         return False
     
+    resultado = cursor.fetchall()
 
     # print docente    
     for linha in resultado:
@@ -435,10 +513,11 @@ def ler_alunos():
     conn = criar_conexao()
     cursor = conn.cursor()
 
-    if conn is None:
+    if conexao is None:
         print("Erro ao conectar com o banco!")
         return
 
+    cursor = conexao.cursor()
 
     sql = "SELECT * FROM alunos"
     cursor.execute(sql)
@@ -467,14 +546,15 @@ def ler_alunos():
 def ler_funcao(id_docente):
     conn = criar_conexao()
     cursor = conn.cursor()
-    sql = "SELECT funcao_docente FROM professor WHERE id_docente = %s"
+    sql = "SELECT * FROM professor WHERE id_docente = %s"
 
     cursor.execute(sql, (id_docente,))
 
     resultado = cursor.fetchone()
 
-    if resultado:
-        funcao_docente = resultado[0]
+
+    for linha in resultado:
+        funcao_docente = linha
 
     if resultado:
         print(f"Seja bem vindo(a) {funcao_docente}")
@@ -496,6 +576,7 @@ def ler_funcao(id_docente):
 def ler_notas(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
+    
 
     sql = """
     SELECT
@@ -536,7 +617,18 @@ def ler_notas(matricula):
     cursor.close()
     conexao.close()
 
-   
+    while True:
+        print(dados_alunos)
+        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
+        
+      
+        if oq in dados_alunos:
+            print(f"Notas do aluno: {dados_alunos[oq]}")
+            break
+        else:
+            print("Digite uma opção válida (Aluno não encontrado).")
+            continue
+
 
 #DEFs EXCLUIR
 
@@ -573,6 +665,36 @@ def excluir_nota(id_nota):
     cursor.commit()
 
 
+
+#adicionar alunos
+def add_alunos():
+    while True:
+
+        conexao = criar_conexao()  
+        cursor = conexao.cursor()
+
+        nome = input("Digite o nome do aluno: ")
+        print()
+        idade = int(input("Digie a idade do aluno:"))
+        print()
+        print(turmas)
+        turma = input("Digite a turma do aluno: ")
+
+        if turma not in turmas:
+            print("Turma não encontrada")
+            continue
+
+        cursor.execute(
+            "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
+            (nome, idade, turma)
+        )
+
+        conexao.close()
+        cursor.close()
+        break   
+
+
+
 #LISTAS
 
 
@@ -584,4 +706,5 @@ escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia", "sociologia", "artes","hist", "historia","história", "ingles","ef", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
-
+#array de turmas
+turmas = ["001", "002", "003", "004", "005"]

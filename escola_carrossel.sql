@@ -2,25 +2,22 @@ CREATE DATABASE IF NOT EXISTS carrossel;
 
 USE carrossel;
 
-CREATE TABLE IF NOT EXISTS alunos(
+CREATE TABLE IF NOT EXISTS alunos (
 nome_aluno VARCHAR (100) NOT NULL,
 idade_aluno INT NOT NULL,
-turma_aluno varchar (20) NOT NULL,
-matricula_ID INT AUTO_INCREMENT PRIMARY KEY
+turma_aluno INT NOT NULL,
+matricula_ID INT AUTO_INCREMENT PRIMARY KEy
 );
 
 CREATE TABLE IF NOT EXISTS notas (
-materia varchar (30),
-nota1 float,
-nota2 float,
-nota3 float,
-nota4 float,
-media_aluno float,
+nota1 INT,
+nota2 INT,
+nota3 INT,
+nota4 INT,
+media_aluno INT,
 situacao_aluno VARCHAR (100),
-
-matricula_FK_ID INT,
-FOREIGN KEY (matricula_FK_ID)
-REFERENCES alunos(matricula_ID)
+matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
+FOREIGN KEY (matricula_FK_ID) REFERENCES Alunos (matricula_ID)
 
 );
 
@@ -33,23 +30,12 @@ materia_docente VARCHAR (100) NOT NULL,
 funcao_docente VARCHAR (50) NOT NULL
 );
 
-
-INSERT INTO alunos(nome_aluno, idade_aluno, turma_aluno)
-VALUES ("joberto", 14, "1DS");
-INSERT INTO notas(
-    nota1,
-    nota2,
-    nota3,
-    matricula_FK_ID
-)
-VALUES (8, 7, 9, 1);
 SELECT * FROM professor;
-select * from alunos;
-select *from notas;
 
 /*
-truncate table notas;
+SELECT nota1, nota2, nota3, nota4 FROM notas
+INNER JOIN nota1, nota2, nota3, nota4 ON alunos;
 
-/*
+
 Drop Database Carrossel;
 
