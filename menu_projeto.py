@@ -120,7 +120,7 @@ while True:
                 case 2:
                     while True:
                         print("\33[30m==== OLÁ COORDENADOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-                        op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos ").strip()
+                        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos ").strip()
 
                         #Espaço vazio
                         if op.strip() == "":
@@ -136,7 +136,7 @@ while True:
                         # manipular nota 
                         elif op == "1":
                             print("O que você gostaria de mexer?")
-                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                            op = input(" | 0 - Sair \n | 1 - adicionar:  \n | 2 - excluir: ").strip()
                             
                             if op.strip() == "":
                                 print("Campo vazio!")
