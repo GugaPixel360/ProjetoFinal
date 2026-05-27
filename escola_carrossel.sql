@@ -5,7 +5,7 @@ USE carrossel;
 CREATE TABLE IF NOT EXISTS alunos (
 nome_aluno VARCHAR (100) NOT NULL,
 idade_aluno INT NOT NULL,
-turma_aluno INT NOT NULL,
+turma_aluno varchar (50) NOT NULL,
 matricula_ID INT AUTO_INCREMENT PRIMARY KEy
 );
 
@@ -29,6 +29,9 @@ senha VARCHAR (15) NOT NULL,
 materia_docente VARCHAR (100) NOT NULL,
 funcao_docente VARCHAR (50) NOT NULL
 );
+
+insert into alunos (nome_aluno, idade_aluno, turma_aluno) values ("josue", 15, "1ds");
+insert into notas (nota1, nota2, nota3) values (7, 5, 8);
 
 SELECT * FROM professor;
 
