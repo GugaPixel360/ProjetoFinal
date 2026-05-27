@@ -60,7 +60,7 @@ def validar_nota(nota):
 
     if nota > 10 or nota < 0:
         print("Sua nota precisa ser entra 0 e 10")
-        erro()
+        
         return
     
 #def validacao de materia
@@ -306,10 +306,15 @@ def adicionar_nota(matricula):
                     case "1":
                         try:
                             notaX = float(input("Digite a nova nota 1: "))
+                            if not validar_nota(notaX):
+                                erro()
+                                continue
+
                         except:
                             erro()
-                            print("Digite apenas números!")
                             continue
+                        atualizar_nota(matricula, notaX)
+
                     case "2":
                         return 
                     case _:
@@ -426,49 +431,16 @@ def adicionar_nota(matricula):
             case "2":
                 break 
 
-        
-
     conn.commit()
     cursor.close()
     conn.close()
 
-
-
 # atualizar nota do aluno
-def atualizar_nota(matricula):
+def atualizar_nota(matricula, notaX):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
     while True:
-        print("Qual nota você deseja atualizar?")
-        print(" | 1 - Nota 1")
-        print(" | 2 - Nota 2")
-        print(" | 3 - Nota 3")
-        print(" | 4 - Nota 4")
-
-        opcao = input("Digite aqui: ").strip()
-
-        notas = {
-            "1": "nota1",
-            "2": "nota2",
-            "3": "nota3",
-            "4": "nota4"
-        }
-
-        if opcao not in notas:
-            erro()
-            print("Escolha uma opção válida!")
-            continue
-
-        coluna = notas[opcao]
-
-        try:
-            nova_nota = float(input("Digite a nova nota: "))
-        except:
-            erro()
-            print("Digite apenas números!")
-            continue
-
         if nova_nota < 0 or nova_nota > 10:
             erro()
             print("A nota precisa estar entre 0 e 10")
@@ -490,9 +462,6 @@ def atualizar_nota(matricula):
 
     cursor.close()
     conexao.close()
-
-
-
 
 #adicionar professor (funcao diretor)
 def adicionar_professor():
