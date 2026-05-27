@@ -182,6 +182,13 @@ def validar_matricula(matricula):
     if not matricula.isdigit():
         print("A matrícula deve ter apenas números!")
         return
+
+    try:
+        matricula = int(matricula)
+        return matricula
+    except:
+        erro()
+        return 
     
     return True
 
@@ -190,21 +197,26 @@ def verificar_matricula(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
-    sql = "SELECT matricula_ID FROM alunos"
+    sql = "SELECT matricula_ID FROM alunos WHERE matricula_ID = %s"
 
-    cursor.execute(sql)
+    cursor.execute(sql, (matricula,))
+    resultado = cursor.fetchone()
 
-    resultado = cursor.fetchall()
-
-    if matricula not in resultado:
+    if resultado is None:
         print("Matricula não encontrada")
+        
+        cursor.close()
+        conexao.close()
         return
-    
+
     cursor.close()
     conexao.close()
 
+    return True
+
 
 #DEFs DE LOGIN E CREATE                  
+
 
 #adicionar alunos
 def add_alunos():
@@ -484,39 +496,24 @@ def adicionar_professor():
 
         cursor.close()
         conexao.close()
-    
-#Cria a media de um aluno    
-def media():
-    while True:
 
+#Cria a media de um aluno    
+def media(matricula):
+    while True:
         conn = criar_conexao()
         cursor = conn.cursor()
 
-        id_aluno = int(input("Digite a matricula do aluno"))
-        validar_matricula(id_aluno)
-
-        if id_aluno.strip() == "":
-            print("Campo vazio!")
-            continue
-
-        elif not id_aluno.isdigit():
-            print("Apenas numeros!")
-            continue
-
-        
-    
-    
-
-
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_ID = %s"
-        cursor.execute(sql, (id_aluno,))
+        cursor.execute(sql, (matricula,))
 
-        resultado = cursor.fetchone()
-
+        resultado = cursor.fetchall()
 
         cursor.close()
         conn.close()
-
+        
+        if any(item is None for item in resultado):
+            print("Nem todas as notas foram adicionadas \nPor favor adicione todas as notas antes de gerar a média")
+            return False
 
         if resultado:
             nota1, nota2, nota3, nota4 = resultado    

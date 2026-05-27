@@ -102,6 +102,11 @@ while True:
                                 erro()
                                 continue
 
+                            if not validar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
                             media(matricula)
 
 
