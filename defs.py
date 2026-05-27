@@ -68,7 +68,38 @@ def validar_materia(materia):
     if materia not in materias_escola:
         print("Selecione uma matéria válida ou cargo")
         return False
-
+    
+    if funcao == "prof":
+        funcao = "professor"
+    if funcao == "coord":
+        funcao = "coordenador"
+    if materia == "bio":
+        materia = "biologia"
+    if materia == "mtm" or materia == "matematica":
+        materia = "matemática"
+    if materia == "geo":
+        materia = "geografia"
+    if materia == "filo":
+        materia = "filosofia"
+    if materia == "socio":
+        materia = "sociologia"
+    if materia == "hist" or materia == "historia":
+        materia = "história"
+    if materia == "ingles":
+        materia = "inglês"
+    if materia in eff:
+        materia = "educação física"
+    if materia == "fisica":
+        materia = "física"
+    if materia == "port" or materia == "port":
+        materia = "português"
+    if materia == "quimica":
+        materia = "química"
+    if materia == "coord":
+        materia = "coordenador"
+    if materia == "prof":
+        materia = "professor"
+    
     return True
 
 #def validar email
@@ -124,6 +155,11 @@ def verificar_funcao(funcao):
         print("----Funções: professor, coordenador, diretor----")
 
         return False
+    
+    if funcao == "prof":
+        funcao = "professor"
+    if funcao == "coor":
+        funcao = "coordenador"
     
     return True
 
@@ -817,11 +853,11 @@ escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
 escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 
 #materias aceitas
-materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia", "sociologia", "artes","hist", "historia","história", "ingles","ef", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
+materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia","socio", "sociologia", "artes","hist", "historia","história", "ingles","inglês","ef", "edfisica", "edfísica", "fisica", "física","port", "portugues","português", "química", "quimica", "coordenador", "diretor", "prof", "coord"]
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 #array de turmas
 turmas = ["001", "002", "003", "004", "005"]
 
-
-ler_funcao(1)
+#deucacao fisica
+eff = ["edfisica", "edfísica","ef", "educaçao fisica", "educação fisica", "educaçao física", "educacao fisica", "educacão fisica", "educacao física"]
