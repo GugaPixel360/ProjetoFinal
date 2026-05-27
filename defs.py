@@ -402,6 +402,7 @@ def adicionar_nota(matricula):
             matricula
         )
 
+        cursor.execute(sql, valores)
         ler_notas_notas(matricula)
 
         print("Você gostaria de adicionar mais notas?")
@@ -415,10 +416,9 @@ def adicionar_nota(matricula):
 
         
 
-    cursor.execute(sql, valores)
-    conexao.commit()
+    conn.commit()
     cursor.close()
-    conexao.close()
+    conn.close()
 
 #adicionar professor (funcao diretor)
 def adicionar_professor():

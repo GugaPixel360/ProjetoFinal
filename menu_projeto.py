@@ -104,7 +104,6 @@ while True:
 
                             media(matricula)
 
-                            
 
 
                         #informacoes do aluno
