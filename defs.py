@@ -1,10 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
 
-
-#DEFs BASICOS!!!!
-
-
 #Cria conexao com o sql
 def criar_conexao():
     try:
@@ -440,25 +436,21 @@ def atualizar_nota(matricula, notaX):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
-    while True:
-        if nova_nota < 0 or nova_nota > 10:
-            erro()
-            print("A nota precisa estar entre 0 e 10")
-            continue
+    
 
-        sql = f"""
-        UPDATE notas
-        SET {coluna} = %s
-        WHERE matricula_FK_ID = %s
-        """
+    sql = """
+    UPDATE notas
+    SET {notaX} = %s
+    WHERE matricula_FK_ID = %s
+    """
 
-        valores = (nova_nota, matricula)
+    valores = (notaX, matricula)
 
-        cursor.execute(sql, valores)
-        conexao.commit()
+    cursor.execute(sql, valores)
+    conexao.commit()
 
-        print("Nota atualizada com sucesso!")
-        break
+    print("Nota atualizada com sucesso!")
+    
 
     cursor.close()
     conexao.close()
@@ -729,22 +721,10 @@ def ler_notas(matricula):
     else:
         print("Aluno não encontrado.")
 
-    return resultado
 
     cursor.close()
     conexao.close()
-
-    while True:
-        print(dados_alunos)
-        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
-        
-      
-        if oq in dados_alunos:
-            print(f"Notas do aluno: {dados_alunos[oq]}")
-            break
-        else:
-            print("Digite uma opção válida (Aluno não encontrado).")
-            continue
+    return resultado
 
 #ler notas, apenas notas
 def ler_notas_notas(matricula):
@@ -776,22 +756,11 @@ def ler_notas_notas(matricula):
     else:
         print("Aluno não encontrado.")
 
-    return resultado
 
     cursor.close()
     conexao.close()
+    return resultado
 
-    while True:
-        print(dados_alunos)
-        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
-        
-      
-        if oq in dados_alunos:
-            print(f"Notas do aluno: {dados_alunos[oq]}")
-            break
-        else:
-            print("Digite uma opção válida (Aluno não encontrado).")
-            continue
 
 #DEFs EXCLUIR
 
