@@ -609,7 +609,7 @@ def ler_docente():
     resultado = cursor.fetchall()
 
     # se nao tiver docente
-    if resultado is None:
+    if not resultado:
         print("Nenhum usuário cadastrado")
         erro()
         return False
@@ -701,7 +701,7 @@ def ler_funcao(id_docente):
 
     cursor.execute(sql, (id_docente,))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
 
     for linha in resultado:
@@ -852,12 +852,13 @@ def excluir_nota(id_nota):
 escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
 escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 
+#educacao fisica
+eff = ["edfisica", "edfísica","ef", "educaçao fisica", "educação fisica", "educaçao física", "educacao fisica", "educacão fisica", "educacao física"]
+
 #materias aceitas
 materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia","socio", "sociologia", "artes","hist", "historia","história", "ingles","inglês","ef", "edfisica", "edfísica", "fisica", "física","port", "portugues","português", "química", "quimica", "coordenador", "diretor", "prof", "coord"]
-materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
+materias_escola1 = (eff, "Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 #array de turmas
 turmas = ["001", "002", "003", "004", "005"]
 
-#deucacao fisica
-eff = ["edfisica", "edfísica","ef", "educaçao fisica", "educação fisica", "educaçao física", "educacao fisica", "educacão fisica", "educacao física"]

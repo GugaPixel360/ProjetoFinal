@@ -41,4 +41,3 @@ INNER JOIN nota1, nota2, nota3, nota4 ON alunos;
 
 
 Drop Database Carrossel;
-
