@@ -149,18 +149,22 @@ while True:
                                 
                                 #adicionar
                                 case "1":
+                                    ler_alunos()
                                     matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
                                     if not validar_matricula(matricula):
                                         print("Selecione uma das opcoes")
                                         erro()
                                         continue
 
-                                    adicionar_nota()
-                                        
+                                    adicionar_nota(matricula)
+                                    denovo()
+
+                                                
                                 # excluir
                                 case "2":
                                     ler_notas()
                                     excluir_nota()
+                                    
                                         
                                 # validacao
                                 case _:
@@ -172,13 +176,18 @@ while True:
                         elif op == "2":
                             ler_alunos()
                             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if not verificar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
                             if not validar_matricula(matricula):
                                 print("Selecione uma das opcoes")
                                 erro()
                                 continue
 
                             media(matricula)
-
+                         
                         elif op == "3":
                             ...
                         
