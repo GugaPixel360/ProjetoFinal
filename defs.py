@@ -1,10 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
 
-
-#DEFs BASICOS!!!!
-
-
 #Cria conexao com o sql
 def criar_conexao():
     try:
@@ -441,25 +437,21 @@ def atualizar_nota(matricula, notaX):
     cursor = conexao.cursor()
     
 
-    while True:
-        if notaX < 0 or notaX > 10:
-            erro()
-            print("A nota precisa estar entre 0 e 10")
-            continue
+    
 
-        sql = f"""
-        UPDATE notas
-        SET [nota1] = 
-        WHERE matricula_FK_ID = %s
-        """
+    sql = """
+    UPDATE notas
+    SET {notaX} = %s
+    WHERE matricula_FK_ID = %s
+    """
 
-        valores = (notaX, matricula)
+    valores = (notaX, matricula)
 
-        cursor.execute(sql, valores)
-        conexao.commit()
+    cursor.execute(sql, valores)
+    conexao.commit()
 
-        print("Nota atualizada com sucesso!")
-        break
+    print("Nota atualizada com sucesso!")
+    
 
     cursor.close()
     conexao.close()
@@ -730,11 +722,10 @@ def ler_notas(matricula):
     else:
         print("Aluno não encontrado.")
 
-    print(f"{resultado}")
 
     cursor.close()
     conexao.close()
-
+    return resultado
 
 #ler notas, apenas notas
 def ler_notas_notas(matricula):
@@ -770,8 +761,8 @@ def ler_notas_notas(matricula):
 
     cursor.close()
     conexao.close()
-
     return resultado
+
 
 #DEFs EXCLUIR
 
