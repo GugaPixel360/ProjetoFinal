@@ -527,10 +527,10 @@ def media(matricula):
         conn = criar_conexao()
         cursor = conn.cursor()
 
-        sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_ID = %s"
+        sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
 
-        resultado = cursor.fetchall()
+        resultado = cursor.fetchone()
 
         cursor.close()
         conn.close()
@@ -538,6 +538,11 @@ def media(matricula):
         if any(item is None for item in resultado):
             print("Nem todas as notas foram adicionadas \nPor favor adicione todas as notas antes de gerar a média")
             return False
+        
+        if None in resultado:
+            print("Nem todas as notas foram adicionadas.")
+            print("Por favor adicione todas as notas antes de gerar a média.")
+            return
 
         if resultado:
             nota1, nota2, nota3, nota4 = resultado    
@@ -817,3 +822,6 @@ materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, ar
 
 #array de turmas
 turmas = ["001", "002", "003", "004", "005"]
+
+
+ler_funcao(1)
