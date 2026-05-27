@@ -420,6 +420,68 @@ def adicionar_nota(matricula):
     cursor.close()
     conn.close()
 
+
+
+# atualizar nota do aluno
+def atualizar_nota(matricula):
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    while True:
+        print("Qual nota você deseja atualizar?")
+        print(" | 1 - Nota 1")
+        print(" | 2 - Nota 2")
+        print(" | 3 - Nota 3")
+        print(" | 4 - Nota 4")
+
+        opcao = input("Digite aqui: ").strip()
+
+        notas = {
+            "1": "nota1",
+            "2": "nota2",
+            "3": "nota3",
+            "4": "nota4"
+        }
+
+        if opcao not in notas:
+            erro()
+            print("Escolha uma opção válida!")
+            continue
+
+        coluna = notas[opcao]
+
+        try:
+            nova_nota = float(input("Digite a nova nota: "))
+        except:
+            erro()
+            print("Digite apenas números!")
+            continue
+
+        if nova_nota < 0 or nova_nota > 10:
+            erro()
+            print("A nota precisa estar entre 0 e 10")
+            continue
+
+        sql = f"""
+        UPDATE notas
+        SET {coluna} = %s
+        WHERE matricula_FK_ID = %s
+        """
+
+        valores = (nova_nota, matricula)
+
+        cursor.execute(sql, valores)
+        conexao.commit()
+
+        print("Nota atualizada com sucesso!")
+        break
+
+    cursor.close()
+    conexao.close()
+
+
+
+
 #adicionar professor (funcao diretor)
 def adicionar_professor():
 
