@@ -581,7 +581,7 @@ def media(matricula):
             nota1, nota2, nota3, nota4 = resultado    
             media = (nota1 + nota2 + nota3 + nota4) / 4
         
-            print(f"Notas do aluno {id_aluno}: {nota1}, {nota2}, {nota3}, {nota4}")
+            print(f"Notas do aluno {matricula}: {nota1}, {nota2}, {nota3}, {nota4}")
             print(f"Média final: {media}")
         
         
@@ -590,7 +590,7 @@ def media(matricula):
             else:
                 print("Status: Recuperação")
         else:
-            print(f"Nenhuma nota encontrada para o aluno com ID {id_aluno}.")
+            print(f"Nenhuma nota encontrada para o aluno com ID {matricula}.")
 
 
 #DEFs LER
@@ -743,7 +743,7 @@ def ler_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     if resultado:
         print(f"""
@@ -760,25 +760,25 @@ def ler_notas(matricula):
     else:
         print("Aluno não encontrado.")
 
-    return resultado
+    
 
     cursor.close()
     conexao.close()
 
     while True:
-        print(dados_alunos)
+        print(resultado)
         oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
         
       
-        if oq in dados_alunos:
-            print(f"Notas do aluno: {dados_alunos[oq]}")
+        if oq in resultado:
+            print(f"Notas do aluno: {resultado[oq]}")
             break
         else:
             print("Digite uma opção válida (Aluno não encontrado).")
             continue
 
 #ler notas, apenas notas
-def ler_notas_notas(matricula):
+def ler_notas_notas(matricula, dados_alunos):
     conexao = criar_conexao()
     cursor = conexao.cursor()
     
@@ -800,25 +800,25 @@ def ler_notas_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     if resultado:
         print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
     else:
         print("Aluno não encontrado.")
 
-    return resultado
+    
 
     cursor.close()
     conexao.close()
 
     while True:
-        print(dados_alunos)
+        print(resultado)
         oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
         
       
         if oq in dados_alunos:
-            print(f"Notas do aluno: {dados_alunos[oq]}")
+            print(f"Notas do aluno: {resultado[oq]}")
             break
         else:
             print("Digite uma opção válida (Aluno não encontrado).")
