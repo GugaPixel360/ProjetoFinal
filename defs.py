@@ -190,7 +190,7 @@ def validar_matricula(matricula):
         erro()
         return 
     
-    return True
+
 
 #def validar matricula
 def verificar_matricula(matricula):
@@ -200,7 +200,7 @@ def verificar_matricula(matricula):
     sql = "SELECT matricula_ID FROM alunos WHERE matricula_ID = %s"
 
     cursor.execute(sql, (matricula,))
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     if resultado is None:
         print("Matricula não encontrada")
@@ -260,7 +260,7 @@ def criar_login(Nome, Email, funcao, materia, senha):
         (Nome, Email, funcao, materia, senha)
     )
 
-    conn.commit()
+    conn.commit() 
 
     print("Usuário cadastrado com sucesso!")
 
@@ -274,7 +274,7 @@ def Entrar(id_docente, senha):
     sql = "SELECT * FROM professor WHERE id_docente = %s AND senha = %s"
     valores = (id_docente, senha)
     cursor.execute(sql, valores)
-    resultado = cursor.fetchone()  
+    resultado = cursor.fetchall()  
    
     cursor.close()
     conn.close()
@@ -439,20 +439,21 @@ def adicionar_nota(matricula):
 def atualizar_nota(matricula, notaX):
     conexao = criar_conexao()
     cursor = conexao.cursor()
+    
 
     while True:
-        if nova_nota < 0 or nova_nota > 10:
+        if notaX < 0 or notaX > 10:
             erro()
             print("A nota precisa estar entre 0 e 10")
             continue
 
         sql = f"""
         UPDATE notas
-        SET {coluna} = %s
+        SET [nota1] = 
         WHERE matricula_FK_ID = %s
         """
 
-        valores = (nova_nota, matricula)
+        valores = (notaX, matricula)
 
         cursor.execute(sql, valores)
         conexao.commit()
@@ -550,7 +551,7 @@ def media(matricula):
             nota1, nota2, nota3, nota4 = resultado    
             media = (nota1 + nota2 + nota3 + nota4) / 4
         
-            print(f"Notas do aluno {id_aluno}: {nota1}, {nota2}, {nota3}, {nota4}")
+            print(f"Notas do aluno {matricula}: {nota1}, {nota2}, {nota3}, {nota4}")
             print(f"Média final: {media}")
         
         
@@ -559,7 +560,7 @@ def media(matricula):
             else:
                 print("Status: Recuperação")
         else:
-            print(f"Nenhuma nota encontrada para o aluno com ID {id_aluno}.")
+            print(f"Nenhuma nota encontrada para o aluno com ID {matricula}.")
 
 
 #DEFs LER
@@ -667,7 +668,7 @@ def ler_funcao(id_docente):
 
     cursor.execute(sql, (id_docente,))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
 
     for linha in resultado:
@@ -729,22 +730,11 @@ def ler_notas(matricula):
     else:
         print("Aluno não encontrado.")
 
-    return resultado
+    print(f"{resultado}")
 
     cursor.close()
     conexao.close()
 
-    while True:
-        print(dados_alunos)
-        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
-        
-      
-        if oq in dados_alunos:
-            print(f"Notas do aluno: {dados_alunos[oq]}")
-            break
-        else:
-            print("Digite uma opção válida (Aluno não encontrado).")
-            continue
 
 #ler notas, apenas notas
 def ler_notas_notas(matricula):
@@ -776,22 +766,12 @@ def ler_notas_notas(matricula):
     else:
         print("Aluno não encontrado.")
 
-    return resultado
+    
 
     cursor.close()
     conexao.close()
 
-    while True:
-        print(dados_alunos)
-        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
-        
-      
-        if oq in dados_alunos:
-            print(f"Notas do aluno: {dados_alunos[oq]}")
-            break
-        else:
-            print("Digite uma opção válida (Aluno não encontrado).")
-            continue
+    return resultado
 
 #DEFs EXCLUIR
 
@@ -826,6 +806,8 @@ def excluir_nota(id_nota):
     sql = "DELETE FROM notas WHERE id = %s"
     cursor.execute(sql, (id_nota,))
     cursor.commit()
+
+    cursor.close()
 
 
 
