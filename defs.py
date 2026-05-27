@@ -59,6 +59,8 @@ def validar_nota(nota):
         
         return
     
+    return True
+    
 #def validacao de materia
 def validar_materia(materia):
     if materia.strip() == "":
@@ -132,7 +134,13 @@ def validar_nome(nome):
 
 # valida o id do docente que o usuario colocou 
 def validar_id():
+    
+        
+
+
     while True:
+        cursor = criar_conexao()
+        
         id_docente = input("Digite seu ID: ")
 
         if id_docente.strip() == "":
@@ -143,6 +151,17 @@ def validar_id():
             print("Apenas números!")
             continue
 
+        sql = "SELECT id_docente FROM professor WHERE id_docente = %s"
+
+        cursor.execute(sql, (id_docente,))
+
+        resultado = cursor.fetchone()
+
+        if resultado is None:
+            print("ID inválido!")
+            continue
+
+        print("Login realizado!")
         return id_docente
 
 # verificacao da funcao do docente (se a funcao existe ou nao)
@@ -701,7 +720,7 @@ def ler_funcao(id_docente):
 
     cursor.execute(sql, (id_docente,))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
 
     for linha in resultado:
@@ -861,3 +880,6 @@ turmas = ["001", "002", "003", "004", "005"]
 
 #deucacao fisica
 eff = ["edfisica", "edfísica","ef", "educaçao fisica", "educação fisica", "educaçao física", "educacao fisica", "educacão fisica", "educacao física"]
+
+
+validar_id()
