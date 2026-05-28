@@ -451,7 +451,7 @@ def adicionar_nota(matricula):
             print("Escolha uma das opções dadas")
             continue
 
-        sql = """
+        sql = f"""
         INSERT INTO notas
             ({notaX}, matricula_FK_ID)
 
@@ -464,6 +464,7 @@ def adicionar_nota(matricula):
         )
 
         cursor.execute(sql, valores)
+
         ler_notas_notas(matricula)
 
         print("Você gostaria de adicionar mais notas?")
@@ -476,6 +477,7 @@ def adicionar_nota(matricula):
                 break 
 
     conn.commit()
+
     cursor.close()
     conn.close()
 
@@ -799,7 +801,8 @@ def ler_notas_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchone()
+    linha = cursor.fetchall()
+    resultado = linha[0]
 
     if resultado:
         print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
