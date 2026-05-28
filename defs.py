@@ -353,11 +353,11 @@ def adicionar_nota(matricula):
                             if not validar_nota(notaX):
                                 erro()
                                 continue
-                            notaX = validar_nota()
+                            notaX = validar_nota(notaX)
                         except:
                             erro()
                             continue
-                        atualizar_nota(matricula, notaX)
+                        atualizar_nota(matricula, notaX, nota)
 
                     case "2":
                         return 
@@ -458,10 +458,7 @@ def adicionar_nota(matricula):
         VALUES (%s, %s)
         """
 
-        valores = (
-            notaX,
-            matricula
-        )
+        valores = (nota, matricula)
 
         cursor.execute(sql, valores)
 
@@ -482,13 +479,13 @@ def adicionar_nota(matricula):
     conn.close()
 
 # atualizar nota do aluno
-def atualizar_nota(matricula, notaX):
+def atualizar_nota(matricula, notaX, nota):
     conexao = criar_conexao()
     cursor = conexao.cursor()
     
-    sql = """
+    sql = f"""
     UPDATE notas
-    SET {notaX} = %s
+    SET {nota} = %s
     WHERE matricula_FK_ID = %s
     """
 
