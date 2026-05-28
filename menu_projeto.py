@@ -149,18 +149,22 @@ while True:
                                 
                                 #adicionar
                                 case "1":
+                                    ler_alunos()
                                     matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
                                     if not validar_matricula(matricula):
                                         print("Selecione uma das opcoes")
                                         erro()
                                         continue
 
-                                    adicionar_nota()
-                                        
+                                    adicionar_nota(matricula)
+                                    denovo()
+
+                                                
                                 # excluir
                                 case "2":
                                     ler_notas()
                                     excluir_nota()
+                                    
                                         
                                 # validacao
                                 case _:
@@ -172,19 +176,55 @@ while True:
                         elif op == "2":
                             ler_alunos()
                             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if not verificar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
                             if not validar_matricula(matricula):
                                 print("Selecione uma das opcoes")
                                 erro()
                                 continue
 
                             media(matricula)
-
+                         
                         elif op == "3":
-                            ...
+                            ler_alunos_completo()
+                            denovo()
+                            
                         
                         #alunos, create e delete
                         elif op == "4":
-                            ...        
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                            
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
+                                
+                            match op:
+                                case "0":
+                                    print("Você saiu")
+                                    break
+                                
+                                #adicionar
+                                case "1":
+                                    add_alunos()
+                                    denovo()
+
+                                                
+                                # excluir
+                                case "2":
+                                    ler_alunos()
+                                    excluir_aluno()
+                                    
+                                        
+                                # validacao
+                                case _:
+                                    erro()
+                                    print("tente novamente")
+                                    continue
+                                  
 
                 #diretor
                 case 3:  

@@ -1,10 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
 
-
-#DEFs BASICOS!!!!
-
-
 #Cria conexao com o sql
 def criar_conexao():
     try:
@@ -49,7 +45,6 @@ def denovo():
 #DEFs DE VALIDACAO!!!!
 
 
-
 #validar nota
 def validar_nota(nota):
     try:
@@ -60,8 +55,10 @@ def validar_nota(nota):
 
     if nota > 10 or nota < 0:
         print("Sua nota precisa ser entra 0 e 10")
-        erro()
+        
         return
+    
+    return nota
     
 #def validacao de materia
 def validar_materia(materia):
@@ -72,7 +69,38 @@ def validar_materia(materia):
     if materia not in materias_escola:
         print("Selecione uma matéria válida ou cargo")
         return False
-
+    
+    if funcao == "prof":
+        funcao = "professor"
+    if funcao == "coord":
+        funcao = "coordenador"
+    if materia == "bio":
+        materia = "biologia"
+    if materia == "mtm" or materia == "matematica":
+        materia = "matemática"
+    if materia == "geo":
+        materia = "geografia"
+    if materia == "filo":
+        materia = "filosofia"
+    if materia == "socio":
+        materia = "sociologia"
+    if materia == "hist" or materia == "historia":
+        materia = "história"
+    if materia == "ingles":
+        materia = "inglês"
+    if materia in eff:
+        materia = "educação física"
+    if materia == "fisica":
+        materia = "física"
+    if materia == "port" or materia == "port":
+        materia = "português"
+    if materia == "quimica":
+        materia = "química"
+    if materia == "coord":
+        materia = "coordenador"
+    if materia == "prof":
+        materia = "professor"
+    
     return True
 
 #def validar email
@@ -106,6 +134,9 @@ def validar_nome(nome):
 # valida o id do docente que o usuario colocou 
 def validar_id():
     while True:
+        conn = criar_conexao()
+        cursor = conn.cursor()
+        
         id_docente = input("Digite seu ID: ")
 
         if id_docente.strip() == "":
@@ -116,6 +147,16 @@ def validar_id():
             print("Apenas números!")
             continue
 
+        sql = "SELECT id_docente FROM professor WHERE id_docente = %s"
+
+        cursor.execute(sql, (id_docente,))
+
+        resultado = cursor.fetchone()
+
+        if resultado is None:
+            print("ID inválido!")
+            continue
+        
         return id_docente
 
 # verificacao da funcao do docente (se a funcao existe ou nao)
@@ -128,6 +169,11 @@ def verificar_funcao(funcao):
         print("----Funções: professor, coordenador, diretor----")
 
         return False
+    
+    if funcao == "prof":
+        funcao = "professor"
+    if funcao == "coor":
+        funcao = "coordenador"
     
     return True
 
@@ -190,8 +236,6 @@ def validar_matricula(matricula):
         erro()
         return 
     
-    return True
-
 #def validar matricula
 def verificar_matricula(matricula):
     conexao = criar_conexao()
@@ -200,7 +244,7 @@ def verificar_matricula(matricula):
     sql = "SELECT matricula_ID FROM alunos WHERE matricula_ID = %s"
 
     cursor.execute(sql, (matricula,))
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     if resultado is None:
         print("Matricula não encontrada")
@@ -260,7 +304,7 @@ def criar_login(Nome, Email, funcao, materia, senha):
         (Nome, Email, funcao, materia, senha)
     )
 
-    conn.commit()
+    conn.commit() 
 
     print("Usuário cadastrado com sucesso!")
 
@@ -274,7 +318,7 @@ def Entrar(id_docente, senha):
     sql = "SELECT * FROM professor WHERE id_docente = %s AND senha = %s"
     valores = (id_docente, senha)
     cursor.execute(sql, valores)
-    resultado = cursor.fetchone()  
+    resultado = cursor.fetchall()  
    
     cursor.close()
     conn.close()
@@ -306,10 +350,15 @@ def adicionar_nota(matricula):
                     case "1":
                         try:
                             notaX = float(input("Digite a nova nota 1: "))
+                            if not validar_nota(notaX):
+                                erro()
+                                continue
+                            notaX = validar_nota()
                         except:
                             erro()
-                            print("Digite apenas números!")
                             continue
+                        atualizar_nota(matricula, notaX)
+
                     case "2":
                         return 
                     case _:
@@ -327,11 +376,15 @@ def adicionar_nota(matricula):
                 match escolha:
                     case "1":
                         try:
-                            notaX = float(input("Digite a nova nota 2: "))
+                            notaX = float(input("Digite a nova nota 1: "))
+                            if not validar_nota(notaX):
+                                erro()
+                                continue
+                            notaX = validar_nota()
                         except:
                             erro()
-                            print("Digite apenas números!")
                             continue
+                        atualizar_nota(matricula, notaX)
                     case "2":
                         return 
                     case _:
@@ -349,11 +402,15 @@ def adicionar_nota(matricula):
                 match escolha:
                     case "1":
                         try:
-                            notaX = float(input("Digite a nova nota 2: "))
+                            notaX = float(input("Digite a nova nota 1: "))
+                            if not validar_nota(notaX):
+                                erro()
+                                continue
+                            notaX = validar_nota()
                         except:
                             erro()
-                            print("Digite apenas números!")
                             continue
+                        atualizar_nota(matricula, notaX)
                     case "2":
                         return 
                     case _:
@@ -371,11 +428,15 @@ def adicionar_nota(matricula):
                 match escolha:
                     case "1":
                         try:
-                            notaX = float(input("Digite a nova nota 4: "))
+                            notaX = float(input("Digite a nova nota 1: "))
+                            if not validar_nota(notaX):
+                                erro()
+                                continue
+                            notaX = validar_nota()
                         except:
                             erro()
-                            print("Digite apenas números!")
                             continue
+                        atualizar_nota(matricula, notaX)
                     case "2":
                         return 
                     case _:
@@ -390,21 +451,9 @@ def adicionar_nota(matricula):
             print("Escolha uma das opções dadas")
             continue
 
-        try:
-            notaX = int(notaX)
-        except:
-            print("Sua nota precisa ser um número")
-            erro()
-            continue
-
-        if notaX < 0 or notaX > 10:
-            print("As notas precisam ser entre 0 e 10")
-            erro()
-            return
-
         sql = f"""
         INSERT INTO notas
-            ({nota}, matricula_FK_ID)
+            ({notaX}, matricula_FK_ID)
 
         VALUES (%s, %s)
         """
@@ -415,6 +464,7 @@ def adicionar_nota(matricula):
         )
 
         cursor.execute(sql, valores)
+
         ler_notas_notas(matricula)
 
         print("Você gostaria de adicionar mais notas?")
@@ -426,73 +476,31 @@ def adicionar_nota(matricula):
             case "2":
                 break 
 
-        
-
     conn.commit()
+
     cursor.close()
     conn.close()
 
-
-
 # atualizar nota do aluno
-def atualizar_nota(matricula):
+def atualizar_nota(matricula, notaX):
     conexao = criar_conexao()
     cursor = conexao.cursor()
+    
+    sql = """
+    UPDATE notas
+    SET {notaX} = %s
+    WHERE matricula_FK_ID = %s
+    """
 
-    while True:
-        print("Qual nota você deseja atualizar?")
-        print(" | 1 - Nota 1")
-        print(" | 2 - Nota 2")
-        print(" | 3 - Nota 3")
-        print(" | 4 - Nota 4")
+    valores = (notaX, matricula)
+    cursor.execute(sql, valores)
+    conexao.commit()
 
-        opcao = input("Digite aqui: ").strip()
-
-        notas = {
-            "1": "nota1",
-            "2": "nota2",
-            "3": "nota3",
-            "4": "nota4"
-        }
-
-        if opcao not in notas:
-            erro()
-            print("Escolha uma opção válida!")
-            continue
-
-        coluna = notas[opcao]
-
-        try:
-            nova_nota = float(input("Digite a nova nota: "))
-        except:
-            erro()
-            print("Digite apenas números!")
-            continue
-
-        if nova_nota < 0 or nova_nota > 10:
-            erro()
-            print("A nota precisa estar entre 0 e 10")
-            continue
-
-        sql = f"""
-        UPDATE notas
-        SET {coluna} = %s
-        WHERE matricula_FK_ID = %s
-        """
-
-        valores = (nova_nota, matricula)
-
-        cursor.execute(sql, valores)
-        conexao.commit()
-
-        print("Nota atualizada com sucesso!")
-        break
+    print("Nota atualizada com sucesso!")
+    
 
     cursor.close()
     conexao.close()
-
-
-
 
 #adicionar professor (funcao diretor)
 def adicionar_professor():
@@ -565,10 +573,10 @@ def media(matricula):
         conn = criar_conexao()
         cursor = conn.cursor()
 
-        sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_ID = %s"
+        sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
 
-        resultado = cursor.fetchall()
+        resultado = cursor.fetchone()
 
         cursor.close()
         conn.close()
@@ -576,6 +584,11 @@ def media(matricula):
         if any(item is None for item in resultado):
             print("Nem todas as notas foram adicionadas \nPor favor adicione todas as notas antes de gerar a média")
             return False
+        
+        if None in resultado:
+            print("Nem todas as notas foram adicionadas.")
+            print("Por favor adicione todas as notas antes de gerar a média.")
+            return
 
         if resultado:
             nota1, nota2, nota3, nota4 = resultado    
@@ -606,7 +619,7 @@ def ler_docente():
     resultado = cursor.fetchall()
 
     # se nao tiver docente
-    if resultado is None:
+    if not resultado:
         print("Nenhum usuário cadastrado")
         erro()
         return False
@@ -760,25 +773,13 @@ def ler_notas(matricula):
     else:
         print("Aluno não encontrado.")
 
-    
 
     cursor.close()
     conexao.close()
-
-    while True:
-        print(resultado)
-        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
-        
-      
-        if oq in resultado:
-            print(f"Notas do aluno: {resultado[oq]}")
-            break
-        else:
-            print("Digite uma opção válida (Aluno não encontrado).")
-            continue
+    return resultado
 
 #ler notas, apenas notas
-def ler_notas_notas(matricula, dados_alunos):
+def ler_notas_notas(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
     
@@ -800,7 +801,8 @@ def ler_notas_notas(matricula, dados_alunos):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchall()
+    linha = cursor.fetchall()
+    resultado = linha[0]
 
     if resultado:
         print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
@@ -811,18 +813,8 @@ def ler_notas_notas(matricula, dados_alunos):
 
     cursor.close()
     conexao.close()
+    return resultado
 
-    while True:
-        print(resultado)
-        oq = input("De qual aluno você gostaria de ver as notas?\n: ").strip().lower()
-        
-      
-        if oq in dados_alunos:
-            print(f"Notas do aluno: {resultado[oq]}")
-            break
-        else:
-            print("Digite uma opção válida (Aluno não encontrado).")
-            continue
 
 #DEFs EXCLUIR
 
@@ -858,7 +850,7 @@ def excluir_nota(id_nota):
     cursor.execute(sql, (id_nota,))
     cursor.commit()
 
-
+    cursor.close()
 
 
 
@@ -869,9 +861,14 @@ def excluir_nota(id_nota):
 escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
 escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 
+#educacao fisica
+eff = ["edfisica", "edfísica","ef", "educaçao fisica", "educação fisica", "educaçao física", "educacao fisica", "educacão fisica", "educacao física"]
+
 #materias aceitas
-materias_escola = ["biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia", "sociologia", "artes","hist", "historia","história", "ingles","ef", "edfisica", "edfísica", "fisica", "física", "portugues","português", "quimica", "coordenador", "diretor", "prof", "coord"]
+materias_escola = [eff, "biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia","socio", "sociologia", "artes","hist", "historia","história", "ingles","inglês","ef", "edfisica", "edfísica", "fisica", "física","port", "portugues","português", "química", "quimica", "coordenador", "diretor", "prof", "coord"]
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 #array de turmas
 turmas = ["001", "002", "003", "004", "005"]
+
+
