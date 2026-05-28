@@ -189,11 +189,42 @@ while True:
                             media(matricula)
                          
                         elif op == "3":
-                            ...
+                            ler_alunos_completo()
+                            denovo()
+                            
                         
                         #alunos, create e delete
                         elif op == "4":
-                            ...        
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                            
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
+                                
+                            match op:
+                                case "0":
+                                    print("Você saiu")
+                                    break
+                                
+                                #adicionar
+                                case "1":
+                                    add_alunos()
+                                    denovo()
+
+                                                
+                                # excluir
+                                case "2":
+                                    ler_alunos()
+                                    excluir_aluno()
+                                    
+                                        
+                                # validacao
+                                case _:
+                                    erro()
+                                    print("tente novamente")
+                                    continue
+                                  
 
                 #diretor
                 case 3:  
