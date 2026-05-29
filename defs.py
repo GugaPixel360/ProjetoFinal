@@ -70,10 +70,10 @@ def validar_materia(materia):
         print("Selecione uma matéria válida ou cargo")
         return False
     
-    if funcao == "prof":
-        funcao = "professor"
-    if funcao == "coord":
-        funcao = "coordenador"
+    if materia == "prof":
+        materia = "professor"
+    if materia == "coord":
+        materia = "coordenador"
     if materia == "bio":
         materia = "biologia"
     if materia == "mtm" or materia == "matematica":
@@ -246,7 +246,7 @@ def verificar_matricula(matricula):
     cursor.execute(sql, (matricula,))
     resultado = cursor.fetchall()
 
-    if resultado is None:
+    if not resultado:
         print("Matricula não encontrada")
         
         cursor.close()
@@ -285,6 +285,7 @@ def add_alunos():
             (nome, idade, turma)
         )
 
+        conexao.commit()
         conexao.close()
         cursor.close()
         break   
@@ -799,6 +800,11 @@ def ler_notas_notas(matricula):
     cursor.execute(sql, (matricula,))
 
     linha = cursor.fetchall()
+
+    if not linha:
+        print("Nenhuma nota encontrada")
+        return
+
     resultado = linha[0]
 
     if resultado:
