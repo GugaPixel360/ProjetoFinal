@@ -32,7 +32,7 @@ def denovo():
             continue
 
         elif continuar == "1":
-            break
+            return
 
         elif continuar == "2":
             print("Sério? Ok né...")
@@ -40,6 +40,200 @@ def denovo():
         else:
             print("Valor inválido por favor responda com 1 ou 2.")
         print("=================")
+
+#defs professor
+def professor():
+    while True:
+                        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | Escreva aqui: ").strip()
+
+                        # espaço vazio
+                        if op.strip() == "":
+                            print("Campo vazio!")
+                            erro()
+                            continue
+
+                        # sair
+                        elif op == "0":
+                            print("Você saiu")
+                            exit()
+
+                        # manipular nota
+                        elif op == "1":
+                            while True:
+                                print("\nO que você gostaria de mexer?")
+                                op = input(" | 0 - Sair \n | 1 - adicionar \n | 2 - excluir\n | Digite aqui: ").strip()
+                                
+                                if op.strip() == "":
+                                    print("Campo vazio!")
+                                    continue
+                                    
+                                match op:
+                                    case "0":
+                                        print("Você saiu")
+                                        exit()
+
+                                    case "1":
+                                        ler_alunos()
+                                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                                        if not validar_matricula(matricula):
+                                            print("Selecione uma das opcoes")
+                                            erro()
+                                            continue
+
+                                        adicionar_nota(matricula)
+                                        if not denovo():
+                                            break
+
+                                            
+                                    case "2":
+                                        ler_alunos()
+                                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                                        ler_notas_notas(matricula)
+                                        excluir_nota(matricula)
+                                            
+                                    case _:
+                                        erro()
+                                        print("tente novamente")
+                                        continue
+        
+                        #situaçao do aluno
+                        elif op == "2":
+                            ler_alunos()
+                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if not verificar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
+                            if not validar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
+                            media(matricula)
+
+
+
+                        #informacoes do aluno
+                        elif op == "3":
+                            ler_alunos_completo()
+                            if not denovo():
+                                break
+
+# def coordenador 
+def coordenador():
+    while True:
+                        print("\33[30m==== OLÁ COORDENADOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+                        op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos ").strip()
+
+                        #Espaço vazio
+                        if op.strip() == "":
+                            print("Campo vazio!")
+                            erro()
+                            continue
+
+                        # sair
+                        elif op == "0":
+                            print("Você saiu")
+                            exit()
+
+                        # manipular nota 
+                        elif op == "1":
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                            
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
+                                
+                            match op:
+                                case "0":
+                                    print("Você saiu")
+                                    break
+                                
+                                #adicionar
+                                case "1":
+                                    ler_alunos()
+                                    matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                                    if not validar_matricula(matricula):
+                                        print("Selecione uma das opcoes")
+                                        erro()
+                                        continue
+
+                                    adicionar_nota(matricula)
+                                    denovo()
+
+                                                
+                                # excluir
+                                case "2":
+                                    ler_notas()
+                                    excluir_nota()
+                                    
+                                        
+                                # validacao
+                                case _:
+                                    erro()
+                                    print("tente novamente")
+                                    continue
+                        
+                        #situaçao do aluno
+                        elif op == "2":
+                            ler_alunos()
+                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+                            if not verificar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
+                            if not validar_matricula(matricula):
+                                print("Selecione uma das opcoes")
+                                erro()
+                                continue
+
+                            media(matricula)
+                         
+                        elif op == "3":
+                            ler_alunos_completo()
+                            denovo()
+                            
+                        
+                        #alunos, create e delete
+                        elif op == "4":
+                            print("O que você gostaria de mexer?")
+                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
+                            
+                            if op.strip() == "":
+                                print("Campo vazio!")
+                                continue
+                                
+                            match op:
+                                case "0":
+                                    print("Você saiu")
+                                    break
+                                
+                                #adicionar
+                                case "1":
+                                    add_alunos()
+                                    denovo()
+
+                                                
+                                # excluir
+                                case "2":
+                                    ler_alunos()
+                                    excluir_aluno()
+                                    
+                                        
+                                # validacao
+                                case _:
+                                    erro()
+                                    print("tente novamente")
+                                    continue
+
+# def diretor
+def diretor():
+    ...
+
 
 
 #DEFs DE VALIDACAO!!!!
@@ -350,15 +544,16 @@ def adicionar_nota(matricula):
                     case "1":
                         try:
                             notaX = float(input("Digite a nova nota 1: "))
-                            if not validar_nota(notaX):
-                                erro()
-                                continue
-                            notaX = validar_nota(notaX)
                         except:
                             erro()
                             continue
-                        atualizar_nota(matricula, notaX, nota)
 
+                        if not validar_nota(notaX):
+                            erro()
+                            continue
+                        notaX = validar_nota(notaX)
+
+                        atualizar_nota(matricula, notaX, nota)
                     case "2":
                         return 
                     case _:
@@ -366,7 +561,7 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                nota1 = float(input("Digite a nota 1: "))
+                notaX = float(input("Digite a nota 1: "))
         
         elif nota == "nota 2" or nota == "2":
             nota = "nota2"
@@ -392,7 +587,7 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                nota2 = float(input("Digite a nota 2: "))
+                notaX = float(input("Digite a nota 2: "))
         
         elif nota == "nota 3" or nota == "3":
             nota = "nota3"
@@ -418,7 +613,7 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                nota3 = float(input("Digite a nota 3: "))
+                notaX = float(input("Digite a nota 3: "))
         
         elif nota == "nota 4" or nota == "4":
             nota = "nota4"
@@ -444,24 +639,14 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                nota4 = float(input("Digite a nota 4: "))
+                notaX = float(input("Digite a nota 4: "))
 
         else:
             erro()
             print("Escolha uma das opções dadas")
             continue
 
-        sql = f"""
-        INSERT INTO notas
-            ({notaX}, matricula_FK_ID)
-
-        VALUES (%s, %s)
-        """
-
-        valores = (nota, matricula)
-
-        cursor.execute(sql, valores)
-
+        atualizar_nota(matricula, notaX, nota)
         ler_notas_notas(matricula)
 
         print("Você gostaria de adicionar mais notas?")
@@ -473,7 +658,6 @@ def adicionar_nota(matricula):
             case "2":
                 break 
 
-    conn.commit()
 
     cursor.close()
     conn.close()
@@ -484,10 +668,10 @@ def atualizar_nota(matricula, notaX, nota):
     cursor = conexao.cursor()
     
     sql = f"""
-    UPDATE notas
-    SET {nota} = %s
-    WHERE matricula_FK_ID = %s
-    """
+        UPDATE notas
+        SET {nota} = %s
+        WHERE matricula_FK_ID = %s
+        """
 
     valores = (notaX, matricula)
     cursor.execute(sql, valores)
@@ -841,18 +1025,32 @@ def excluir_professor(id_docente):
     conexao.close()
 
 #excluir nota
-def excluir_nota(id_nota):
+def excluir_nota(matricula):
     conexao = criar_conexao()
-
-    if conexao is None:
-        return
-
     cursor = conexao.cursor()
+    while True:
+        nota = input("Qual nota você gostaria de excluir (Todas as notas - 5): ").strip()
+        if nota == "5":
+            conexao = criar_conexao() 
+            cursor = conexao.cursor() 
+            sql = "DELETE FROM notas WHERE id = %s"
+            break
+        
+        if not nota in opcao_notas:
+            print("Escolha uma das opções")
+            continue
 
-    sql = "DELETE FROM notas WHERE id = %s"
+        sql = f"""
+            UPDATE notas
+            SET {nota} = NULL
+            WHERE matricula_FK_ID = %s
+            """
 
-    cursor.execute(sql, (id_nota,))
-    conexao.commit()
+        valores = (matricula,)
+        cursor.execute(sql, valores)
+        conexao.commit()
+        break
+    
 
     cursor.close()
     conexao.close()
@@ -876,4 +1074,5 @@ materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, ar
 #array de turmas
 turmas = ["001", "002", "003", "004", "005"]
 
-
+#notas que existem no sql
+opcao_notas = ["1", "nota 1", "nota1", "2", "nota 2", "nota2", "3", "nota 3", "nota3", "4", "nota 4", "nota4"]
