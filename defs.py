@@ -802,6 +802,7 @@ def media(matricula):
                 print("Status: Recuperação")
         else:
             print(f"Nenhuma nota encontrada para o aluno com ID {matricula}.")
+        break
 
 
 #DEFs LER
