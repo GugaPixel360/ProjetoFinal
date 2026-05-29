@@ -847,7 +847,7 @@ def excluir_professor(id_docente):
     conexao.close()
 
 #excluir nota
-def excluir_nota(id_nota):
+def excluir_nota(matricula):
     conexao = criar_conexao()
 
     if conexao is None:
@@ -855,9 +855,9 @@ def excluir_nota(id_nota):
 
     cursor = conexao.cursor()
 
-    sql = "DELETE FROM notas WHERE id = %s"
+    sql = "DELETE FROM notas WHERE matricula_FK_ID = %s"
 
-    cursor.execute(sql, (id_nota,))
+    cursor.execute(sql, (matricula,))
     conexao.commit()
 
     cursor.close()
