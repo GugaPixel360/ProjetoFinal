@@ -101,7 +101,7 @@ def validar_materia(materia):
     if materia == "prof":
         materia = "professor"
     
-    return True
+    return materia
 
 #def validar email
 def validar_email(Email):
@@ -547,11 +547,11 @@ def adicionar_professor():
         """
 
         valores = (
-            Nome,
-            Email,
-        
-            materia,
-            senha
+        Nome,
+        Email,
+        "professor",
+        materia,
+        senha
         )
 
         cursor.execute(sql, valores)
@@ -712,9 +712,13 @@ def ler_funcao(id_docente):
     resultado = cursor.fetchone()
 
 
-    for linha in resultado:
-        funcao_docente = linha
+    sql = "SELECT funcao_docente FROM professor WHERE id_docente = %s"
+    
+    resultado = cursor.fetchone()
 
+    funcao_docente = resultado[0]
+
+    
     if resultado:
         print(f"Seja bem vindo(a) {funcao_docente}")
         match funcao_docente:
@@ -754,7 +758,7 @@ def ler_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
     if resultado:
         print(f"""
@@ -876,7 +880,7 @@ escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 eff = ["edfisica", "edfísica","ef", "educaçao fisica", "educação fisica", "educaçao física", "educacao fisica", "educacão fisica", "educacao física"]
 
 #materias aceitas
-materias_escola = [eff, "biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia","socio", "sociologia", "artes","hist", "historia","história", "ingles","inglês","ef", "edfisica", "edfísica", "fisica", "física","port", "portugues","português", "química", "quimica", "coordenador", "diretor", "prof", "coord"]
+materias_escola = [ "biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia","socio", "sociologia", "artes","hist", "historia","história", "ingles","inglês","ef", "edfisica", "edfísica", "fisica", "física","port", "portugues","português", "química", "quimica", "coordenador", "diretor", "prof", "coord"]
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 #array de turmas
