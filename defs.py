@@ -264,10 +264,10 @@ def validar_materia(materia):
         print("Selecione uma matéria válida ou cargo")
         return False
     
-    if funcao == "prof":
-        funcao = "professor"
-    if funcao == "coord":
-        funcao = "coordenador"
+    if materia == "prof":
+        materia = "professor"
+    if materia == "coord":
+        materia = "coordenador"
     if materia == "bio":
         materia = "biologia"
     if materia == "mtm" or materia == "matematica":
@@ -295,7 +295,7 @@ def validar_materia(materia):
     if materia == "prof":
         materia = "professor"
     
-    return True
+    return materia
 
 #def validar email
 def validar_email(Email):
@@ -440,7 +440,7 @@ def verificar_matricula(matricula):
     cursor.execute(sql, (matricula,))
     resultado = cursor.fetchall()
 
-    if resultado is None:
+    if not resultado:
         print("Matricula não encontrada")
         
         cursor.close()
@@ -479,6 +479,7 @@ def add_alunos():
             (nome, idade, turma)
         )
 
+        conexao.commit()
         conexao.close()
         cursor.close()
         break   
@@ -730,11 +731,11 @@ def adicionar_professor():
         """
 
         valores = (
-            Nome,
-            Email,
-        
-            materia,
-            senha
+        Nome,
+        Email,
+        "professor",
+        materia,
+        senha
         )
 
         cursor.execute(sql, valores)
@@ -887,32 +888,42 @@ def ler_alunos():
 #retorna a funcao do docente
 def ler_funcao(id_docente):
     conn = criar_conexao()
+
+    if conn is None:
+        return
+
     cursor = conn.cursor()
-    sql = "SELECT * FROM professor WHERE id_docente = %s"
+
+    sql = """
+    SELECT funcao_docente
+    FROM professor
+    WHERE id_docente = %s
+    """
 
     cursor.execute(sql, (id_docente,))
 
     resultado = cursor.fetchone()
 
-
-    for linha in resultado:
-        funcao_docente = linha
-
-    if resultado:
-        print(f"Seja bem vindo(a) {funcao_docente}")
-        match funcao_docente:
-            case "professor":
-                return 1
-            case "coordenador":
-                return 2
-            case "diretor":
-                return 3
-
-    else:
-        print(f"O valor '{id_docente}' NÃO foi encontrado.")
-    
     cursor.close()
     conn.close()
+
+    if resultado is None:
+        print("ID não encontrado")
+        return
+
+    funcao_docente = resultado[0]
+
+    print(f"Seja bem vindo(a) {funcao_docente}")
+
+    match funcao_docente:
+        case "professor":
+            return 1
+
+        case "coordenador":
+            return 2
+
+        case "diretor":
+            return 3
 
 #ler notas
 def ler_notas(matricula):
@@ -937,7 +948,7 @@ def ler_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
     if resultado:
         print(f"""
@@ -983,6 +994,11 @@ def ler_notas_notas(matricula):
     cursor.execute(sql, (matricula,))
 
     linha = cursor.fetchall()
+
+    if not linha:
+        print("Nenhuma nota encontrada")
+        return
+
     resultado = linha[0]
 
     if resultado:
@@ -1068,7 +1084,7 @@ escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 eff = ["edfisica", "edfísica","ef", "educaçao fisica", "educação fisica", "educaçao física", "educacao fisica", "educacão fisica", "educacao física"]
 
 #materias aceitas
-materias_escola = [eff, "biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia","socio", "sociologia", "artes","hist", "historia","história", "ingles","inglês","ef", "edfisica", "edfísica", "fisica", "física","port", "portugues","português", "química", "quimica", "coordenador", "diretor", "prof", "coord"]
+materias_escola = [ "biologia","bio","mtm", "matematica","matemática","geo", "geografia","filo", "filosofia","socio", "sociologia", "artes","hist", "historia","história", "ingles","inglês","ef", "edfisica", "edfísica", "fisica", "física","port", "portugues","português", "química", "quimica", "coordenador", "diretor", "prof", "coord"]
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 #array de turmas
