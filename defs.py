@@ -1010,11 +1010,11 @@ def ler_notas_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
   
 
-    if not resultado:
+    if resultado is None:
         print("Aluno não encontrado.")
     else:
         print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
