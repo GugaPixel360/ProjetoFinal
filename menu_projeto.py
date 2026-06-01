@@ -13,7 +13,9 @@ from defs import *
 
 
 #Print inicial
-print("Bem vindo ao menu da escola Carrossel!\n" )
+print("======================================" )
+print("Bem vindo ao menu da escola Carrossel!" )
+print("======================================\n" )
 
 while True:
     op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ").strip()
@@ -76,12 +78,14 @@ while True:
                 funcao = input(f"Digite a sua função\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
                 if not verificar_funcao(funcao):
                     continue
+                funcao = verificar_funcao(funcao)
 
                 #materia
                 materia = input(f"Digite a sua matéria (Caso nao seja professor repita a sua função)\n| Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
                 if not validar_materia(materia):
                     erro()
                     continue
+                materia = validar_materia(materia)
                 
                 #senha
                 senha = validar_senha()
