@@ -32,6 +32,7 @@ def denovo():
             continue
 
         elif continuar == "1":
+            print("=================\n")
             return
 
         elif continuar == "2":
@@ -73,6 +74,7 @@ def professor():
                                         print("Você saiu")
                                         exit()
 
+                                    # adicionar
                                     case "1":
                                         ler_alunos()
                                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
@@ -85,7 +87,7 @@ def professor():
                                         if not denovo():
                                             break
 
-                                            
+                                    # excluir                                             
                                     case "2":
                                         ler_alunos()
                                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
@@ -96,11 +98,13 @@ def professor():
 
                                         matricula = validar_matricula(matricula)
 
-                                        if not verificar_matricula(matricula):
+                                        if not matricula:
                                             erro()
                                             continue
 
-                                        ler_notas_notas(matricula)
+                                        if not ler_notas_notas(matricula):
+                                            continue
+
                                         excluir_nota(matricula)
                                         if not denovo():
                                             break
@@ -125,8 +129,6 @@ def professor():
                                 continue
 
                             media(matricula)
-
-
 
                         #informacoes do aluno
                         elif op == "3":
@@ -698,7 +700,9 @@ def atualizar_nota(matricula, notaX, nota):
     cursor.execute(sql, valores)
     conexao.commit()
 
+    print("---------------------------")
     print("Nota atualizada com sucesso!")
+    print("---------------------------\n")
 
     cursor.close()
     conexao.close()
@@ -1026,8 +1030,13 @@ def ler_notas_notas(matricula):
 
     if resultado is None:
         print("Aluno não encontrado.")
-    else:
-        print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
+        return False
+
+    print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
+
+    if resultado[1] is None and resultado[2] is None and resultado[3] is None and resultado[4] is None:
+        print ("O aluno nao tem notas cadastradas")
+        return False
 
     
 
@@ -1067,46 +1076,34 @@ def excluir_professor(id_docente):
 def excluir_nota(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
+
+
     while True:
-        conexao = criar_conexao() 
-        cursor = conexao.cursor() 
-
-        sql = """
-        UPDATE notas
-        SET nota1 = NULL,
-            nota2 = NULL,
-            nota3 = NULL,
-            nota4 = NULL
-            WHERE matricula_FK_ID = %s
-            """
-        
         nota = input("Qual nota você gostaria de excluir (Todas as notas - 5): ").strip()
-
         if nota == "5":
-            cursor.execute(sql)
-            continue
+            excluir_5(matricula)
             
-            
+        ###############################################################
         
-        if not nota in opcao_notas:
+        elif not nota in opcao_notas:
             print("Escolha uma das opções")
             continue
 
-        sql = f"""
-            UPDATE notas
-            SET {nota} = NULL
-            WHERE matricula_FK_ID = %s
-            """
-
-
-        # execucao
-        
-        cursor.execute(sql, matricula,)
-        conexao.commit()
+        elif True:
+                
+            sql = f"""
+                UPDATE notas
+                SET {nota} = NULL
+                WHERE matricula_FK_ID = %s
+                """
+            
+            valores = (matricula,)
+            cursor.execute(sql, valores)
+            conexao.commit()
         
 
         #denovo
-        print("Você gostaria de adicionar mais notas?")
+        print("Você gostaria de excluir mais notas?")
         print(" | 1 - Sim \n | 2 - não")
         op = input("Escreva aqui: ")
         match op:
@@ -1119,7 +1116,30 @@ def excluir_nota(matricula):
     cursor.close()
     conexao.close()
 
-    return
+#Excluir todas as notas
+def excluir_5(matricula):
+    conexao = criar_conexao() 
+    cursor = conexao.cursor() 
+    sql = """
+    UPDATE notas
+    SET nota1 = NULL,
+        nota2 = NULL,
+        nota3 = NULL,
+        nota4 = NULL
+    WHERE matricula_FK_ID = %s
+    """
+
+    valores = (matricula,)
+    cursor.execute(sql, valores)
+    conexao.commit()
+            
+    cursor.close()
+    conexao.close()
+
+    ler_notas_notas()
+    
+
+
 
 #LISTAS
 
