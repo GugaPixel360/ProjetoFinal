@@ -778,6 +778,13 @@ def media(matricula):
         conn = criar_conexao()
         cursor = conn.cursor()
 
+        sqlnome = "SELECT nome_aluno FROM alunos WHERE matricula_ID = %s"
+        
+        
+        cursor.execute(sqlnome, (matricula,))
+
+        resultnome = cursor.fetchall()
+        
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
 
@@ -799,7 +806,7 @@ def media(matricula):
             nota1, nota2, nota3, nota4 = resultado    
             media = (nota1 + nota2 + nota3 + nota4) / 4
         
-            print(f"Notas do aluno {matricula}: {nota1}, {nota2}, {nota3}, {nota4}")
+            print(f"Notas do {resultnome}: {nota1}, {nota2}, {nota3}, {nota4}")
             print(f"Média final: {media}")
         
         
