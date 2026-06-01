@@ -774,6 +774,13 @@ def media(matricula):
         conn = criar_conexao()
         cursor = conn.cursor()
 
+        sqlnome = "SELECT nome_aluno FROM alunos WHERE matricula_ID = %s"
+        
+        
+        cursor.execute(sqlnome, (matricula,))
+
+        resultnome = cursor.fetchall()
+        
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
 
@@ -795,7 +802,7 @@ def media(matricula):
             nota1, nota2, nota3, nota4 = resultado    
             media = (nota1 + nota2 + nota3 + nota4) / 4
         
-            print(f"Notas do aluno {matricula}: {nota1}, {nota2}, {nota3}, {nota4}")
+            print(f"Notas do {resultnome}: {nota1}, {nota2}, {nota3}, {nota4}")
             print(f"Média final: {media}")
         
         
@@ -1061,19 +1068,24 @@ def excluir_nota(matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
     while True:
-        nota = input("Qual nota você gostaria de excluir (Todas as notas - 5): ").strip()
-        if nota == "5":
-            conexao = criar_conexao() 
-            cursor = conexao.cursor() 
-            sql = """
-            UPDATE notas
-            SET nota1 = NULL,
-                nota2 = NULL,
-                nota3 = NULL,
-                nota4 = NULL
+        conexao = criar_conexao() 
+        cursor = conexao.cursor() 
+
+        sql = """
+        UPDATE notas
+        SET nota1 = NULL,
+            nota2 = NULL,
+            nota3 = NULL,
+            nota4 = NULL
             WHERE matricula_FK_ID = %s
             """
+        
+        nota = input("Qual nota você gostaria de excluir (Todas as notas - 5): ").strip()
+
+        if nota == "5":
+            cursor.execute(sql)
             continue
+            
             
         
         if not nota in opcao_notas:
@@ -1088,8 +1100,8 @@ def excluir_nota(matricula):
 
 
         # execucao
-        valores = (matricula,)
-        cursor.execute(sql, valores)
+        
+        cursor.execute(sql, matricula,)
         conexao.commit()
         
 
@@ -1103,11 +1115,11 @@ def excluir_nota(matricula):
             case "2":
                 break 
     
-
+        
     cursor.close()
     conexao.close()
 
-
+    return
 
 #LISTAS
 
