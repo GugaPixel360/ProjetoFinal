@@ -78,7 +78,7 @@ def professor():
                     case "1":
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                        if not validar_matricula(matricula):
+                        if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
                             continue
@@ -384,8 +384,10 @@ def coordenador():
 
 # def diretor
 def diretor():
-    ...
-
+    while True:
+        print("\33[30m==== OLÁ COORDENADOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+        op = input(" | 0 - Sair \n | 1 - Excluir alunos \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | 4 - Matricular Aluno | 5 - N| Escreva aqui: ").strip()
+        break
 
 
 #DEFs DE VALIDACAO!!!!
@@ -610,10 +612,8 @@ def verificar_matricula(matricula):
 
     if not resultado:
         print("Matricula não encontrada")
-        
-        cursor.close()
-        conexao.close()
         return
+        
 
     cursor.close()
     conexao.close()
@@ -929,8 +929,9 @@ def media(matricula):
         
         cursor.execute(sqlnome, (matricula,))
 
-        resultnome = cursor.fetchall()[0][0]
-        
+        resultnome = cursor.fetchall()
+        nomebonito = resultnome[0][0]
+
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
 
@@ -952,7 +953,7 @@ def media(matricula):
             nota1, nota2, nota3, nota4 = resultado    
             media = (nota1 + nota2 + nota3 + nota4) / 4
         
-            print(f"Notas do {resultnome}: {nota1}, {nota2}, {nota3}, {nota4}")
+            print(f"Notas do {nomebonito}: {nota1}, {nota2}, {nota3}, {nota4}")
             print(f"Média final: {media}")
         
         
@@ -1304,7 +1305,23 @@ def excluir_5(matricula):
 
     ler_notas_notas(matricula)
     
+def visualizarnota(matricula):
+    conexao = criar_conexao() 
+    cursor = conexao.cursor()
+    
+    sqlnome = "SELECT nome_aluno FROM alunos WHERE matricula_ID = %s"
 
+    cursor.execute(sqlnome)
+
+    resultnome = cursor.fetchall()[0][0]
+
+    sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
+
+    cursor.execute(sql, (matricula,))
+
+    print(f"Notas do {nomebonito}: {nota1}, {nota2}, {nota3}, {nota4}")
+
+    
 
 
 #LISTAS
