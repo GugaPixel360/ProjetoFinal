@@ -47,7 +47,10 @@ def professor():
     while True:
                         print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
                         op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | Escreva aqui: ").strip()
-
+                        
+                        if op not in ["0", "1", "2", "3"]:
+                            print("Selecione uma das opções!")
+                            continue
                         # espaço vazio
                         if op.strip() == "":
                             print("Campo vazio!")
@@ -63,7 +66,7 @@ def professor():
                         elif op == "1":
                             while True:
                                 print("\nO que você gostaria de mexer?")
-                                op = input(" | 0 - Sair \n | 1 - adicionar \n | 2 - excluir\n | Digite aqui: ").strip()
+                                op = input(" | 0 - Sair \n | 1 - adicionar \n | 2 - excluir\n | 3 - Visualizar Notas | Digite aqui: ").strip()
                                 
                                 if op.strip() == "":
                                     print("Campo vazio!")
@@ -108,7 +111,8 @@ def professor():
                                         excluir_nota(matricula)
                                         if not denovo():
                                             break
-                                            
+                                    case "3":
+                                        visualizarnota()        
                                     case _:
                                         erro()
                                         print("tente novamente")
@@ -247,8 +251,10 @@ def coordenador():
 
 # def diretor
 def diretor():
-    ...
-
+    while True:
+        print("\33[30m==== OLÁ COORDENADOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+        op = input(" | 0 - Sair \n | 1 - Excluir alunos \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | 4 - Matricular Aluno | 5 - N| Escreva aqui: ").strip()
+        break
 
 
 #DEFs DE VALIDACAO!!!!
@@ -784,7 +790,8 @@ def media(matricula):
         cursor.execute(sqlnome, (matricula,))
 
         resultnome = cursor.fetchall()
-        
+        nomebonito = resultnome[0][0]
+
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
 
@@ -806,7 +813,7 @@ def media(matricula):
             nota1, nota2, nota3, nota4 = resultado    
             media = (nota1 + nota2 + nota3 + nota4) / 4
         
-            print(f"Notas do {resultnome}: {nota1}, {nota2}, {nota3}, {nota4}")
+            print(f"Notas do {nomebonito}: {nota1}, {nota2}, {nota3}, {nota4}")
             print(f"Média final: {media}")
         
         
@@ -1138,7 +1145,23 @@ def excluir_5(matricula):
 
     ler_notas_notas()
     
+def visualizarnota(matricula):
+    conexao = criar_conexao() 
+    cursor = conexao.cursor()
+    
+    sqlnome = "SELECT nome_aluno FROM alunos WHERE matricula_ID = %s"
 
+    cursor.execute(sqlnome)
+
+    resultnome = cursor.fetchall()[0][0]
+
+    sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
+
+    cursor.execute(sql, (matricula,))
+
+    print(f"Notas do {nomebonito}: {nota1}, {nota2}, {nota3}, {nota4}")
+
+    
 
 
 #LISTAS
