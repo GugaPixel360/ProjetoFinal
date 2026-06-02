@@ -36,218 +36,324 @@ def denovo():
             return
 
         elif continuar == "2":
-            print("Você saiu, obrigado por ultilikzar nosso sistema!")
+            print("Você saiu, obrigado por ultilizar nosso sistema!")
             exit()
-        else:
+        else: 
             print("Valor inválido por favor responda com 1 ou 2.")
         print("=================")
 
 #defs professor
 def professor():
     while True:
-                        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-                        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | Escreva aqui: ").strip()
-                        
-                        if op not in ["0", "1", "2", "3"]:
-                            print("Selecione uma das opções!")
-                            continue
-                        # espaço vazio
-                        if op.strip() == "":
-                            print("Campo vazio!")
+        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Média/Situação do aluno \n | 3 - Informações do aluno \n | Escreva aqui: ").strip()
+
+        # espaço vazio
+        if op.strip() == "":
+            print("Campo vazio!")
+            erro()
+            continue
+
+        # sair
+        elif op == "0":
+            print("Você saiu")
+            exit()
+
+        # manipular nota
+        elif op == "1":
+            while True:
+                print("\nO que você gostaria de mexer?")
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()
+                                
+                if op.strip() == "":
+                    print("Campo vazio!")
+                    continue
+                                    
+                match op:
+                    case "0":
+                        print("Você saiu")
+                        exit()
+
+                    # adicionar
+                    case "1":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
                             erro()
                             continue
 
-                        # sair
-                        elif op == "0":
-                            print("Você saiu")
-                            exit()
+                        adicionar_nota(matricula)
+                        if not denovo():
+                            break
 
-                        # manipular nota
-                        elif op == "1":
-                            while True:
-                                print("\nO que você gostaria de mexer?")
-                                op = input(" | 0 - Sair \n | 1 - adicionar \n | 2 - excluir\n | 3 - Visualizar Notas | Digite aqui: ").strip()
-                                
-                                if op.strip() == "":
-                                    print("Campo vazio!")
-                                    continue
-                                    
-                                match op:
-                                    case "0":
-                                        print("Você saiu")
-                                        exit()
+                    # excluir                                             
+                    case "2":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
 
-                                    # adicionar
-                                    case "1":
-                                        ler_alunos()
-                                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                                        if not validar_matricula(matricula):
-                                            print("Selecione uma das opcoes")
-                                            erro()
-                                            continue
+                        a, b = ler_notas_notas(matricula)
 
-                                        adicionar_nota(matricula)
-                                        if not denovo():
+                        if not a:
+                            continue
+
+                        excluir_nota(matricula)
+                        if not denovo():
                                             break
+                                            
+                    # ver notas 
+                    case "3":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
 
-                                    # excluir                                             
-                                    case "2":
-                                        ler_alunos()
-                                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                                        if not validar_matricula(matricula):
-                                            print("Selecione uma das opcoes")
-                                            erro()
-                                            continue
+                        a, b = ler_notas_notas(matricula)
 
-                                        matricula = validar_matricula(matricula)
+                        if not a:
+                            continue
 
-                                        if not matricula:
-                                            erro()
-                                            continue
+                        denovo()
 
-                                        if not ler_notas_notas(matricula):
-                                            continue
-
-                                        excluir_nota(matricula)
-                                        if not denovo():
-                                            break
-                                    case "3":
-                                        visualizarnota()        
-                                    case _:
-                                        erro()
-                                        print("tente novamente")
-                                        continue
+                    case _:
+                        erro()
+                        print("tente novamente")
+                        continue
         
-                        #situaçao do aluno
-                        elif op == "2":
-                            ler_alunos()
-                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
-                            if not verificar_matricula(matricula):
-                                print("Selecione uma das opcoes")
-                                erro()
-                                continue
+        #situaçao do aluno
+        elif op == "2":
+            ler_alunos()
+            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+            if not verificar_matricula(matricula):
+                print("Selecione uma das opcoes")
+                erro()
+                continue
 
-                            if not validar_matricula(matricula):
-                                print("Selecione uma das opcoes")
-                                erro()
-                                continue
+            if not validar_matricula(matricula):
+                print("Selecione uma das opcoes")
+                erro()
+                continue
 
-                            media(matricula)
+            media(matricula)
 
-                        #informacoes do aluno
-                        elif op == "3":
-                            ler_alunos_completo()
-                            if not denovo():
-                                break
+        #informacoes do aluno
+        elif op == "3":
+            ler_alunos_completo()
+            if not denovo():
+                break
+
+        #validacao
+        else:
+            erro()
+            print("Selecioe uma das opcoes")
+            print("tente novamente")
+            continue
+
+
 
 # def coordenador 
 def coordenador():
     while True:
-                        print("\33[30m==== OLÁ COORDENADOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-                        op = input("0 - Sair \n | 1 - Nota \n | 2 - Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos ").strip()
+        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Média/Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos \n | Escreva aqui: ").strip()
 
-                        #Espaço vazio
-                        if op.strip() == "":
-                            print("Campo vazio!")
+        # espaço vazio
+        if op.strip() == "":
+            print("Campo vazio!")
+            erro()
+            continue
+
+        # sair
+        elif op == "0":
+            print("Você saiu")
+            exit()
+
+        # manipular nota
+        elif op == "1":
+            while True:
+                print("\nO que você gostaria de mexer?")
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()
+                                
+                if op.strip() == "":
+                    print("Campo vazio!")
+                    continue
+                                    
+                match op:
+                    case "0":
+                        print("Você saiu")
+                        exit()
+
+                    # adicionar
+                    case "1":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
                             erro()
                             continue
 
-                        # sair
-                        elif op == "0":
-                            print("Você saiu")
-                            exit()
+                        adicionar_nota(matricula)
+                        if not denovo():
+                            break
 
-                        # manipular nota 
-                        elif op == "1":
-                            print("O que você gostaria de mexer?")
-                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
-                            
-                            if op.strip() == "":
-                                print("Campo vazio!")
-                                continue
-                                
-                            match op:
-                                case "0":
-                                    print("Você saiu")
-                                    break
-                                
-                                #adicionar
-                                case "1":
-                                    ler_alunos()
-                                    matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                                    if not validar_matricula(matricula):
-                                        print("Selecione uma das opcoes")
-                                        erro()
-                                        continue
+                    # excluir                                             
+                    case "2":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
 
-                                    adicionar_nota(matricula)
-                                    denovo()
+                        a, b = ler_notas_notas(matricula)
 
-                                                
-                                # excluir
-                                case "2":
-                                    ler_notas()
-                                    excluir_nota()
+                        if not a:
+                            continue
+
+                        excluir_nota(matricula)
+                        if not denovo():
+                                            break
+                                            
+                    # ver notas 
+                    case "3":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
+
+                        a, b = ler_notas_notas(matricula)
+
+                        if not a:
+                            continue
+
+                        denovo()
+
+                    case _:
+                        erro()
+                        print("tente novamente")
+                        continue
+        
+        #situaçao do aluno
+        elif op == "2":
+            ler_alunos()
+            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+            if not verificar_matricula(matricula):
+                print("Selecione uma das opcoes")
+                erro()
+                continue
+
+            if not validar_matricula(matricula):
+                print("Selecione uma das opcoes")
+                erro()
+                continue
+
+            media(matricula)
+
+        #informacoes do aluno
+        elif op == "3":
+            ler_alunos_completo()
+            if not denovo():
+                break
+
+        #manipulaçao de alunos 
+        elif op == "4":
+            while True:
+                print("\nO que você gostaria de mexer?")
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()   
+
+                if op.strip() == "":
+                    print("Campo vazio!")
+                    continue
                                     
-                                        
-                                # validacao
-                                case _:
-                                    erro()
-                                    print("tente novamente")
-                                    continue
+                match op:
+                    case "0":
+                        print("Você saiu")
+                        exit()
+
+                    # adicionar
+                    case "1":
+                        ...
                         
-                        #situaçao do aluno
-                        elif op == "2":
-                            ler_alunos()
-                            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
-                            if not verificar_matricula(matricula):
-                                print("Selecione uma das opcoes")
-                                erro()
-                                continue
 
-                            if not validar_matricula(matricula):
-                                print("Selecione uma das opcoes")
-                                erro()
-                                continue
+                    # excluir                                             
+                    case "2":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de excluir (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
 
-                            media(matricula)
-                         
-                        elif op == "3":
-                            ler_alunos_completo()
-                            denovo()
-                            
-                        
-                        #alunos, create e delete
-                        elif op == "4":
-                            print("O que você gostaria de mexer?")
-                            op = input("0 - Sair \n | 1 - adicionar \n | 2 - excluir").strip()
-                            
-                            if op.strip() == "":
-                                print("Campo vazio!")
-                                continue
-                                
-                            match op:
-                                case "0":
-                                    print("Você saiu")
-                                    break
-                                
-                                #adicionar
-                                case "1":
-                                    add_alunos()
-                                    denovo()
+                        a, b = ler_notas_notas(matricula)
 
-                                                
-                                # excluir
-                                case "2":
-                                    ler_alunos()
-                                    excluir_aluno()
-                                    
-                                        
-                                # validacao
-                                case _:
-                                    erro()
-                                    print("tente novamente")
-                                    continue
+                        if not a:
+                            continue
+
+                        excluir_nota(matricula)
+                        if not denovo():
+                                            break
+                                            
+                    # ver notas 
+                    case "3":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                                            print("Selecione uma das opcoes")
+                                            erro()
+                                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
+
+                        a, b = ler_notas_notas(matricula)
+
+                        if not a:
+                            continue
+
+                        ler_notas_notas(matricula)
+                        denovo()
+
+                    case _:
+                        erro()
+                        print("tente novamente")
+                        continue
+        
+        #validacao
+        else:
+            erro()
+            print("Selecioe uma das opcoes")
+            print("tente novamente")
+            continue
+
 
 # def diretor
 def diretor():
@@ -555,7 +661,7 @@ def adicionar_nota(matricula):
 
     while True:
         print ("Qual nota você gostaria de adicionar?")
-        resultado = ler_notas_notas(matricula)
+        a, resultado = ler_notas_notas(matricula)
         nota = input("Escreva aqui: ").strip().lower()
 
         if nota == "nota 1" or nota == "1":
@@ -1037,19 +1143,19 @@ def ler_notas_notas(matricula):
 
     if resultado is None:
         print("Aluno não encontrado.")
-        return False
+        return False, resultado
 
     print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
 
     if resultado[1] is None and resultado[2] is None and resultado[3] is None and resultado[4] is None:
         print ("O aluno nao tem notas cadastradas")
-        return False
+        return False, resultado
 
     
 
     cursor.close()
     conexao.close()
-    return resultado
+    return True, resultado
 
 
 #DEFs EXCLUIR
@@ -1089,15 +1195,35 @@ def excluir_nota(matricula):
         nota = input("Qual nota você gostaria de excluir (Todas as notas - 5): ").strip()
         if nota == "5":
             excluir_5(matricula)
-            
+
         ###############################################################
-        
+
+        if nota == "1" or nota == "nota 1":
+            nota = "nota1"
+            indice = 1
+
+        elif nota == "2" or nota == "nota 2":
+            nota = "nota2"
+            indice = 2
+
+        elif nota == "3" or nota == "nota 3":
+            nota = "nota3"
+            indice = 3
+
+        elif nota == "4" or nota == "nota 4":
+            nota = "nota4"
+            indice = 4
+
+
         elif not nota in opcao_notas:
             print("Escolha uma das opções")
             continue
 
+        a, b = ler_notas_notas(matricula)
+        if b[indice] is None:
+            print ("A nota escolhida não tem valor, não é possível exclui-la")
+
         elif True:
-                
             sql = f"""
                 UPDATE notas
                 SET {nota} = NULL
@@ -1109,6 +1235,10 @@ def excluir_nota(matricula):
             conexao.commit()
         
 
+        ler_notas_notas(matricula)
+        cursor.close()
+        conexao.close()
+
         #denovo
         print("Você gostaria de excluir mais notas?")
         print(" | 1 - Sim \n | 2 - não")
@@ -1119,10 +1249,6 @@ def excluir_nota(matricula):
             case "2":
                 break 
     
-        
-    cursor.close()
-    conexao.close()
-
 #Excluir todas as notas
 def excluir_5(matricula):
     conexao = criar_conexao() 
@@ -1143,7 +1269,7 @@ def excluir_5(matricula):
     cursor.close()
     conexao.close()
 
-    ler_notas_notas()
+    ler_notas_notas(matricula)
     
 def visualizarnota(matricula):
     conexao = criar_conexao() 
@@ -1183,5 +1309,3 @@ turmas = ["001", "002", "003", "004", "005"]
 
 #notas que existem no sql
 opcao_notas = ["1", "nota 1", "nota1", "2", "nota 2", "nota2", "3", "nota 3", "nota3", "4", "nota 4", "nota4"]
-
-
