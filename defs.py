@@ -163,12 +163,10 @@ def professor():
             print("tente novamente")
             continue
 
-
-
 # def coordenador 
 def coordenador():
     while True:
-        print("\33[30m==== OLÁ PROFESSOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
+        print("\33[30m==== OLÁ COORDENADOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
         op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Média/Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos \n | Escreva aqui: ").strip()
 
         # espaço vazio
@@ -296,7 +294,37 @@ def coordenador():
 
                     # adicionar
                     case "1":
-                        ...
+                        while True:
+                            print ("\33[34m===============\033[m")
+                            
+                            #nome
+                            Nome = input("Digite o nome completo do aluno: ").capitalize()               
+                            if not validar_nome(Nome):
+                                erro()
+                                print("Preencha o campo corretamente")
+                                continue
+
+                            #idade
+                            idade = input("Digite a idade do aluno: ")
+                            if not validar_idade(idade):
+                                continue
+                            
+                            #turma do aluno
+                            turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
+                            if not validar_turma(turma):
+                                continue
+                            turma = validar_turma(turma)
+
+                            #criar login
+                            try:
+                                adicionar_alunos(Nome,idade,turma)
+                            except:
+                                print("Ocorreu um erro ao adicionar o aluno.")
+                                erro()
+                            break
+                        denovo()
+                        if not denovo():
+                            break
                         
 
                     # excluir                                             
@@ -319,7 +347,7 @@ def coordenador():
 
                         excluir_nota(matricula)
                         if not denovo():
-                                            break
+                            break
                                             
                     # ver notas 
                     case "3":
@@ -354,7 +382,6 @@ def coordenador():
             print("tente novamente")
             continue
 
-
 # def diretor
 def diretor():
     ...
@@ -363,6 +390,19 @@ def diretor():
 
 #DEFs DE VALIDACAO!!!!
 
+
+#validar idade
+def validar_idade(idade):
+    if idade.strip() == "":
+        print("Campo vazio!")
+        return False
+
+
+    if not idade.isdigit():
+        print("Apenas números!")
+        return False
+
+    return True
 
 #validar nota
 def validar_nota(nota):
@@ -494,6 +534,8 @@ def verificar_funcao(funcao):
         funcao = "professor"
     if funcao == "coor":
         funcao = "coordenador"
+    if funcao == "coord":
+        funcao = "coordenador"
     
     return funcao
 
@@ -583,32 +625,26 @@ def verificar_matricula(matricula):
 
 
 #adicionar alunos
-def add_alunos():
-    while True:
+def adicionar_alunos(nome, idade, turma):
+    conn = criar_conexao()
 
-        conexao = criar_conexao()  
-        cursor = conexao.cursor()
+    if conn is None:
+        print("Falha na conexão")
+        return
 
-        nome = input("Digite o nome do aluno: ")
-        print()
-        idade = int(input("Digie a idade do aluno:"))
-        print()
-        print(turmas)
-        turma = input("Digite a turma do aluno: ")
+    cursor = conn.cursor()
 
-        if turma not in turmas:
-            print("Turma não encontrada")
-            continue
+    cursor.execute(
+        "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
+        (Nome, Email, funcao, materia, senha)
+    )
 
-        cursor.execute(
-            "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
-            (nome, idade, turma)
-        )
+    conn.commit() 
 
-        conexao.commit()
-        conexao.close()
-        cursor.close()
-        break   
+    print("Usuário cadastrado com sucesso!")
+
+    cursor.close()
+    conn.close()
 
 #def de cadastro
 def criar_login(Nome, Email, funcao, materia, senha):
@@ -1286,7 +1322,8 @@ materias_escola = [ "biologia","bio","mtm", "matematica","matemática","geo", "g
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 #array de turmas
-turmas = ["001", "002", "003", "004", "005"]
+turmas = ["1° Desenvolvimento de sistemas", "2° Desenvolvimento de sistemas", "3° Desenvolvimento de sistemas", "1° Desenvolvimento de jogos", "2° Desenvolvimento de jogos", "3° Desenvolvimento de jogos"]
+turma = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "2° Desenvolvimento de sistemas","2 ds", "2ds", "3° Desenvolvimento de sistemas","3ds", "3 ds","1 jogos", "1° Desenvolvimento de jogos","1jogos","2 jogos", "2° Desenvolvimento de jogos", "2jogos", "3° Desenvolvimento de jogos", "3 jogos", "3jogos"]
 
 #notas que existem no sql
 opcao_notas = ["1", "nota 1", "nota1", "2", "nota 2", "nota2", "3", "nota 3", "nota3", "4", "nota 4", "nota4"]

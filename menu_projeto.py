@@ -51,7 +51,6 @@ while True:
                 case 2:
                     coordenador()
                                   
-
                 #diretor
                 case 3:  
                     diretor()
