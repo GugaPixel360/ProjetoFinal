@@ -78,7 +78,7 @@ def professor():
                     case "1":
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                        if not validar_matricula(matricula):
+                        if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
                             continue
@@ -570,10 +570,8 @@ def verificar_matricula(matricula):
 
     if not resultado:
         print("Matricula não encontrada")
-        
-        cursor.close()
-        conexao.close()
         return
+        
 
     cursor.close()
     conexao.close()
