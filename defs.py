@@ -114,9 +114,9 @@ def professor():
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
-                                            print("Selecione uma das opcoes")
-                                            erro()
-                                            continue
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
                         matricula = validar_matricula(matricula)
                         if not matricula:
                             erro()
@@ -127,7 +127,6 @@ def professor():
                         if not a:
                             continue
 
-                        ler_notas_notas(matricula)
                         denovo()
 
                     case _:
@@ -157,6 +156,15 @@ def professor():
             if not denovo():
                 break
 
+        #validacao
+        else:
+            erro()
+            print("Selecioe uma das opcoes")
+            print("tente novamente")
+            continue
+
+
+
 # def coordenador 
 def coordenador():
     while True:
@@ -174,9 +182,104 @@ def coordenador():
             print("Você saiu")
             exit()
 
-            ##########################  PROFESSOR   ##########################
-            # 
+        # manipular nota
+        elif op == "1":
+            while True:
+                print("\nO que você gostaria de mexer?")
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()
+                                
+                if op.strip() == "":
+                    print("Campo vazio!")
+                    continue
+                                    
+                match op:
+                    case "0":
+                        print("Você saiu")
+                        exit()
 
+                    # adicionar
+                    case "1":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+
+                        adicionar_nota(matricula)
+                        if not denovo():
+                            break
+
+                    # excluir                                             
+                    case "2":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
+
+                        a, b = ler_notas_notas(matricula)
+
+                        if not a:
+                            continue
+
+                        excluir_nota(matricula)
+                        if not denovo():
+                                            break
+                                            
+                    # ver notas 
+                    case "3":
+                        ler_alunos()
+                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
+
+                        a, b = ler_notas_notas(matricula)
+
+                        if not a:
+                            continue
+
+                        denovo()
+
+                    case _:
+                        erro()
+                        print("tente novamente")
+                        continue
+        
+        #situaçao do aluno
+        elif op == "2":
+            ler_alunos()
+            matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
+            if not verificar_matricula(matricula):
+                print("Selecione uma das opcoes")
+                erro()
+                continue
+
+            if not validar_matricula(matricula):
+                print("Selecione uma das opcoes")
+                erro()
+                continue
+
+            media(matricula)
+
+        #informacoes do aluno
+        elif op == "3":
+            ler_alunos_completo()
+            if not denovo():
+                break
+
+        #manipulaçao de alunos 
         elif op == "4":
             while True:
                 print("\nO que você gostaria de mexer?")
@@ -244,6 +347,13 @@ def coordenador():
                         print("tente novamente")
                         continue
         
+        #validacao
+        else:
+            erro()
+            print("Selecioe uma das opcoes")
+            print("tente novamente")
+            continue
+
 
 # def diretor
 def diretor():
@@ -783,7 +893,7 @@ def media(matricula):
         
         cursor.execute(sqlnome, (matricula,))
 
-        resultnome = cursor.fetchall()
+        resultnome = cursor.fetchall()[0][0]
         
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
@@ -1136,7 +1246,6 @@ def excluir_nota(matricula):
             case "2":
                 break 
     
-
 #Excluir todas as notas
 def excluir_5(matricula):
     conexao = criar_conexao() 
