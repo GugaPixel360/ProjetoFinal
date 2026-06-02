@@ -783,7 +783,7 @@ def media(matricula):
         
         cursor.execute(sqlnome, (matricula,))
 
-        resultnome = cursor.fetchall()
+        resultnome = cursor.fetchall()[0][0]
         
         sql = "SELECT nota1, nota2, nota3, nota4 FROM notas WHERE matricula_FK_ID = %s"
         cursor.execute(sql, (matricula,))
