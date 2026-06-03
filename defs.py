@@ -33,7 +33,7 @@ def denovo():
 
         elif continuar == "1":
             print("=================\n")
-            return
+            break
 
         elif continuar == "2":
             print("Você saiu, obrigado por ultilizar nosso sistema!")
@@ -107,7 +107,7 @@ def professor():
 
                         excluir_nota(matricula)
                         if not denovo():
-                                            break
+                            break
                                             
                     # ver notas 
                     case "3":
@@ -153,8 +153,7 @@ def professor():
         #informacoes do aluno
         elif op == "3":
             ler_alunos_completo()
-            if not denovo():
-                break
+            denovo()
 
         #validacao
         else:
@@ -274,8 +273,7 @@ def coordenador():
         #informacoes do aluno
         elif op == "3":
             ler_alunos_completo()
-            if not denovo():
-                break
+            denovo()
 
         #manipulaçao de alunos 
         elif op == "4":
@@ -320,8 +318,9 @@ def coordenador():
                             except:
                                 print("Ocorreu um erro ao adicionar o aluno.")
                                 erro()
+                                continue
                             break
-                        denovo()
+                        
                         if not denovo():
                             break
                         
@@ -347,7 +346,8 @@ def coordenador():
                     # ver alunos 
                     case "3":
                         ler_alunos()
-                        denovo()
+                        if not denovo():
+                            break
 
                     case _:
                         erro()
@@ -610,8 +610,7 @@ def diretor():
                                 #criar login
                                 criar_login_diretor(Nome, Email, funcao, senha)
                                 break
-                        denovo()
-                       
+                        ler_docente()
                         if not denovo():
                             break
                         
@@ -691,7 +690,7 @@ def validar_idade(idade):
         return False
 
     try:
-        int(idade)
+        idade = int(idade)
     except:
         erro()
         return False
@@ -702,6 +701,11 @@ def validar_idade(idade):
 
     if idade < 14:
         print("Não aceitamos alunos menores que 14 anos, pois apenas temos o ensino médio")
+        return False
+    
+    if idade > 116:
+        print("Não existe ninguem com mais de 116 anos, tente novamente")
+        print("Não aceitamos mortos em nossa escola")
         return False
 
     return True
@@ -938,7 +942,7 @@ def adicionar_alunos(nome, idade, turma):
 
     cursor.execute(
         "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
-        (Nome, idade, turma)
+        (nome, idade, turma)
     )
 
     conn.commit() 
