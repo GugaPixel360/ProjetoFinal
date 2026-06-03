@@ -339,34 +339,14 @@ def coordenador():
                             erro()
                             continue
 
-                        a, b = ler_notas_notas(matricula)
-
-                        if not a:
-                            continue
-
-                        excluir_nota(matricula)
+                        
+                        excluir_aluno(matricula)
                         if not denovo():
                             break
-                                            
-                    # ver notas 
+
+                    # ver alunos 
                     case "3":
                         ler_alunos()
-                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
-                        if not validar_matricula(matricula):
-                                            print("Selecione uma das opcoes")
-                                            erro()
-                                            continue
-                        matricula = validar_matricula(matricula)
-                        if not matricula:
-                            erro()
-                            continue
-
-                        a, b = ler_notas_notas(matricula)
-
-                        if not a:
-                            continue
-
-                        ler_notas_notas(matricula)
                         denovo()
 
                     case _:
