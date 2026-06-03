@@ -33,7 +33,7 @@ def denovo():
 
         elif continuar == "1":
             print("=================\n")
-            return
+            break
 
         elif continuar == "2":
             print("Você saiu, obrigado por ultilizar nosso sistema!")
@@ -273,8 +273,7 @@ def coordenador():
         #informacoes do aluno
         elif op == "3":
             ler_alunos_completo()
-            if not denovo():
-                break
+            denovo()
 
         #manipulaçao de alunos 
         elif op == "4":
@@ -611,8 +610,7 @@ def diretor():
                                 #criar login
                                 criar_login_diretor(Nome, Email, funcao, senha)
                                 break
-                        denovo()
-                       
+                        ler_docente()
                         if not denovo():
                             break
                         
