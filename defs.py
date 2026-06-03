@@ -365,7 +365,7 @@ def coordenador():
 def diretor():
     while True:
         print("\33[30m==== OLÁ DIRETOR DIGITE A OPÇÃO QUE VOCÊ DESEJA ALTERAR====\033[m")
-        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Média/Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos \n | 5 - Professor\n | Escreva aqui: ").strip()
+        op = input(" | 0 - Sair \n | 1 - Nota \n | 2 - Média/Situação do aluno \n | 3 - Informações do aluno \n | 4 - Alunos \n | 5 - Docentes\n | Escreva aqui: ").strip()
 
         # espaço vazio
         if op.strip() == "":
@@ -629,6 +629,7 @@ def diretor():
 
                         
                         excluir_docente(idd)
+                        ler_docente()
                         if not denovo():
                             break
 
@@ -1320,7 +1321,7 @@ def ler_docente():
     conn.close()
 
     print ("=================")
-    return True
+    return resultado
 
 #ler os alunos com todas as informaçoes
 def ler_alunos_completo():
@@ -1539,7 +1540,10 @@ def excluir_aluno(matricula_ID):
 def excluir_docente(id_docente):
     conexao = criar_conexao()  
     cursor = conexao.cursor()  
+    resultado = ler_docente()
     
+
+
     sql = "DELETE FROM professor WHERE id_docente = %s"
     cursor.execute(sql, (id_docente,)) 
     
