@@ -313,7 +313,6 @@ def coordenador():
                             turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
                             if not validar_turma(turma):
                                 continue
-                            turma = validar_turma(turma)
 
                             #criar login
                             try:
@@ -393,6 +392,16 @@ def diretor():
 #DEFs DE VALIDACAO!!!!
 
 
+#validacao da turam
+def validar_turma(turma):
+    if not turma in turmass:
+        print("A turma selecionada não existe")
+        print("Por favor selecione uam existente")
+        return False
+    
+    return True
+
+
 #validar idade
 def validar_idade(idade):
     if idade.strip() == "":
@@ -402,6 +411,14 @@ def validar_idade(idade):
 
     if not idade.isdigit():
         print("Apenas números!")
+        return False
+
+    if idade < 0:
+        print("Sua idade deve ser maior que 0")
+        return False
+
+    if idade < 14:
+        print("Não aceitamos alunos menores que 14 anos, pois apenas temos o ensino médio")
         return False
 
     return True
@@ -636,7 +653,7 @@ def adicionar_alunos(nome, idade, turma):
 
     cursor.execute(
         "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
-        (Nome, Email, funcao, materia, senha)
+        (Nome, idade, turma)
     )
 
     conn.commit() 
@@ -1340,7 +1357,7 @@ materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, ar
 
 #array de turmas
 turmas = ["1° Desenvolvimento de sistemas", "2° Desenvolvimento de sistemas", "3° Desenvolvimento de sistemas", "1° Desenvolvimento de jogos", "2° Desenvolvimento de jogos", "3° Desenvolvimento de jogos"]
-turma = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "2° Desenvolvimento de sistemas","2 ds", "2ds", "3° Desenvolvimento de sistemas","3ds", "3 ds","1 jogos", "1° Desenvolvimento de jogos","1jogos","2 jogos", "2° Desenvolvimento de jogos", "2jogos", "3° Desenvolvimento de jogos", "3 jogos", "3jogos"]
+turmass = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "2° Desenvolvimento de sistemas","2 ds", "2ds", "3° Desenvolvimento de sistemas","3ds", "3 ds","1 jogos", "1° Desenvolvimento de jogos","1jogos","2 jogos", "2° Desenvolvimento de jogos", "2jogos", "3° Desenvolvimento de jogos", "3 jogos", "3jogos"]
 
 #notas que existem no sql
 opcao_notas = ["1", "nota 1", "nota1", "2", "nota 2", "nota2", "3", "nota 3", "nota3", "4", "nota 4", "nota4"]
