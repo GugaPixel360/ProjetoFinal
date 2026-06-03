@@ -77,10 +77,10 @@ while True:
                 funcao = input(f"Digite a sua função\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
                 if not verificar_funcao(funcao):
                     continue
-                funcao = verificar_funcao(funcao)
+                funcao1 = verificar_funcao(funcao)
 
 
-                if not funcao == "coodenador" or "diretor":
+                if not funcao1 == "coodenador" or not funcao1 == "diretor":
                     #materia
                     materia = input(f"Digite a sua matéria \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
                     if not validar_materia(materia):
@@ -92,12 +92,12 @@ while True:
                 senha = validar_senha()
                 print("\33[31m===============\033[m")  
                 
-                if not funcao == "coodenador" or "diretor":
-                    criar_login_professor(Nome, Email, funcao, materia, senha)
+                if not funcao1 == "coodenador" or not funcao1 == "diretor":
+                    criar_login_professor(Nome, Email, funcao1, materia, senha)
                     break
                 else:
                     #criar login
-                    criar_login_diretor(Nome, Email, funcao, senha)
+                    criar_login_diretor(Nome, Email, funcao1, senha)
                     break
             denovo()
 

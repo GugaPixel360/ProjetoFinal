@@ -591,7 +591,7 @@ def diretor():
                             funcao = verificar_funcao(funcao)
 
 
-                            if not funcao == "coodenador" or "diretor":
+                            if not funcao == "coodenador" or not funcao1 == "diretor":
                                 #materia
                                 materia = input(f"Digite a matéria do professor \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
                                 if not validar_materia(materia):
@@ -603,7 +603,7 @@ def diretor():
                             senha = validar_senha()
                             print("\33[31m===============\033[m")  
                             
-                            if not funcao == "coodenador" or "diretor":
+                            if not funcao == "coodenador" or not funcao1 =="diretor":
                                 criar_login_professor(Nome, Email, funcao, materia, senha)
                                 break
                             else:
