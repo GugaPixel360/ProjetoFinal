@@ -651,7 +651,7 @@ def diretor():
             print("tente novamente")
             continue
 
-#porno é bom
+
 #DEFs DE VALIDACAO!!!!
 
 
@@ -690,9 +690,10 @@ def validar_idade(idade):
         print("Campo vazio!")
         return False
 
-
-    if not idade.isdigit():
-        print("Apenas números!")
+    try:
+        int(idade)
+    except:
+        erro()
         return False
 
     if idade < 0:
@@ -771,7 +772,7 @@ def validar_email(Email):
         print("Campo vazio!")
         return False
 
-    arroba = ["@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com", "@prof.sc.senac.brthomas duarte" ]
+    arroba = ["@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com", "@prof.sc.senac.br" ]
 
     if not any(a in Email for a in arroba):
         print("Coloque o email corretamente")
@@ -837,6 +838,8 @@ def verificar_funcao(funcao):
         funcao = "coordenador"
     if funcao == "coord":
         funcao = "coordenador"
+    if funcao == "diretor":
+        funcao = "diretor"
     
     return funcao
 
