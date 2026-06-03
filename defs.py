@@ -588,7 +588,7 @@ def diretor():
                             funcao = input(f"Digite a função do docente\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
                             if not verificar_funcao(funcao):
                                 continue
-                            funcao = verificar_funcao(funcao)
+                            funcao1 = verificar_funcao(funcao)
 
 
                             if not funcao == "coodenador" or not funcao1 == "diretor":
