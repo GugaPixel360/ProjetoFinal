@@ -79,21 +79,26 @@ while True:
                     continue
                 funcao = verificar_funcao(funcao)
 
-                #materia
-                materia = input(f"Digite a sua matéria (Caso nao seja professor repita a sua função)\n| Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
-                if not validar_materia(materia):
-                    erro()
-                    continue
-                materia = validar_materia(materia)
-                
+
+                if not funcao == "coodenador" or "diretor":
+                    #materia
+                    materia = input(f"Digite a sua matéria \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
+                    if not validar_materia(materia):
+                        erro()
+                        continue
+                    materia = validar_materia(materia)
+                    
                 #senha
                 senha = validar_senha()
                 print("\33[31m===============\033[m")  
                 
-                
-                #criar login
-                criar_login(Nome, Email, funcao, materia, senha)
-                break
+                if not funcao == "coodenador" or "diretor":
+                    criar_login_professor(Nome, Email, funcao, materia, senha)
+                    break
+                else:
+                    #criar login
+                    criar_login_diretor(Nome, Email, funcao, senha)
+                    break
             denovo()
 
         case _:
