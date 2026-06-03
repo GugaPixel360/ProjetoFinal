@@ -408,9 +408,10 @@ def validar_idade(idade):
         print("Campo vazio!")
         return False
 
-
-    if not idade.isdigit():
-        print("Apenas números!")
+    try:
+        int(idade)
+    except:
+        erro()
         return False
 
     if idade < 0:
