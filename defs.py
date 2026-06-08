@@ -573,7 +573,7 @@ def diretor():
                         while True:
                             print ("\33[34m===============\033[m")
                             
-                            #nome
+                             #nome
                             Nome = input("Digite o nome completo do docente: ").capitalize()               
                             if not validar_nome(Nome):
                                 erro()
@@ -592,28 +592,25 @@ def diretor():
                             funcao1 = verificar_funcao(funcao)
 
 
-                            if not funcao == "coodenador" or not funcao1 == "diretor":
+                            if funcao1 != "coordenador" and funcao1 != "diretor":
                                 #materia
-                                materia = input(f"Digite a matéria do professor \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
+                                materia = input(f"Digite a matéria dodocente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
                                 if not validar_materia(materia):
                                     erro()
                                     continue
                                 materia = validar_materia(materia)
+
+                            else:
+                                materia = funcao1
                                 
                             #senha
                             senha = validar_senha()
                             print("\33[31m===============\033[m")  
                             
-                            if not funcao == "coodenador" or not funcao1 =="diretor":
-                                criar_login_professor(Nome, Email, funcao, materia, senha)
-                                break
-                            else:
-                                #criar login
-                                criar_login_diretor(Nome, Email, funcao, senha)
-                                break
-                        ler_docente()
-                        if not denovo():
-                            break
+                            criar_login_professor(Nome, Email, funcao1, materia, senha)
+                            break 
+
+                        denovo()
                         
                     # excluir                                             
                     case "2":
@@ -976,28 +973,6 @@ def criar_login_professor(Nome, Email, funcao, materia, senha):
     cursor.close()
     conn.close()
 
-#def de cadastro
-def criar_login_diretor(Nome, Email, funcao, senha):
-    conn = criar_conexao()
-
-    if conn is None:
-        print("Falha na conexão")
-        return
-
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "INSERT INTO professor (nome_docente, email_docente, funcao_docente, senha) VALUES (%s, %s, %s, %s, %s)",
-        (Nome, Email, funcao, senha)
-    )
-
-    conn.commit() 
-
-    print("Usuário cadastrado com sucesso!")
-
-    cursor.close()
-    conn.close()
-
 # entra no login do docente 
 def Entrar(id_docente, senha):
     conn = criar_conexao()
@@ -1288,9 +1263,9 @@ def media(matricula):
         
         
             if media >= 7.0:
-                print("Status: Aprovado")
+                print("Situação: Aprovado")
             else:
-                print("Status: Recuperação")
+                print("Situação: Recuperação")
         else:
             print(f"Nenhuma nota encontrada para o aluno com ID {matricula}.")
         break
