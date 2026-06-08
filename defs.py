@@ -717,15 +717,18 @@ def validar_nota(nota):
         nota = float(nota)
     except:
         print("Digite uma nota válida!")
-        return
+        return False
 
     if nota > 10 or nota < 0:
         print("Sua nota precisa ser entra 0 e 10")
         
-        return
+        return False
     
     return nota
     
+
+
+
 #def validacao de materia
 def validar_materia(materia):
     if materia.strip() == "":
@@ -1064,6 +1067,12 @@ def adicionar_nota(matricula):
                     case "1":
                         try:
                             notaX = float(input("Digite a nova nota 2: "))
+
+                            if not validar_nota():
+                                erro()
+
+                            notaX == validar_nota(notaX)
+
                         except:
                             erro()
                             continue
@@ -1071,7 +1080,7 @@ def adicionar_nota(matricula):
                         if not validar_nota(notaX):
                             erro()
                             continue
-                        notaX = validar_nota(notaX)
+                        notaX == validar_nota(notaX)
 
                         atualizar_nota(matricula, notaX, nota)
                     case "2":
@@ -1096,7 +1105,7 @@ def adicionar_nota(matricula):
                             erro()
                             continue
 
-                        if not validar_nota(notaX):
+                        if not validar_nota(notaX):                                                                             
                             erro()
                             continue
                         notaX = validar_nota(notaX)
@@ -1127,7 +1136,7 @@ def adicionar_nota(matricula):
                         if not validar_nota(notaX):
                             erro()
                             continue
-                        notaX = validar_nota(notaX)
+                        notaX == validar_nota(notaX)
 
                         atualizar_nota(matricula, notaX, nota)
                     case "2":
@@ -1507,6 +1516,10 @@ def ler_notas_notas(matricula):
     if resultado is None:
         print("Aluno não encontrado.")
         return False, resultado
+    
+    if resultado[1] or resultado[2] or resultado[3] or resultado[4] == None:
+        print(f" | Aluno: {resultado[0]} \n | Nota 1: \n | Nota 2: \n | Nota 3: \n | Nota 4: ")
+        return False, print("Sem notas adicionadas")
 
     print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
 
@@ -1514,6 +1527,7 @@ def ler_notas_notas(matricula):
         print ("O aluno nao tem notas cadastradas")
         return False, resultado
 
+    
     
 
     cursor.close()
@@ -1627,7 +1641,7 @@ def excluir_5(matricula):
         nota4 = NULL
     WHERE matricula_FK_ID = %s
     """
-
+    
     valores = (matricula,)
     cursor.execute(sql, valores)
     conexao.commit()
