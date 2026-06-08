@@ -124,6 +124,7 @@ def professor():
 
                         a, b = ler_notas_notas(matricula)
 
+                        # caso nao tenha aluno
                         if not a:
                             continue
 
