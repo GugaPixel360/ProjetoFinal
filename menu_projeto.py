@@ -92,7 +92,7 @@ while True:
                     materia = funcao1
                     
                 #senha
-                senha=validar_senha()
+                senha = validar_senha()
 
                 print("\33[31m===============\033[m")  
                 

@@ -651,7 +651,7 @@ def diretor():
                             criar_login_professor(Nome, Email, funcao1, materia, senha)
                             break 
 
-                            denovo()
+                        denovo()
                         
                     # excluir                                             
                     case "2":
