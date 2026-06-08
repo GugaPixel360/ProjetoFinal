@@ -199,7 +199,7 @@ def coordenador():
                     case "1":
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                        if not validar_matricula(matricula):
+                        if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
                             continue
@@ -228,7 +228,7 @@ def coordenador():
 
                         excluir_nota(matricula)
                         if not denovo():
-                                            break
+                            break
                                             
                     # ver notas 
                     case "3":
@@ -245,6 +245,7 @@ def coordenador():
 
                         a, b = ler_notas_notas(matricula)
 
+                        # caso nao tenha aluno
                         if not a:
                             continue
 
@@ -275,6 +276,7 @@ def coordenador():
         elif op == "3":
             ler_alunos_completo()
             denovo()
+
 
         #manipulaçao de alunos 
         elif op == "4":
@@ -398,7 +400,7 @@ def diretor():
                     case "1":
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                        if not validar_matricula(matricula):
+                        if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
                             continue
@@ -427,7 +429,7 @@ def diretor():
 
                         excluir_nota(matricula)
                         if not denovo():
-                                            break
+                            break
                                             
                     # ver notas 
                     case "3":
@@ -444,6 +446,7 @@ def diretor():
 
                         a, b = ler_notas_notas(matricula)
 
+                        # caso nao tenha aluno
                         if not a:
                             continue
 
@@ -473,9 +476,8 @@ def diretor():
         #informacoes do aluno
         elif op == "3":
             ler_alunos_completo()
-            if not denovo():
-                break
-
+            denovo()
+  
         #manipulaçao de alunos 
         elif op == "4":
             while True:
@@ -519,8 +521,9 @@ def diretor():
                             except:
                                 print("Ocorreu um erro ao adicionar o aluno.")
                                 erro()
+                                continue
                             break
-                        denovo()
+                        
                         if not denovo():
                             break
                         
@@ -546,13 +549,14 @@ def diretor():
                     # ver alunos 
                     case "3":
                         ler_alunos()
-                        denovo()
+                        if not denovo():
+                            break
 
                     case _:
                         erro()
                         print("tente novamente")
                         continue
-        
+                
         #profesores
         elif op == "5":
             while True:
