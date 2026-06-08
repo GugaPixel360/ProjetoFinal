@@ -199,7 +199,7 @@ def coordenador():
                     case "1":
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                        if not validar_matricula(matricula):
+                        if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
                             continue
@@ -228,7 +228,7 @@ def coordenador():
 
                         excluir_nota(matricula)
                         if not denovo():
-                                            break
+                            break
                                             
                     # ver notas 
                     case "3":
@@ -245,6 +245,7 @@ def coordenador():
 
                         a, b = ler_notas_notas(matricula)
 
+                        # caso nao tenha aluno
                         if not a:
                             continue
 
@@ -275,6 +276,7 @@ def coordenador():
         elif op == "3":
             ler_alunos_completo()
             denovo()
+
 
         #manipulaçao de alunos 
         elif op == "4":
@@ -1029,11 +1031,16 @@ def adicionar_nota(matricula):
     while True:
         print ("Qual nota você gostaria de adicionar?")
         a, resultado = ler_notas_notas(matricula)
+
+        if resultado is None:
+            print("Esse aluno não possui registro de notas.")
+            
+        
         nota = input("Escreva aqui: ").strip().lower()
 
         if nota == "nota 1" or nota == "1":
             nota = "nota1"
-            if resultado[1]:
+            if resultado[1] is None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
                 escolha = input("Escreva aqui: ")
                 match escolha:
