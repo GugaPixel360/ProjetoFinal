@@ -92,45 +92,7 @@ while True:
                     materia = funcao1
                     
                 #senha
-                while True:
-
-                    senha = input("Crie a senha do docente: ")
-
-                    if senha.strip() == "":
-                        print("Campo vazio!")   
-
-
-                    letra = any(caracter.isalpha() for caracter in senha)
-                    num = any(caracter.isdigit() for caracter in senha)
-                    carac = any(not caracter.isalnum() for caracter in senha)
-            
-                    if len(senha) > 10 or len(senha) < 1:
-                        print("Coloque menos de 10 valores")
-                        continue
-                    
-                    if letra and num and carac:
-                        print("Senha valida")
-                        break
-                        
-                        
-                    else:
-                        print ("=================")
-                        if not letra:
-                            print ("Precisa de letra")
-                            
-
-                        if not num:
-                            print ("Precisa de numero")
-                            
-                            
-                        if not carac:
-                            print ("Precisa de caracter especial")
-                            
-                            
-
-                        print ("Tente denovo")
-                        print ("============")
-                        continue
+                senha=validar_senha()
 
                 print("\33[31m===============\033[m")  
                 
