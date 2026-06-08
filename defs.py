@@ -400,7 +400,7 @@ def diretor():
                     case "1":
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
-                        if not validar_matricula(matricula):
+                        if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
                             continue
@@ -429,7 +429,7 @@ def diretor():
 
                         excluir_nota(matricula)
                         if not denovo():
-                                            break
+                            break
                                             
                     # ver notas 
                     case "3":
@@ -446,6 +446,7 @@ def diretor():
 
                         a, b = ler_notas_notas(matricula)
 
+                        # caso nao tenha aluno
                         if not a:
                             continue
 
@@ -475,9 +476,8 @@ def diretor():
         #informacoes do aluno
         elif op == "3":
             ler_alunos_completo()
-            if not denovo():
-                break
-
+            denovo()
+  
         #manipulaçao de alunos 
         elif op == "4":
             while True:
@@ -521,8 +521,9 @@ def diretor():
                             except:
                                 print("Ocorreu um erro ao adicionar o aluno.")
                                 erro()
+                                continue
                             break
-                        denovo()
+                        
                         if not denovo():
                             break
                         
@@ -548,13 +549,14 @@ def diretor():
                     # ver alunos 
                     case "3":
                         ler_alunos()
-                        denovo()
+                        if not denovo():
+                            break
 
                     case _:
                         erro()
                         print("tente novamente")
                         continue
-        
+                
         #profesores
         elif op == "5":
             while True:
@@ -575,7 +577,7 @@ def diretor():
                         while True:
                             print ("\33[34m===============\033[m")
                             
-                            #nome
+                             #nome
                             Nome = input("Digite o nome completo do docente: ").capitalize()               
                             if not validar_nome(Nome):
                                 erro()
@@ -594,28 +596,25 @@ def diretor():
                             funcao1 = verificar_funcao(funcao)
 
 
-                            if not funcao == "coodenador" or not funcao1 == "diretor":
+                            if funcao1 != "coordenador" and funcao1 != "diretor":
                                 #materia
-                                materia = input(f"Digite a matéria do professor \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
+                                materia = input(f"Digite a matéria dodocente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
                                 if not validar_materia(materia):
                                     erro()
                                     continue
                                 materia = validar_materia(materia)
+
+                            else:
+                                materia = funcao1
                                 
                             #senha
                             senha = validar_senha()
                             print("\33[31m===============\033[m")  
                             
-                            if not funcao == "coodenador" or not funcao1 =="diretor":
-                                criar_login_professor(Nome, Email, funcao, materia, senha)
-                                break
-                            else:
-                                #criar login
-                                criar_login_diretor(Nome, Email, funcao, senha)
-                                break
-                        ler_docente()
-                        if not denovo():
-                            break
+                            criar_login_professor(Nome, Email, funcao1, materia, senha)
+                            break 
+
+                        denovo()
                         
                     # excluir                                             
                     case "2":
@@ -981,28 +980,6 @@ def criar_login_professor(Nome, Email, funcao, materia, senha):
     cursor.close()
     conn.close()
 
-#def de cadastro
-def criar_login_diretor(Nome, Email, funcao, senha):
-    conn = criar_conexao()
-
-    if conn is None:
-        print("Falha na conexão")
-        return
-
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "INSERT INTO professor (nome_docente, email_docente, funcao_docente, senha) VALUES (%s, %s, %s, %s, %s)",
-        (Nome, Email, funcao, senha)
-    )
-
-    conn.commit() 
-
-    print("Usuário cadastrado com sucesso!")
-
-    cursor.close()
-    conn.close()
-
 # entra no login do docente 
 def Entrar(id_docente, senha):
     conn = criar_conexao()
@@ -1304,9 +1281,9 @@ def media(matricula):
         
         
             if media >= 7.0:
-                print("Status: Aprovado")
+                print("Situação: Aprovado")
             else:
-                print("Status: Recuperação")
+                print("Situação: Recuperação")
         else:
             print(f"Nenhuma nota encontrada para o aluno com ID {matricula}.")
         break

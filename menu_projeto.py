@@ -47,7 +47,7 @@ while True:
                 case 1:
                     professor()
 
-                #coodenador
+                #coordenador
                 case 2:
                     coordenador()
                                   
@@ -80,25 +80,63 @@ while True:
                 funcao1 = verificar_funcao(funcao)
 
 
-                if not funcao1 == "coodenador" or not funcao1 == "diretor":
+                if funcao1 != "coordenador" and funcao1 != "diretor":
                     #materia
                     materia = input(f"Digite a sua matéria \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
                     if not validar_materia(materia):
                         erro()
                         continue
                     materia = validar_materia(materia)
+
+                else:
+                    materia = funcao1
                     
                 #senha
-                senha = validar_senha()
+                while True:
+
+                    senha = input("Crie a senha do docente: ")
+
+                    if senha.strip() == "":
+                        print("Campo vazio!")   
+
+
+                    letra = any(caracter.isalpha() for caracter in senha)
+                    num = any(caracter.isdigit() for caracter in senha)
+                    carac = any(not caracter.isalnum() for caracter in senha)
+            
+                    if len(senha) > 10 or len(senha) < 1:
+                        print("Coloque menos de 10 valores")
+                        continue
+                    
+                    if letra and num and carac:
+                        print("Senha valida")
+                        break
+                        
+                        
+                    else:
+                        print ("=================")
+                        if not letra:
+                            print ("Precisa de letra")
+                            
+
+                        if not num:
+                            print ("Precisa de numero")
+                            
+                            
+                        if not carac:
+                            print ("Precisa de caracter especial")
+                            
+                            
+
+                        print ("Tente denovo")
+                        print ("============")
+                        continue
+
                 print("\33[31m===============\033[m")  
                 
-                if not funcao1 == "coodenador" or not funcao1 == "diretor":
-                    criar_login_professor(Nome, Email, funcao1, materia, senha)
-                    break
-                else:
-                    #criar login
-                    criar_login_diretor(Nome, Email, funcao1, senha)
-                    break
+                criar_login_professor(Nome, Email, funcao1, materia, senha)
+                break 
+
             denovo()
 
         case _:
