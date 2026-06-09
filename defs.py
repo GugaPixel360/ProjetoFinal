@@ -1045,14 +1045,14 @@ def adicionar_nota(matricula):
 
         if resultado is None:
             print("Esse aluno não possui registro de notas.")
-            
+            return
         
         nota = input("Escreva aqui: ").strip().lower()
 
         if nota == "nota 1" or nota == "1":
             nota = "nota1"
-            if resultado[1] is None:
-                print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
+            if resultado[1] is not None:
+                print("Essa nota já está adicionada... | Você gostaria de alterala?\n | 1 - Sim\n | 2 - Não\n")
                 escolha = input("Escreva aqui: ")
                 match escolha:
                     case "1":
@@ -1583,7 +1583,7 @@ def excluir_docente(id_docente):
     conexao.commit()
 
     print(resultado)
-    
+
     cursor.close()
     conexao.close()
 
