@@ -16,8 +16,8 @@ print("======================================" )
 print("Bem vindo ao menu da escola Carrossel!" )
 print("======================================\n" )
 
-print(f"Data: {agora.strftime('%d/%m/%Y')}")
-print(f"Hora: {agora.strftime('%H:%M:%S')}\n")
+print(f"|📅| Data: {agora.strftime('%d/%m/%Y')} ")
+print(f"|⌚| Hora: {agora.strftime('%H:%M:%S')}\n")
 
 while True:
     op = input("Você já tem login?\n | 0 - Sair \n | 1 - Entrar \n | 2 - Criar login\n | Escreva aqui: ").strip()
