@@ -555,8 +555,8 @@ def diretor():
                     case _:
                         erro()
                         print("tente novamente")
-                        continue
-                
+                        continue     
+        
         #profesores
         elif op == "5":
             while True:
@@ -696,7 +696,7 @@ def diretor():
 
 #validacao da turam
 def validar_turma(turma):
-    if not turma in turmass:
+    if turma not in turmass:
         print("A turma selecionada não existe")
         print("Por favor selecione uam existente")
         return False
@@ -1577,10 +1577,13 @@ def excluir_docente(id_docente):
     
 
 
-    sql = "DELETE FROM professor WHERE id_docente = %s"
+    sql = "DELETE * FROM professor WHERE id_docente = %s"
     cursor.execute(sql, (id_docente,)) 
     
-    conexao.commit()  
+    conexao.commit()
+
+    print(resultado)
+    
     cursor.close()
     conexao.close()
 
