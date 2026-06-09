@@ -561,7 +561,7 @@ def diretor():
         elif op == "5":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()   
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Desativar\n | 3 - Vizualizar \n | Digite aqui: ").strip()   
 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -656,7 +656,7 @@ def diretor():
                     # excluir                                             
                     case "2":
                         ler_docente()
-                        idd = input("Qual docente você gostaria de excluir (Escreva o código do docente): ")
+                        idd = input("Qual docente você gostaria de desativar (Escreva o código do docente): ")
                         if not validar_codigo(idd):
                             print("Selecione uma das opcoes")
                             erro()
@@ -666,8 +666,8 @@ def diretor():
                             erro()
                             continue
 
-                        
                         excluir_docente(idd)
+
                         ler_docente()
                         if not denovo():
                             break
@@ -679,7 +679,7 @@ def diretor():
 
                     case _:
                         erro()
-                        print("tente novamente")
+                        print("Tente novamente")
                         continue
 
 
@@ -1577,13 +1577,13 @@ def excluir_docente(id_docente):
     
 
 
-    sql = "DELETE * FROM professor WHERE id_docente = %s"
+    sql = "DELETE FROM professor WHERE id_docente = %s"
     cursor.execute(sql, (id_docente,)) 
     
     conexao.commit()
 
-    print(resultado)
-
+    print("Docente desativado com sucesso!")
+    
     cursor.close()
     conexao.close()
 
