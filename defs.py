@@ -1050,13 +1050,44 @@ def adicionar_nota(matricula):
     cursor = conn.cursor()
 
     while True:
-        print ("Qual nota você gostaria de adicionar?")
         a, resultado = ler_notas_notas(matricula)
 
         if resultado is None:
-            print("Esse aluno não possui registro de notas.")
-            return
-        
+            print("Esse aluno não possui registro de notas.")           
+            print ("Qual nota você gostaria de adicionar?")
+            nota = input("Escreva aqui: ").strip().lower()
+            
+            if nota == "1" or nota == "nota 1":
+                notaX = float(input("Digite a nota 1: "))
+            
+            if nota == "2" or nota == "nota 2":
+                notaX = float(input("Digite a nota 2: "))
+            
+            if nota == "3" or nota == "nota 3":
+                notaX = float(input("Digite a nota 3: "))
+            
+            if nota == "4" or nota == "nota 4":
+                notaX = float(input("Digite a nota 4: "))
+    
+
+
+            atualizar_nota(matricula, notaX, nota)
+            ler_notas_notas(matricula)
+
+            print("Você gostaria de adicionar mais notas?")
+            print(" | 1 - Sim \n | 2 - não")
+            op = input("Escreva aqui: ")
+            match op:
+                case "1":
+                    continue
+                case "2":
+                    break 
+
+
+            cursor.close()
+            conn.close()
+
+        print ("Qual nota você gostaria de adicionar?")
         nota = input("Escreva aqui: ").strip().lower()
 
         if nota == "nota 1" or nota == "1":
@@ -1181,6 +1212,8 @@ def adicionar_nota(matricula):
             erro()
             print("Escolha uma das opções dadas")
             continue
+
+
 
         atualizar_nota(matricula, notaX, nota)
         ler_notas_notas(matricula)
