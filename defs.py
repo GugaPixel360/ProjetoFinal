@@ -1269,7 +1269,7 @@ def adicionar_professor():
         valores = (
         Nome,
         Email,
-        "professor",
+        professor,
         materia,
         senha
         )
