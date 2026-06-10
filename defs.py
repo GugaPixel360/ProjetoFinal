@@ -657,11 +657,14 @@ def diretor():
                     case "2":
                         ler_docente()
                         idd = input("Qual docente você gostaria de desativar (Escreva o código do docente): ")
-                        if not validar_codigo(idd):
+                        
+                        a, idd = validar_codigo(idd)
+                        
+                        if not a:
                             print("Selecione uma das opcoes")
                             erro()
                             continue
-                        idd = validar_codigo(idd)
+                        
                         if not idd:
                             erro()
                             continue
@@ -705,6 +708,13 @@ def validar_turma(turma):
 
 #validar codigo do docente
 def validar_codigo(idd):
+    try:
+        idd = int(idd)
+    except:
+        print("O código do docente precisa ser um número")
+        return False
+
+    
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
@@ -714,14 +724,14 @@ def validar_codigo(idd):
     resultado = cursor.fetchall()
 
     if not resultado:
-        print("Matricula não encontrada")
+        print("Docente não encontrado")
         return
         
 
     cursor.close()
     conexao.close()
 
-    return True
+    return True, idd
 
 #validar idade
 def validar_idade(idade):
@@ -1572,11 +1582,8 @@ def excluir_aluno(matricula_ID):
 #excluir professor
 def excluir_docente(id_docente):
     conexao = criar_conexao()  
-    cursor = conexao.cursor()  
-    resultado = ler_docente()
+    cursor = conexao.cursor()
     
-
-
     sql = "DELETE FROM professor WHERE id_docente = %s"
     cursor.execute(sql, (id_docente,)) 
     
