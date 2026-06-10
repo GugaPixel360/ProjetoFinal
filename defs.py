@@ -59,7 +59,7 @@ def professor():
             print("Você saiu")
             exit()
 
-        # manipular nota
+       # manipular nota
         elif op == "1":
             while True:
                 print("\nO que você gostaria de mexer?")
