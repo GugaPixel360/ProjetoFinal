@@ -981,7 +981,7 @@ def verificar_matricula(matricula):
 
 
 #adicionar alunos
-def adicionar_alunos(nome, idade, turma):
+def adicionar_alunos(nome, idade, turma, matricula):
     conn = criar_conexao()
 
     if conn is None:
@@ -995,6 +995,11 @@ def adicionar_alunos(nome, idade, turma):
         (nome, idade, turma)
     )
 
+    cursor.execute(
+    "INSERT INTO notas (matricula_FK_ID) VALUES (%s)",
+    (matricula,)
+    )
+    
     conn.commit() 
 
     print("Usuário cadastrado com sucesso!")
