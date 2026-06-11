@@ -1253,6 +1253,17 @@ def atualizar_nota(matricula, notaX, nota):
         """
 
     valores = (notaX, matricula)
+
+    if notaX > 10:
+        print("Nota inválida!")
+        print(erro())
+        return
+    
+    if notaX < 0:
+        print("Nota inválida!")
+        print(erro())
+        return
+    
     cursor.execute(sql, valores)
     conexao.commit()
 
