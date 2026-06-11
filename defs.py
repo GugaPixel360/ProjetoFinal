@@ -1130,11 +1130,11 @@ def adicionar_nota(matricula):
                 if not validar_nota(notaX):
                     erro()
                     continue
-                notaX == validar_nota(notaX)
+                notaX = validar_nota(notaX)
         
         elif nota == "nota 2" or nota == "2":
             nota = "nota2"
-            if resultado[2]:
+            if resultado[2] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
                 escolha = input("Escreva aqui: ")
                 match escolha:
@@ -1142,10 +1142,10 @@ def adicionar_nota(matricula):
                         try:
                             notaX = float(input("Digite a nova nota 2: "))
 
-                            if not validar_nota():
+                            if not validar_nota(notaX):
                                 erro()
 
-                            notaX == validar_nota(notaX)
+                            notaX = validar_nota(notaX)
 
                         except:
                             erro() 
@@ -1154,7 +1154,7 @@ def adicionar_nota(matricula):
                         if not validar_nota(notaX):
                             erro()
                             continue
-                        notaX == validar_nota(notaX)
+                        notaX = validar_nota(notaX)
 
                         atualizar_nota(matricula, notaX, nota)
                     case "2":
@@ -1168,11 +1168,11 @@ def adicionar_nota(matricula):
                 if not validar_nota(notaX):
                     erro()
                     continue
-                notaX == validar_nota(notaX)
+                notaX = validar_nota(notaX)
         
         elif nota == "nota 3" or nota == "3":
             nota = "nota3"
-            if resultado[3]:
+            if resultado[3] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
                 escolha = input("Escreva aqui: ")
                 match escolha:
@@ -1200,11 +1200,11 @@ def adicionar_nota(matricula):
                 if not validar_nota(notaX):
                     erro()
                     continue
-                notaX == validar_nota(notaX)
+                notaX = validar_nota(notaX)
         
         elif nota == "nota 4" or nota == "4":
             nota = "nota4"
-            if resultado[4]:
+            if resultado[4] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
                 escolha = input("Escreva aqui: ")
                 match escolha:
@@ -1232,7 +1232,7 @@ def adicionar_nota(matricula):
                 if not validar_nota(notaX):
                     erro()
                     continue
-                notaX == validar_nota(notaX)
+                notaX = validar_nota(notaX)
 
         else:
             erro()
