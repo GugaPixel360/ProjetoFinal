@@ -298,7 +298,7 @@ def coordenador():
                             print ("\33[34m===============\033[m")
                             
                             #nome
-                            Nome = input("Digite o nome completo do aluno: ").capitalize()               
+                            Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
                             if not validar_nome(Nome):
                                 erro()
                                 print("Preencha o campo corretamente")
@@ -498,7 +498,7 @@ def diretor():
                             print ("\33[34m===============\033[m")
                             
                             #nome
-                            Nome = input("Digite o nome completo do aluno: ").capitalize()               
+                            Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
                             if not validar_nome(Nome):
                                 erro()
                                 print("Preencha o campo corretamente")
@@ -577,7 +577,7 @@ def diretor():
                             print ("\33[34m===============\033[m")
                             
                              #nome
-                            Nome = input("Digite o nome completo do docente: ").capitalize()               
+                            Nome = input("Digite o nome completo do docente: ").capitalize().strip()               
                             if not validar_nome(Nome):
                                 erro()
                                 print("Preencha o campo corretamente")
@@ -836,10 +836,10 @@ def validar_email(Email):
 
 #defs validacao nome
 def validar_nome(nome):
-    nome.strip()
+    nome = nome.strip()
 
     if nome == "":
-        print("Campo vazio!")
+        print("Campo vazio!") 
         return False
     if nome.replace(" ", "").isalpha():
         return True
@@ -872,6 +872,9 @@ def validar_id():
             print("ID inválido!")
             continue
         
+        cursor.close()
+        conn.close()
+
         return id_docente
 
 # verificacao da funcao do docente (se a funcao existe ou nao)
@@ -903,7 +906,8 @@ def validar_senha():
         senha = input("Crie a sua senha: ")
 
         if senha.strip() == "":
-            print("Campo vazio!")   
+            print("Campo vazio!")  
+            continue 
 
 
         letra = any(caracter.isalpha() for caracter in senha)
@@ -1287,7 +1291,7 @@ def adicionar_professor():
 
     
     while True:
-        Nome = input("Digite o nome do professor: ").strip()
+        Nome = input("Digite o nome do professor: ").capitalize().strip()
 
         if not validar_nome(Nome):
             print("Nome inválido!")
@@ -1567,7 +1571,7 @@ def ler_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchall()
+    resultado = cursor.fetchone()
 
     if resultado:
         print(f"""
@@ -1644,7 +1648,8 @@ def ler_notas_notas(matricula):
     
     if resultado[1] is None and resultado[2] is None and resultado[3] is None and resultado[4] is None:
         print(f" | Aluno: {resultado[0]} \n | Nota 1:{resultado1} \n | Nota 2:{resultado2} \n | Nota 3:{resultado3} \n | Nota 4:{resultado4} ")
-        return False, print("Sem notas adicionadas")
+        print("Sem notas adicionadas")
+        return False, resultado
     
     print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado1}\n | Nota 2: {resultado2}\n | Nota 3: {resultado3}\n | Nota 4: {resultado4}")
 
