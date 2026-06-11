@@ -84,8 +84,7 @@ def professor():
                             continue
 
                         adicionar_nota(matricula)
-                        if not denovo():
-                            break
+                        denovo()
 
                     # excluir                                             
                     case "2":
@@ -1057,21 +1056,27 @@ def adicionar_nota(matricula):
     while True:
         a, resultado = ler_notas_notas(matricula)
 
+       
+
         if resultado is None:
             print("Esse aluno não possui registro de notas.")           
             print ("Qual nota você gostaria de adicionar?")
             nota = input("Escreva aqui: ").strip().lower()
             
-            if nota == "1" or nota == "nota 1":
+            if nota == "1" or nota == "nota 1" or nota == "nota1":
+                nota = "nota1"
                 notaX = float(input("Digite a nota 1: "))
             
-            if nota == "2" or nota == "nota 2":
+            if nota == "2" or nota == "nota 2" or nota == "nota2":
+                nota = "nota2"
                 notaX = float(input("Digite a nota 2: "))
             
-            if nota == "3" or nota == "nota 3":
+            if nota == "3" or nota == "nota 3" or nota == "nota3":
+                nota = "nota3"
                 notaX = float(input("Digite a nota 3: "))
             
-            if nota == "4" or nota == "nota 4":
+            if nota == "4" or nota == "nota 4" or nota == "nota4":
+                nota = "nota4"
                 notaX = float(input("Digite a nota 4: "))
     
 
@@ -1531,7 +1536,7 @@ def ler_notas(matricula):
 
     cursor.execute(sql, (matricula,))
 
-    resultado = cursor.fetchone()
+    resultado = cursor.fetchall()
 
     if resultado:
         print(f"""
@@ -1575,20 +1580,42 @@ def ler_notas_notas(matricula):
     """
 
     cursor.execute(sql, (matricula,))
+    
 
     resultado = cursor.fetchone()
-
   
 
     if resultado is None:
         print("Aluno não encontrado.")
         return False, resultado
     
-    if resultado[1] or resultado[2] or resultado[3] or resultado[4] == None:
-        print(f" | Aluno: {resultado[0]} \n | Nota 1: \n | Nota 2: \n | Nota 3: \n | Nota 4: ")
-        return False, print("Sem notas adicionadas")
+    if resultado[1] is None:
+        resultado1 = ""
+    else:
+        resultado1 = resultado[1]
 
-    print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado[1]}\n | Nota 2: {resultado[2]}\n | Nota 3: {resultado[3]}\n | Nota 4: {resultado[4]}")
+    if resultado[2] is None:
+        resultado2 = ""
+    else:
+        resultado2 = resultado[2]
+
+    if resultado[3] is None:
+        resultado3 = ""
+    else:
+        resultado3 = resultado[3]
+
+    if resultado[4] is None:
+        resultado4 = ""
+    else:
+        resultado4 = resultado[4]
+
+
+    
+    if resultado[1] is None and resultado[2] is None and resultado[3] is None and resultado[4] is None:
+        print(f" | Aluno: {resultado[0]} \n | Nota 1:{resultado1} \n | Nota 2:{resultado2} \n | Nota 3:{resultado3} \n | Nota 4:{resultado4} ")
+        return False, print("Sem notas adicionadas")
+    
+    print(f" | Aluno: {resultado[0]} \n | Nota 1: {resultado1}\n | Nota 2: {resultado2}\n | Nota 3: {resultado3}\n | Nota 4: {resultado4}")
 
     if resultado[1] is None and resultado[2] is None and resultado[3] is None and resultado[4] is None:
         print ("O aluno nao tem notas cadastradas")
@@ -1596,7 +1623,7 @@ def ler_notas_notas(matricula):
 
     
     
-
+    
     cursor.close()
     conexao.close()
     return True, resultado
