@@ -10,11 +10,11 @@ matricula_ID INT AUTO_INCREMENT PRIMARY KEy
 );
 
 CREATE TABLE IF NOT EXISTS notas (
-nota1 INT,
-nota2 INT,
-nota3 INT,
-nota4 INT,
-media_aluno INT,
+nota1 decimal (4,2),
+nota2 decimal (4,2),
+nota3 decimal (4,2),
+nota4 decimal (4,2),
+media_aluno decimal (4,2),
 situacao_aluno VARCHAR (100),
 matricula_FK_ID INT AUTO_INCREMENT PRIMARY KEY,
 FOREIGN KEY (matricula_FK_ID) REFERENCES Alunos (matricula_ID)
@@ -31,13 +31,13 @@ funcao_docente VARCHAR (50) NOT NULL
 );
 
 insert into alunos (nome_aluno, idade_aluno, turma_aluno) values ("josue", 15, "1ds");
-insert into notas (nota1, nota2, nota3) values (7, 5, 8);
+insert into notas (nota1, nota2, nota3, nota4) values (7, 5, 8,10);
 
 SELECT * FROM professor;
+SELECT * FROM alunos;
+SELECT * FROM notas;
+
 
 /*
-SELECT nota1, nota2, nota3, nota4 FROM notas
-INNER JOIN nota1, nota2, nota3, nota4 ON alunos;
+drop database carrossel;
 
-
-Drop Database Carrossel;
