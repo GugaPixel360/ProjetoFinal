@@ -1127,6 +1127,10 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 1: "))
+                if not validar_nota(notaX):
+                    erro()
+                    continue
+                notaX == validar_nota(notaX)
         
         elif nota == "nota 2" or nota == "2":
             nota = "nota2"
@@ -1144,7 +1148,7 @@ def adicionar_nota(matricula):
                             notaX == validar_nota(notaX)
 
                         except:
-                            erro()
+                            erro() 
                             continue
 
                         if not validar_nota(notaX):
@@ -1161,6 +1165,10 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 2: "))
+                if not validar_nota(notaX):
+                    erro()
+                    continue
+                notaX == validar_nota(notaX)
         
         elif nota == "nota 3" or nota == "3":
             nota = "nota3"
@@ -1189,6 +1197,10 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 3: "))
+                if not validar_nota(notaX):
+                    erro()
+                    continue
+                notaX == validar_nota(notaX)
         
         elif nota == "nota 4" or nota == "4":
             nota = "nota4"
@@ -1217,6 +1229,10 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 4: "))
+                if not validar_nota(notaX):
+                    erro()
+                    continue
+                notaX == validar_nota(notaX)
 
         else:
             erro()
@@ -1254,15 +1270,7 @@ def atualizar_nota(matricula, notaX, nota):
 
     valores = (notaX, matricula)
 
-    if notaX > 10:
-        print("Nota inválida!")
-        print(erro())
-        return
-    
-    if notaX < 0:
-        print("Nota inválida!")
-        print(erro())
-        return
+
     
     cursor.execute(sql, valores)
     conexao.commit()
