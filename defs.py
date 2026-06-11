@@ -1347,8 +1347,7 @@ def media(matricula):
 
         resultado = cursor.fetchone()
 
-        cursor.close()
-        conn.close()
+        
         
         if any(item is None for item in resultado):
             print("Nem todas as notas foram adicionadas \nPor favor adicione todas as notas antes de gerar a média")
@@ -1368,9 +1367,22 @@ def media(matricula):
         
         
             if media >= 7.0:
+                situacao = "aprovado"
                 print("Situação: Aprovado")
             else:
                 print("Situação: Recuperação")
+                situacao = "recuperacao"
+
+            sql = "UPDATE notas SET media_aluno = %s, situacao_aluno = %s WHERE matricula_FK_ID = %s"
+            valores = (media, situacao, matricula)
+
+            cursor.execute(sql, valores)
+            conn.commit()
+
+            cursor.close()
+            conn.close()
+            print()
+            
         else:
             print(f"Nenhuma nota encontrada para o aluno com ID {matricula}.")
         break
