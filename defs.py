@@ -104,7 +104,7 @@ def professor():
                         if not a:
                             continue
 
-                        excluir_nota(matricula)
+                        excluir_nota(matricula, b)
                         if not denovo():
                             break
                                             
@@ -1142,7 +1142,7 @@ def adicionar_nota(matricula):
                         try:
                             notaX = float(input("Digite a nova nota 2: "))
 
-                            if not validar_nota():
+                            if not validar_nota(notaX):
                                 erro()
 
                             notaX == validar_nota(notaX)
@@ -1691,7 +1691,7 @@ def excluir_docente(id_docente):
     conexao.close()
 
 #excluir nota
-def excluir_nota(matricula):
+def excluir_nota(matricula, b):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
@@ -1703,19 +1703,19 @@ def excluir_nota(matricula):
 
         ###############################################################
 
-        if nota == "1" or nota == "nota 1":
+        if nota == "1" or nota == "nota 1" or nota == "nota1":
             nota = "nota1"
             indice = 1
 
-        elif nota == "2" or nota == "nota 2":
+        elif nota == "2" or nota == "nota 2" or nota == "nota2":
             nota = "nota2"
             indice = 2
 
-        elif nota == "3" or nota == "nota 3":
+        elif nota == "3" or nota == "nota 3" or nota == "nota3":
             nota = "nota3"
             indice = 3
 
-        elif nota == "4" or nota == "nota 4":
+        elif nota == "4" or nota == "nota 4" or nota == "nota4":
             nota = "nota4"
             indice = 4
 
@@ -1724,7 +1724,6 @@ def excluir_nota(matricula):
             print("Escolha uma das opções")
             continue
 
-        a, b = ler_notas_notas(matricula)
         if b[indice] is None:
             print ("A nota escolhida não tem valor, não é possível exclui-la")
 
@@ -1741,6 +1740,9 @@ def excluir_nota(matricula):
         
 
         ler_notas_notas(matricula)
+        print("-----------------------")
+        print("Nota excluida com sucesso!")
+        print("-----------------------")
         cursor.close()
         conexao.close()
 
