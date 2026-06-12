@@ -768,11 +768,10 @@ def validar_nota(nota):
         return False
 
     if nota > 10 or nota < 0:
-        print("Sua nota precisa ser entra 0 e 10")
-        
+        print("Sua nota precisa ser entra 0 e 10")    
         return False
     
-    return nota
+    return True, nota
     
 #def validacao de materia
 def validar_materia(materia):
@@ -1107,7 +1106,7 @@ def adicionar_nota(matricula):
         if nota == "nota 1" or nota == "1":
             nota = "nota1"
             if resultado[1] is not None:
-                print("Essa nota já está adicionada... | Você gostaria de alterala?\n | 1 - Sim\n | 2 - Não\n")
+                print("Essa nota já está adicionada, você gostaria de alterala?\n | 1 - Sim\n | 2 - Não")
                 escolha = input("Escreva aqui: ")
                 match escolha:
                     case "1":
@@ -1117,10 +1116,10 @@ def adicionar_nota(matricula):
                             erro()
                             continue
 
-                        if not validar_nota(notaX):
+                        a, notaX = validar_nota(notaX)
+                        if not a:
                             erro()
                             continue
-                        notaX = validar_nota(notaX)
 
                         atualizar_nota(matricula, notaX, nota)
                     case "2":
@@ -1131,10 +1130,12 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 1: "))
-                if not validar_nota(notaX):
+                a, notaX = validar_nota(notaX)
+                if not a:
                     erro()
                     continue
-                notaX = validar_nota(notaX)
+                
+                atualizar_nota(matricula, notaX, nota)
         
         elif nota == "nota 2" or nota == "2":
             nota = "nota2"
@@ -1146,19 +1147,19 @@ def adicionar_nota(matricula):
                         try:
                             notaX = float(input("Digite a nova nota 2: "))
 
-                            if not validar_nota(notaX):
+                            a, notaX = validar_nota(notaX)
+                            if not a:
                                 erro()
 
-                            notaX = validar_nota(notaX)
 
                         except:
                             erro() 
                             continue
 
-                        if not validar_nota(notaX):
+                        a, notaX = validar_nota(notaX)
+                        if not a:
                             erro()
                             continue
-                        notaX = validar_nota(notaX)
 
                         atualizar_nota(matricula, notaX, nota)
                     case "2":
@@ -1169,10 +1170,11 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 2: "))
-                if not validar_nota(notaX):
+                a, notaX = validar_nota(notaX)
+                if not a:
                     erro()
                     continue
-                notaX = validar_nota(notaX)
+                atualizar_nota(matricula, notaX, nota)
         
         elif nota == "nota 3" or nota == "3":
             nota = "nota3"
@@ -1187,10 +1189,10 @@ def adicionar_nota(matricula):
                             erro()
                             continue
 
-                        if not validar_nota(notaX):                                                                             
+                        a, notaX = validar_nota(notaX)
+                        if not a:                                                                             
                             erro()
                             continue
-                        notaX = validar_nota(notaX)
 
                         atualizar_nota(matricula, notaX, nota)
                     case "2":
@@ -1201,10 +1203,11 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 3: "))
-                if not validar_nota(notaX):
+                a, notaX = validar_nota(notaX)
+                if not a:
                     erro()
                     continue
-                notaX = validar_nota(notaX)
+                atualizar_nota(matricula, notaX, nota)
         
         elif nota == "nota 4" or nota == "4":
             nota = "nota4"
@@ -1219,10 +1222,10 @@ def adicionar_nota(matricula):
                             erro()
                             continue
 
-                        if not validar_nota(notaX):
+                        a, notaX = validar_nota(notaX)
+                        if not a:
                             erro()
                             continue
-                        notaX == validar_nota(notaX)
 
                         atualizar_nota(matricula, notaX, nota)
                     case "2":
@@ -1233,10 +1236,11 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 4: "))
-                if not validar_nota(notaX):
+                a, notaX = validar_nota(notaX)
+                if not a:
                     erro()
                     continue
-                notaX = validar_nota(notaX)
+                atualizar_nota(matricula, notaX, nota)
 
         else:
             erro()
@@ -1245,10 +1249,9 @@ def adicionar_nota(matricula):
 
 
 
-        atualizar_nota(matricula, notaX, nota)
         ler_notas_notas(matricula)
 
-        print("Você gostaria de adicionar mais notas?")
+        print("\nVocê gostaria de adicionar mais notas?")
         print(" | 1 - Sim \n | 2 - não")
         op = input("Escreva aqui: ")
         match op:
@@ -1273,15 +1276,13 @@ def atualizar_nota(matricula, notaX, nota):
         """
 
     valores = (notaX, matricula)
-
-
     
     cursor.execute(sql, valores)
     conexao.commit()
 
     print("---------------------------")
     print("Nota atualizada com sucesso!")
-    print("---------------------------\n")
+    print("---------------------------")
 
     cursor.close()
     conexao.close()
@@ -1708,7 +1709,7 @@ def excluir_nota(matricula, b):
 
         ###############################################################
 
-        if nota == "1" or nota == "nota 1" or nota == "nota1":
+        elif nota == "1" or nota == "nota 1" or nota == "nota1":
             nota = "nota1"
             indice = 1
 
@@ -1728,28 +1729,27 @@ def excluir_nota(matricula, b):
         elif not nota in opcao_notas:
             print("Escolha uma das opções")
             continue
+        if nota != "5":
+            if b[indice] is None:
+                print ("A nota escolhida não tem valor, não é possível exclui-la")
+                continue
 
-        if b[indice] is None:
-            print ("A nota escolhida não tem valor, não é possível exclui-la")
-
-        elif True:
-            sql = f"""
-                UPDATE notas
-                SET {nota} = NULL
-                WHERE matricula_FK_ID = %s
-                """
-            
-            valores = (matricula,)
-            cursor.execute(sql, valores)
-            conexao.commit()
+            elif True:
+                sql = f"""
+                    UPDATE notas
+                    SET {nota} = NULL
+                    WHERE matricula_FK_ID = %s
+                    """
+                
+                valores = (matricula,)
+                cursor.execute(sql, valores)
+                conexao.commit()
         
 
         ler_notas_notas(matricula)
         print("-----------------------")
         print("Nota excluida com sucesso!")
         print("-----------------------")
-        cursor.close()
-        conexao.close()
 
         #denovo
         print("Você gostaria de excluir mais notas?")
@@ -1760,6 +1760,9 @@ def excluir_nota(matricula, b):
                 continue
             case "2":
                 break 
+
+    cursor.close()
+    conexao.close()
     
 #Excluir todas as notas
 def excluir_5(matricula):
