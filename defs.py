@@ -77,7 +77,8 @@ def professor():
 
                     # adicionar
                     case "1":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -695,6 +696,25 @@ def diretor():
             print("Selecioe uma das opcoes")
             print("tente novamente")
             continue
+
+#def para buscar matricula
+def buscar_matricula():
+    conn = criar_conexao()
+    cursor = conn.cursor()
+
+    #buscao ultimo adicionado
+    cursor.execute("""
+        SELECT matricula_ID
+        FROM alunos
+        ORDER BY id DESC
+        LIMIT 1
+    """)
+
+    resultado = cursor.fetchone()
+    conn.close()
+
+    return resultado[0] if resultado else None
+
 
 
 #DEFs DE VALIDACAO!!!!
@@ -1506,6 +1526,9 @@ def ler_alunos():
         print("======================")
         print("Nenhum aluno cadastrado")
         print("======================")
+        cursor.close()
+        conn.close()
+        return False
     else:
         print("======================")
         print("LISTA DE ALUNOS")
