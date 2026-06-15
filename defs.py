@@ -76,7 +76,8 @@ def professor():
 
                     # adicionar
                     case "1":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -695,6 +696,25 @@ def diretor():
             print("tente novamente")
             continue
 
+#def para buscar matricula
+def buscar_matricula():
+    conn = criar_conexao()
+    cursor = conn.cursor()
+
+    #buscao ultimo adicionado
+    cursor.execute("""
+        SELECT matricula_ID
+        FROM alunos
+        ORDER BY id DESC
+        LIMIT 1
+    """)
+
+    resultado = cursor.fetchone()
+    conn.close()
+
+    return resultado[0] if resultado else None
+
+
 
 #DEFs DE VALIDACAO!!!!
 
@@ -986,7 +1006,7 @@ def verificar_matricula(matricula):
 
 
 #adicionar alunos
-def adicionar_alunos(nome, idade, turma, matriculaN):
+def adicionar_alunos(nome, idade, turma):
     conn = criar_conexao()
 
     if conn is None:
@@ -1002,10 +1022,14 @@ def adicionar_alunos(nome, idade, turma, matriculaN):
         (nome, idade, turma)
     )
 
-    sql = "INSERT INTO notas notas (matricula_FK_ID) VALUES (%s)", (matriculaN,)
+    conn.commit()
+
+    matricula = buscar_matricula()
+
+    sql = "INSERT INTO notas notas (matricula_FK_ID) VALUES (%s)", (matricula,)
     
     cursor.execute(sql)
-
+ 
     conn.commit() 
 
     print("Aluno matriculado com sucesso!")
@@ -1502,6 +1526,9 @@ def ler_alunos():
         print("======================")
         print("Nenhum aluno cadastrado")
         print("======================")
+        cursor.close()
+        conn.close()
+        return False
     else:
         print("======================")
         print("LISTA DE ALUNOS")
