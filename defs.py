@@ -711,7 +711,7 @@ def validar_codigo(idd):
         idd = int(idd)
     except:
         print("O código do docente precisa ser um número")
-        return False
+        return False, idd
 
     
     conexao = criar_conexao()
@@ -724,7 +724,7 @@ def validar_codigo(idd):
 
     if not resultado:
         print("Docente não encontrado")
-        return
+        return False, idd
         
 
     cursor.close()
@@ -983,7 +983,7 @@ def verificar_matricula(matricula):
 
 
 #adicionar alunos
-def adicionar_alunos(nome, idade, turma, matricula):
+def adicionar_alunos(nome, idade, turma):
     conn = criar_conexao()
 
     if conn is None:
@@ -997,14 +997,11 @@ def adicionar_alunos(nome, idade, turma, matricula):
         (nome, idade, turma)
     )
 
-    cursor.execute(
-    "INSERT INTO notas (matricula_FK_ID) VALUES (%s)",
-    (matricula,)
-    )
+   
     
     conn.commit() 
 
-    print("Usuário cadastrado com sucesso!")
+    print("Aluno matriculado com sucesso!")
 
     cursor.close()
     conn.close()

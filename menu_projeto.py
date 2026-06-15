@@ -49,7 +49,7 @@ while True:
                 case 1:
                     professor()
 
-                #coordenador
+                #coordendor
                 case 2:
                     coordenador()
                                   
