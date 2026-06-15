@@ -313,10 +313,13 @@ def coordenador():
                             turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
                             if not validar_turma(turma):
                                 continue
+                            
+                            
 
                             # criar login
                             try:
-                                adicionar_alunos(Nome, idade, turma)
+                                adicionar_alunos(Nome, idade, turma, matriculaN)
+                                
                             except:
                                 print("Ocorreu um erro ao adicionar o aluno.")
                                 erro()
@@ -983,12 +986,14 @@ def verificar_matricula(matricula):
 
 
 #adicionar alunos
-def adicionar_alunos(nome, idade, turma):
+def adicionar_alunos(nome, idade, turma, matriculaN):
     conn = criar_conexao()
 
     if conn is None:
         print("Falha na conexão")
         return
+
+    
 
     cursor = conn.cursor()
 
@@ -997,8 +1002,10 @@ def adicionar_alunos(nome, idade, turma):
         (nome, idade, turma)
     )
 
-   
+    sql = "INSERT INTO notas notas (matricula_FK_ID) VALUES (%s)", (matriculaN,)
     
+    cursor.execute(sql)
+
     conn.commit() 
 
     print("Aluno matriculado com sucesso!")
