@@ -711,7 +711,7 @@ def validar_codigo(idd):
         idd = int(idd)
     except:
         print("O código do docente precisa ser um número")
-        return False
+        return False, idd
 
     
     conexao = criar_conexao()
@@ -724,7 +724,7 @@ def validar_codigo(idd):
 
     if not resultado:
         print("Docente não encontrado")
-        return
+        return False, idd
         
 
     cursor.close()
@@ -996,10 +996,12 @@ def adicionar_alunos(nome, idade, turma):
         "INSERT INTO alunos (nome_aluno, idade_aluno, turma_aluno) VALUES (%s, %s, %s)",
         (nome, idade, turma)
     )
+
+   
     
     conn.commit() 
 
-    print("Usuário cadastrado com sucesso!")
+    print("Aluno matriculado com sucesso!")
 
     cursor.close()
     conn.close()
