@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 
+
 #Cria conexao com o sql
 def criar_conexao():
     try:
@@ -318,7 +319,7 @@ def coordenador():
 
                             # criar login
                             try:
-                                adicionar_alunos(Nome, idade, turma, matriculaN)
+                                adicionar_alunos(Nome, idade, turma)
                                 
                             except:
                                 print("Ocorreu um erro ao adicionar o aluno.")
@@ -986,7 +987,7 @@ def verificar_matricula(matricula):
 
 
 #adicionar alunos
-def adicionar_alunos(nome, idade, turma, matriculaN):
+def adicionar_alunos(nome, idade, turma):
     conn = criar_conexao()
 
     if conn is None:
@@ -1002,9 +1003,12 @@ def adicionar_alunos(nome, idade, turma, matriculaN):
         (nome, idade, turma)
     )
 
-    sql = "INSERT INTO notas notas (matricula_FK_ID) VALUES (%s)", (matriculaN,)
-    
-    cursor.execute(sql)
+    matricula = cursor.lastrowid
+
+    cursor.execute(
+    "INSERT INTO notas (matricula_FK_ID) VALUES (%s)",
+    (matricula,)
+    )
 
     conn.commit() 
 
