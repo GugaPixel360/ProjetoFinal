@@ -134,7 +134,7 @@ def professor():
                         print("tente novamente")
                         continue
         
-        #situaçao do aluno
+        #situaçao do aluno - média
         elif op == "2":
             ler_alunos()
             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
@@ -314,9 +314,9 @@ def coordenador():
                             if not validar_turma(turma):
                                 continue
 
-                            #criar login
+                            # criar login
                             try:
-                                adicionar_alunos(Nome,idade,turma)
+                                adicionar_alunos(Nome, idade, turma)
                             except:
                                 print("Ocorreu um erro ao adicionar o aluno.")
                                 erro()
@@ -700,7 +700,7 @@ def diretor():
 def validar_turma(turma):
     if turma not in turmass:
         print("A turma selecionada não existe")
-        print("Por favor selecione uam existente")
+        print("Por favor selecione uma existente")
         return False
     
     return True
@@ -1378,8 +1378,8 @@ def media(matricula):
             return False
         
         if None in resultado:
-            print("Nem todas as notas foram adicionadas.")
-            print("Por favor adicione todas as notas antes de gerar a média.")
+            print("-----------------------\nNem todas as notas foram adicionadas.")
+            print("Por favor adicione todas as notas antes de gerar a média.\n-----------------------")
             return
 
         if resultado:
@@ -1621,10 +1621,6 @@ def ler_notas_notas(matricula):
     resultado = cursor.fetchone()
   
 
-    if resultado is None:
-        print("Aluno não encontrado.")
-        return False, resultado
-    
     if resultado[1] is None:
         resultado1 = ""
     else:
@@ -1806,8 +1802,13 @@ materias_escola = [ "biologia","bio","mtm", "matematica","matemática","geo", "g
 materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, artes, história, inglês, educação física, Física, português, Química")
 
 #array de turmas
-turmas = ["1° Desenvolvimento de sistemas", "2° Desenvolvimento de sistemas", "3° Desenvolvimento de sistemas", "1° Desenvolvimento de jogos", "2° Desenvolvimento de jogos", "3° Desenvolvimento de jogos"]
-turmass = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "2° Desenvolvimento de sistemas","2 ds", "2ds", "3° Desenvolvimento de sistemas","3ds", "3 ds","1 jogos", "1° Desenvolvimento de jogos","1jogos","2 jogos", "2° Desenvolvimento de jogos", "2jogos", "3° Desenvolvimento de jogos", "3 jogos", "3jogos"]
+turmas = ("1° Desenvolvimento de sistemas, 2° Desenvolvimento de sistemas, 3° Desenvolvimento de sistemas, 1° Desenvolvimento de jogos, 2° Desenvolvimento de jogos, 3° Desenvolvimento de jogos")
+turmass = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "1° ds",
+ "2° Desenvolvimento de sistemas","2 ds", "2ds", "2° ds", 
+ "3° Desenvolvimento de sistemas","3ds", "3 ds","3° ds",
+ "1 jogos", "1° Desenvolvimento de jogos","1jogos","1° jogos", "1°jogos",
+ "2 jogos", "2° Desenvolvimento de jogos", "2jogos","2° jogos", "2°jogos",
+ "3° Desenvolvimento de jogos", "3 jogos", "3jogos","3° jogos", "3°jogos",]
 
 #notas que existem no sql
 opcao_notas = ["1", "nota 1", "nota1", "2", "nota 2", "nota2", "3", "nota 3", "nota3", "4", "nota 4", "nota4"]
