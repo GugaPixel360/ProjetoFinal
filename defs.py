@@ -1703,9 +1703,14 @@ def ler_notas_notas(matricula):
 def excluir_aluno(matricula_ID):
     conexao = criar_conexao()  
     cursor = conexao.cursor()  
+
+
+    sql1 = "DELETE FROM notas WHERE matricula_FK_ID = %s"
+    cursor.execute(sql1, (matricula_ID,))
     
-    sql = "DELETE FROM alunos WHERE matricula_ID = %s"
-    cursor.execute(sql, (matricula_ID,)) 
+
+    sql2 = "DELETE FROM alunos WHERE matricula_ID = %s"
+    cursor.execute(sql2, (matricula_ID,)) 
     
     conexao.commit()  
     cursor.close()
