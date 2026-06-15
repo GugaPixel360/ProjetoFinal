@@ -1104,7 +1104,7 @@ def adicionar_nota(matricula):
         if nota == "nota 1" or nota == "1":
             nota = "nota1"
             if resultado[1] is not None:
-                print("Essa nota já está adicionada, você gostaria de alterala?\n | 1 - Sim\n | 2 - Não")
+                print("Essa nota já está adicionada, você gostaria de altera-la?\n | 1 - Sim\n | 2 - Não")
                 escolha = input("Escreva aqui: ")
                 match escolha:
                     case "1":
@@ -1608,7 +1608,7 @@ def ler_notas_notas(matricula):
         notas.media_aluno,
         notas.situacao_aluno
     FROM alunos
-    INNER JOIN notas
+    LEFT JOIN notas
     ON alunos.matricula_ID = notas.matricula_FK_ID
     WHERE alunos.matricula_ID = %s
     """
@@ -1617,7 +1617,7 @@ def ler_notas_notas(matricula):
     
 
     resultado = cursor.fetchone()
-  
+    
 
     if resultado[1] is None:
         resultado1 = ""
