@@ -769,7 +769,7 @@ def validar_nota(nota):
 
     if nota > 10 or nota < 0:
         print("Sua nota precisa ser entra 0 e 10")    
-        return False
+        return False, nota
     
     return True, nota
     
@@ -1083,6 +1083,9 @@ def adicionar_nota(matricula):
                 notaX = float(input("Digite a nota 4: "))
     
 
+            if notaX < 0:
+                print("Digite uma nota válida!")
+                continue
 
             atualizar_nota(matricula, notaX, nota)
             ler_notas_notas(matricula)
