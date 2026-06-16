@@ -34,7 +34,7 @@ def denovo():
 
         elif continuar == "1":
             print("=================\n")
-            break
+            return
 
         elif continuar == "2":
             print("Você saiu, obrigado por ultilizar nosso sistema!")
@@ -961,7 +961,7 @@ def validar_senha():
                 
                 
 
-            print ("Tente denovo")
+            print ("Tente de novo")
             print ("============")
             continue
 
@@ -1542,6 +1542,7 @@ def ler_alunos():
 
     cursor.close()
     conn.close()
+    return True
 
 #retorna a funcao do docente
 def ler_funcao(id_docente):
@@ -1830,7 +1831,7 @@ def excluir_5(matricula):
 
 
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
-escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord"]
+escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord", "coor"]
 escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 
 #educacao fisica

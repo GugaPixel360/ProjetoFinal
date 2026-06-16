@@ -57,7 +57,7 @@ while True:
                 case 3:  
                     diretor()
 
-        case "2":
+        case "2":                       
 
             while True:
 
