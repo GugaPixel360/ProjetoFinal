@@ -1652,8 +1652,15 @@ def ler_notas_notas(matricula):
 
     cursor.execute(sql, (matricula,))
     
-
     resultado = cursor.fetchone()
+    
+    if resultado is None:
+        print("Aluno não encontrado ou sem registro de notas.")
+        cursor.close()
+        conexao.close()
+        return False, None
+
+
     
 
     if resultado[1] is None:
