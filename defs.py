@@ -869,6 +869,9 @@ def validar_nome(nome):
     if nome == "":
         print("Campo vazio!") 
         return False
+    if not " " in nome:
+        print("Digite seu nome completo")
+        return False
     if nome.replace(" ", "").isalpha():
         return True
 
@@ -1843,7 +1846,7 @@ def excluir_5(matricula):
 
 
 #Lista tendo todos as funcoes que um usuario pode ter no sistema
-escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord", "coor"]
+escolha_de_funcoes = ["professor", "coordenador", "diretor", "prof", "coord", "coor", "fessor"]
 escolha_de_funcoes1 = ("Professor, Coordenador e diretor")
 
 #educacao fisica
