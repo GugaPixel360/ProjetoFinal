@@ -86,7 +86,8 @@ def professor():
                             continue
 
                         adicionar_nota(matricula)
-                        denovo()
+                        if not denovo():
+                            continue
 
                     # excluir                                             
                     case "2":
@@ -198,7 +199,8 @@ def coordenador():
 
                     # adicionar
                     case "1":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -207,7 +209,7 @@ def coordenador():
 
                         adicionar_nota(matricula)
                         if not denovo():
-                            break
+                            continue
 
                     # excluir                                             
                     case "2":
@@ -227,7 +229,7 @@ def coordenador():
                         if not a:
                             continue
 
-                        excluir_nota(matricula)
+                        excluir_nota(matricula, b)
                         if not denovo():
                             break
                                             
@@ -257,7 +259,7 @@ def coordenador():
                         print("tente novamente")
                         continue
         
-        #situaçao do aluno
+        #situaçao do aluno - média
         elif op == "2":
             ler_alunos()
             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
@@ -277,7 +279,6 @@ def coordenador():
         elif op == "3":
             ler_alunos_completo()
             denovo()
-
 
         #manipulaçao de alunos 
         elif op == "4":
@@ -402,7 +403,8 @@ def diretor():
 
                     # adicionar
                     case "1":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -411,7 +413,7 @@ def diretor():
 
                         adicionar_nota(matricula)
                         if not denovo():
-                            break
+                            continue
 
                     # excluir                                             
                     case "2":
@@ -431,7 +433,7 @@ def diretor():
                         if not a:
                             continue
 
-                        excluir_nota(matricula)
+                        excluir_nota(matricula, b)
                         if not denovo():
                             break
                                             
@@ -461,7 +463,7 @@ def diretor():
                         print("tente novamente")
                         continue
         
-        #situaçao do aluno
+        #situaçao do aluno - média
         elif op == "2":
             ler_alunos()
             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
@@ -481,7 +483,7 @@ def diretor():
         elif op == "3":
             ler_alunos_completo()
             denovo()
-  
+
         #manipulaçao de alunos 
         elif op == "4":
             while True:
@@ -518,10 +520,13 @@ def diretor():
                             turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
                             if not validar_turma(turma):
                                 continue
+                            
+                            
 
-                            #criar login
+                            # criar login
                             try:
-                                adicionar_alunos(Nome,idade,turma)
+                                adicionar_alunos(Nome, idade, turma)
+                                
                             except:
                                 print("Ocorreu um erro ao adicionar o aluno.")
                                 erro()
@@ -559,8 +564,8 @@ def diretor():
                     case _:
                         erro()
                         print("tente novamente")
-                        continue     
-        
+                        continue
+
         #profesores
         elif op == "5":
             while True:
