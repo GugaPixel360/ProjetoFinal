@@ -301,24 +301,29 @@ def coordenador():
                             print ("\33[34m===============\033[m")
                             
                             #nome
-                            Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
-                            if not validar_nome(Nome):
-                                erro()
-                                print("Preencha o campo corretamente")
-                                continue
+                            while True:
+                                Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
+                                if not validar_nome(Nome):
+                                    erro()
+                                    print("Preencha o campo corretamente")
+                                    continue
+                                a, Nome = validar_nome(Nome)
+                                break
 
                             #idade
-                            idade = input("Digite a idade do aluno: ")
-                            if not validar_idade(idade):
-                                continue
-                            
-                            #turma do aluno
-                            turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
-                            if not validar_turma(turma):
-                                continue
-                            
-                            
+                            while True:
+                                idade = input("Digite a idade do aluno: ").strip()
+                                if not validar_idade(idade):
+                                    continue
+                                a, idade = validar_idade(idade)
+                                break
 
+                            #turma do aluno
+                            while True:
+                                turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
+                                if not validar_turma(turma):
+                                    continue
+                            
                             # criar login
                             try:
                                 adicionar_alunos(Nome, idade, turma)
@@ -331,8 +336,7 @@ def coordenador():
                         
                         if not denovo():
                             break
-                        
-
+                       
                     # excluir                                             
                     case "2":
                         ler_alunos()
@@ -348,6 +352,7 @@ def coordenador():
 
                         
                         excluir_aluno(matricula)
+                        ler_alunos()
                         if not denovo():
                             break
 
@@ -417,6 +422,7 @@ def diretor():
 
                     # excluir                                             
                     case "2":
+                        
                         ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
@@ -433,7 +439,8 @@ def diretor():
                         if not a:
                             continue
 
-                        excluir_nota(matricula, b)
+                        if excluir_nota(matricula, b):
+                            continue
                         if not denovo():
                             break
                                             
@@ -505,38 +512,45 @@ def diretor():
                             print ("\33[34m===============\033[m")
                             
                             #nome
-                            Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
-                            if not validar_nome(Nome):
-                                erro()
-                                print("Preencha o campo corretamente")
-                                continue
+                            while True:
+                                Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
+                                if not validar_nome(Nome):
+                                    erro()
+                                    print("Preencha o campo corretamente")
+                                    continue
+                                a, Nome = validar_nome(Nome)
+                                break
 
                             #idade
-                            idade = input("Digite a idade do aluno: ")
-                            if not validar_idade(idade):
-                                continue
-                            
-                            #turma do aluno
-                            turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
-                            if not validar_turma(turma):
-                                continue
-                            
-                            
+                            while True:
+                                idade = input("Digite a idade do aluno: ").strip()
+                                if not validar_idade(idade):
+                                    continue
+                                a, idade = validar_idade(idade)
+                                break
 
-                            # criar login
-                            try:
-                                adicionar_alunos(Nome, idade, turma)
+                            #turma do aluno
+                            while True:
+                                turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
+                                if not validar_turma(turma):
+                                    continue
+
+                                break
+                            
+                            
+                            ## criar login
+                            # try:
+                            adicionar_alunos(Nome, idade, turma)
                                 
-                            except:
-                                print("Ocorreu um erro ao adicionar o aluno.")
-                                erro()
-                                continue
+                            # except:
+                            #     print("Ocorreu um erro ao adicionar o aluno.")
+                            #     erro()
+                            #     continue
                             break
                         
                         if not denovo():
                             break
                         
-
                     # excluir                                             
                     case "2":
                         ler_alunos()
@@ -552,6 +566,7 @@ def diretor():
 
                         
                         excluir_aluno(matricula)
+                        ler_alunos()
                         if not denovo():
                             break
 
@@ -587,34 +602,42 @@ def diretor():
                             print ("\33[34m===============\033[m")
                             
                              #nome
-                            Nome = input("Digite o nome completo do docente: ").capitalize().strip()               
-                            if not validar_nome(Nome):
-                                erro()
-                                print("Preencha o campo corretamente")
-                                continue
+                            while True:
+                                Nome = input("Digite o nome completo do docente: ").capitalize().strip()               
+                                if not validar_nome(Nome):
+                                    erro()
+                                    print("Preencha o campo corretamente")
+                                    continue
+                                a, Nome = validar_nome(Nome)
+                                break 
 
                             #email
-                            Email = input("Digite o email do docente: ")
-                            if not validar_email(Email):
-                                continue
-                            
-                            #funcao do docente
-                            funcao = input(f"Digite a função do docente\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
-                            if not verificar_funcao(funcao):
-                                continue
-                            funcao1 = verificar_funcao(funcao)
-
-
-                            if funcao1 != "coordenador" and funcao1 != "diretor":
-                                #materia
-                                materia = input(f"Digite a matéria dodocente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
-                                if not validar_materia(materia):
-                                    erro()
+                            while True:
+                                Email = input("Digite o email do docente: ").strip()
+                                if not validar_email(Email):
                                     continue
-                                materia = validar_materia(materia)
+                                break
 
-                            else:
-                                materia = funcao1
+                            #funcao do docente
+                            while True:
+                                funcao = input(f"Digite a função do docente\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
+                                if not verificar_funcao(funcao):
+                                    continue
+                                funcao1 = verificar_funcao(funcao)
+
+
+                                if funcao1 != "coordenador" and funcao1 != "diretor":
+                                    
+                                    #materia
+                                    materia = input(f"Digite a matéria dodocente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
+                                    if not validar_materia(materia):
+                                        erro()
+                                        continue
+                                    materia = validar_materia(materia)
+
+                                else:
+                                    materia = funcao1
+                                break
                                 
                             #senha
                             while True:
@@ -693,7 +716,6 @@ def diretor():
                         erro()
                         print("Tente novamente")
                         continue
-
 
         #validacao
         else:
@@ -778,7 +800,7 @@ def validar_idade(idade):
         return False
 
     if idade < 14:
-        print("Não aceitamos alunos menores que 14 anos, pois apenas temos o ensino médio")
+        print("Não aceitamos alunos menores que 14 anos, pois temos apenas o ensino médio em nossa escola")
         return False
     
     if idade > 116:
@@ -786,7 +808,7 @@ def validar_idade(idade):
         print("Não aceitamos mortos em nossa escola")
         return False
 
-    return True
+    return True, idade
 
 #validar nota
 def validar_nota(nota):
@@ -864,18 +886,19 @@ def validar_email(Email):
 
 #defs validacao nome
 def validar_nome(nome):
-    nome = nome.strip()
+    nome = " ".join(nome.split())
 
     if nome == "":
         print("Campo vazio!") 
-        return False
+        return False, False
     if not " " in nome:
         print("Digite seu nome completo")
-        return False
+        return False, False
     if nome.replace(" ", "").isalpha():
-        return True
+        return True, nome
 
-    return False
+
+    return False, False
 
 # valida o id do docente que o usuario colocou 
 def validar_id():
@@ -910,7 +933,7 @@ def validar_id():
 
 # verificacao da funcao do docente (se a funcao existe ou nao)
 def verificar_funcao(funcao):
-    funcao = funcao.lower()
+    funcao = funcao.lower().strip()
     
     if not funcao in escolha_de_funcoes:
         erro()
@@ -920,6 +943,8 @@ def verificar_funcao(funcao):
         return False
     
     if funcao == "prof":
+        funcao = "professor" 
+    if funcao == "fessor":
         funcao = "professor"
     if funcao == "coor":
         funcao = "coordenador"
@@ -1326,70 +1351,68 @@ def atualizar_nota(matricula, notaX, nota):
     cursor.close()
     conexao.close()
 
-#adicionar professor (funcao diretor)
-def adicionar_professor():
+# #adicionar professor (funcao diretor)                          FUNCAO NAO ULTILIZADA (verificar)
+# def adicionar_professor():
+#     while True:
+#         Nome = input("Digite o nome do professor: ").capitalize().strip()
 
-    
-    while True:
-        Nome = input("Digite o nome do professor: ").capitalize().strip()
+#         if not validar_nome(Nome):
+#             print("Nome inválido!")
+#             erro()
+#             continue
 
-        if not validar_nome(Nome):
-            print("Nome inválido!")
-            erro()
-            continue
-
-        break
+#         break
 
   
-    while True:
-        Email = input("Digite o email do professor: ").strip()
+#     while True:
+#         Email = input("Digite o email do professor: ").strip()
 
-        if not validar_email(Email):
-            continue
+#         if not validar_email(Email):
+#             continue
 
-        break
+#         break
 
-    while True:
-        materia = input("Digite a matéria do professor: ").strip().lower()
+#     while True:
+#         materia = input("Digite a matéria do professor: ").strip().lower()
 
-        if not validar_materia(materia):
-            continue
+#         if not validar_materia(materia):
+#             continue
 
-        break
+#         break
 
-    senha = validar_senha()
+#     senha = validar_senha()
 
     
-    conexao = criar_conexao()
+#     conexao = criar_conexao()
 
-    cursor = conexao.cursor()
+#     cursor = conexao.cursor()
 
-    try:
-        sql = """
-        INSERT INTO professor
-        (nome_docente, email_docente, funcao_docente, materia_docente, senha)
+#     try:
+#         sql = """
+#         INSERT INTO professor
+#         (nome_docente, email_docente, funcao_docente, materia_docente, senha)
 
-        VALUES (%s, %s, %s, %s, %s)
-        """
+#         VALUES (%s, %s, %s, %s, %s)
+#         """
 
-        valores = (
-        Nome,
-        Email,
-        professor,
-        materia,
-        senha
-        )
+#         valores = (
+#         Nome,
+#         Email,
+#         professor,
+#         materia,
+#         senha
+#         )
 
-        cursor.execute(sql, valores)
-        conexao.commit()
+#         cursor.execute(sql, valores)
+#         conexao.commit()
 
 
-    except Error as professor:
-        print(f"Erro ao cadastrar professor: {professor}")
-        erro()
+#     except Error as professor:
+#         print(f"Erro ao cadastrar professor: {professor}")
+#         erro()
 
-        cursor.close()
-        conexao.close()
+#         cursor.close()
+#         conexao.close()
 
 #Cria a media de um aluno    
 def media(matricula):
@@ -1782,7 +1805,9 @@ def excluir_nota(matricula, b):
             continue
         if nota != "5":
             if b[indice] is None:
+                print ("--------------------------------------------------------")
                 print ("A nota escolhida não tem valor, não é possível exclui-la")
+                print ("--------------------------------------------------------")
                 continue
 
             elif True:
@@ -1803,12 +1828,12 @@ def excluir_nota(matricula, b):
         print("-----------------------")
 
         #denovo
-        print("Você gostaria de excluir mais notas?")
+        print("Você gostaria de continuar a alterar notas?")
         print(" | 1 - Sim \n | 2 - não")
         op = input("Escreva aqui: ")
         match op:
             case "1":
-                continue
+                return
             case "2":
                 break 
 
@@ -1835,7 +1860,6 @@ def excluir_5(matricula):
     cursor.close()
     conexao.close()
 
-    ler_notas_notas(matricula)
     
 
 

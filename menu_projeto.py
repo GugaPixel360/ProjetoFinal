@@ -70,7 +70,7 @@ while True:
                         erro()
                         print("Preencha o campo corretamente")
                         continue
-
+                    a, Nome = validar_nome(Nome)
                     break
                 while True:
                     #email
@@ -114,39 +114,3 @@ while True:
             print("Escolha uma das opções dadas")
             continue
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
