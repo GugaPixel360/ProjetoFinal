@@ -613,14 +613,14 @@ def diretor():
 
                             #email
                             while True:
-                                Email = input("Digite o email do docente: ").strip()
+                                Email = input("Digite o email do docente: ").replace(" ", "")
                                 if not validar_email(Email):
                                     continue
                                 break
 
                             #funcao do docente
                             while True:
-                                funcao = input(f"Digite a função do docente\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
+                                funcao = input(f"Digite a função do docente\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().replace(" ", "")
                                 if not verificar_funcao(funcao):
                                     continue
                                 funcao1 = verificar_funcao(funcao)
@@ -629,7 +629,7 @@ def diretor():
                                 if funcao1 != "coordenador" and funcao1 != "diretor":
                                     
                                     #materia
-                                    materia = input(f"Digite a matéria dodocente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
+                                    materia = input(f"Digite a matéria dodocente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().replace(" ", "")
                                     if not validar_materia(materia):
                                         erro()
                                         continue

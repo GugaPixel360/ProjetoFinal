@@ -74,14 +74,14 @@ while True:
                     break
                 while True:
                     #email
-                    Email = input("Digite a seu email: ")
+                    Email = input("Digite a seu email: ").replace(" ", "")
                     if not validar_email(Email):
                         continue
                     break
                 
                 while True:
                     #funcao do docente
-                    funcao = input(f"Digite a sua função\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().strip()
+                    funcao = input(f"Digite a sua função\n | funçoes: {escolha_de_funcoes1}\nEscreva aqui: ").lower().replace(" ", "")
                     if not verificar_funcao(funcao):
                         continue
                     funcao1 = verificar_funcao(funcao)
@@ -89,7 +89,7 @@ while True:
 
                     if funcao1 != "coordenador" and funcao1 != "diretor":
                         #materia
-                        materia = input(f"Digite a sua matéria \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().strip()
+                        materia = input(f"Digite a sua matéria \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().replace(" ", "")
                         if not validar_materia(materia):
                             erro()
                             continue
