@@ -139,7 +139,8 @@ def professor():
         
         #situaçao do aluno - média
         elif op == "2":
-            ler_alunos()
+            if not ler_alunos():
+                continue
             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
             if not verificar_matricula(matricula):
                 print("Selecione uma das opcoes")
@@ -261,7 +262,8 @@ def coordenador():
         
         #situaçao do aluno - média
         elif op == "2":
-            ler_alunos()
+            if not ler_alunos():
+                continue
             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
             if not verificar_matricula(matricula):
                 print("Selecione uma das opcoes")
@@ -472,7 +474,8 @@ def diretor():
         
         #situaçao do aluno - média
         elif op == "2":
-            ler_alunos()
+            if not ler_alunos():
+                continue
             matricula = input("Qual aluno você gostaria de ver a média e a situação: ")
             if not verificar_matricula(matricula):
                 print("Selecione uma das opcoes")
