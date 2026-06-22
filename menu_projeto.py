@@ -35,7 +35,6 @@ while True:
             if not ler_docente():
                 continue
 
-#oi - Péres
 
             print("\33[31m===============\033[m")
             id_docente = validar_id() 
@@ -47,7 +46,7 @@ while True:
 
             match ler_funcao(id_docente):                
 
-                #professor
+                #professor 
                 case 1:
                     professor()
 
@@ -107,6 +106,10 @@ while True:
 
 
                 denovo()
+
+        case "67":
+            while True:
+                print("NÃO PODE 67 NA AULA DO BRUNO!!!!!!")
 
         case _:
             erro()

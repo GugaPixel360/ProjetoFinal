@@ -510,7 +510,7 @@ def diretor():
         elif op == "4":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()   
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | 4 - Editar dados\n | Digite aqui: ").strip()   
 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -562,8 +562,7 @@ def diretor():
 
                             if not denovo():
                                 break
-                        
-                       
+                          
                     # excluir                                             
                     case "2":
                         ler_alunos()
@@ -588,7 +587,34 @@ def diretor():
                         ler_alunos()
                         if not denovo():
                             break
+                    
+                    #editar dados do aluno
+                    case "4":
+                        ler_alunos_completo()
+                        matricula = input("Qual o aluno que você gostaria de editar (Escreva o numero da matricula): ")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
 
+                        variavel = input("O que você gostaria de alterar? \n | 1 - Nome\n | 2 - Idade\n | 3 - Turma\n | Escreva aqui: ").strip().lower()
+
+                        if variavel == "1":
+                            variavel = "nome"
+                        if variavel == "2":
+                            variavel = "idade"
+                        if variavel == "3":
+                            variavel = "turma"
+                        
+                        atualizar_dados_aluno(variavel, matricula)
+                        ler_alunos_completo()
+                        if not denovo():
+                            break
+                        
                     case _:
                         erro()
                         print("tente novamente")
@@ -1215,7 +1241,15 @@ def adicionar_nota(matricula):
                 match escolha:
                     case "1":
                         try:
-                            notaX = float(notaX)
+                            notaX = float(input("Digite a nova nota 1: "))
+
+                            if notaX == "":
+                                print("Campo vazio!")
+                                continue
+
+                            a, notaX = validar_nota(notaX)
+                            if not a:
+                                erro()
                         except:
                             erro()
                             continue
