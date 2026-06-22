@@ -91,7 +91,8 @@ def professor():
 
                     # excluir                                             
                     case "2":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -214,7 +215,8 @@ def coordenador():
 
                     # excluir                                             
                     case "2":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -425,7 +427,8 @@ def diretor():
                     # excluir                                             
                     case "2":
                         
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
