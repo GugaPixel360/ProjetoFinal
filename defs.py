@@ -79,7 +79,7 @@ def professor():
                     case "1":
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ").strip()
                         if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -91,9 +91,10 @@ def professor():
 
                     # excluir                                             
                     case "2":
+                        
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ").strip()
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -108,7 +109,8 @@ def professor():
                         if not a:
                             continue
 
-                        excluir_nota(matricula, b)
+                        if not excluir_nota(matricula, b):
+                            continue
                         if not denovo():
                             break
                                             
@@ -204,7 +206,7 @@ def coordenador():
                     case "1":
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ").strip()
                         if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -216,9 +218,10 @@ def coordenador():
 
                     # excluir                                             
                     case "2":
+                        
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ").strip()
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -233,7 +236,8 @@ def coordenador():
                         if not a:
                             continue
 
-                        excluir_nota(matricula, b)
+                        if not excluir_nota(matricula, b):
+                            continue
                         if not denovo():
                             break
                                             
@@ -327,7 +331,8 @@ def coordenador():
                             #turma do aluno
                             while True:
                                 turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
-                                if not validar_turma(turma):
+                                a, turma = validar_turma(turma)
+                                if not a:
                                     continue
                             
                             # criar login
@@ -541,7 +546,8 @@ def diretor():
                             #turma do aluno
                             while True:
                                 turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
-                                if not validar_turma(turma):
+                                a, turma = validar_turma(turma)
+                                if not a:
                                     continue
                             
                             # criar login
@@ -759,8 +765,21 @@ def validar_turma(turma):
         print("A turma selecionada não existe")
         print("Por favor selecione uma existente")
         return False
+
+    if turma in ["1° desenvolvimento de sistemas", "1 ds", "1ds", "1° ds", "1 desenvolvimento de sistemas"]:
+        turma = "1 ds"
+    if turma in ["2° desenvolvimento de sistemas", "2 ds", "2ds", "2° ds", "2 desenvolvimento de sistemas"]:
+        turma = "2 ds"
+    if turma in ["3° desenvolvimento de sistemas", "3 ds", "3ds", "3° ds", "3 desenvolvimento de sistemas"]:
+        turma = "3 ds"
+    if turma in ["1 jogos", "1° Desenvolvimento de jogos","1jogos","1° jogos", "1°jogos", "1 desenvolvimento de jogos"]:
+        turma = "1 jogos"
+    if turma in ["2 jogos", "2° Desenvolvimento de jogos","2jogos","2° jogos", "2°jogos", "2 desenvolvimento de jogos"]:
+        turma = "2 jogos"
+    if turma in ["3 jogos", "3° Desenvolvimento de jogos","3jogos","3° jogos", "3°jogos", "3 desenvolvimento de jogos"]:
+        turma = "3 jogos"
     
-    return True
+    return True, turma
 
 #validar codigo do docente
 def validar_codigo(idd):
@@ -1361,7 +1380,6 @@ def media(matricula):
 
         sqlnome = "SELECT nome_aluno FROM alunos WHERE matricula_ID = %s"
         
-        
         cursor.execute(sqlnome, (matricula,))
 
         resultnome = cursor.fetchall()
@@ -1372,16 +1390,10 @@ def media(matricula):
 
         resultado = cursor.fetchone()
 
-        
-        
         if any(item is None for item in resultado):
-            print("Nem todas as notas foram adicionadas \nPor favor adicione todas as notas antes de gerar a média")
-            return False
-        
-        if None in resultado:
             print("-----------------------\nNem todas as notas foram adicionadas.")
             print("Por favor adicione todas as notas antes de gerar a média.\n-----------------------")
-            return
+            return False
 
         if resultado:
             nota1, nota2, nota3, nota4 = resultado    
@@ -1821,12 +1833,12 @@ materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, ar
 
 #array de turmas
 turmas = ("1° Desenvolvimento de sistemas, 2° Desenvolvimento de sistemas, 3° Desenvolvimento de sistemas, 1° Desenvolvimento de jogos, 2° Desenvolvimento de jogos, 3° Desenvolvimento de jogos")
-turmass = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "1° ds",
- "2° Desenvolvimento de sistemas","2 ds", "2ds", "2° ds", 
- "3° Desenvolvimento de sistemas","3ds", "3 ds","3° ds",
- "1 jogos", "1° Desenvolvimento de jogos","1jogos","1° jogos", "1°jogos",
- "2 jogos", "2° Desenvolvimento de jogos", "2jogos","2° jogos", "2°jogos",
- "3° Desenvolvimento de jogos", "3 jogos", "3jogos","3° jogos", "3°jogos",]
+turmass = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "1° ds", "1 desenvolvimento de sistemas",
+ "2° Desenvolvimento de sistemas","2 ds", "2ds", "2° ds",  "2 desenvolvimento de sistemas",
+ "3° Desenvolvimento de sistemas","3ds", "3 ds","3° ds", "3 desenvolvimento de sistemas",
+ "1 jogos", "1° Desenvolvimento de jogos","1jogos","1° jogos", "1°jogos", "1 desenvolvimento de jogos",
+ "2 jogos", "2° Desenvolvimento de jogos", "2jogos","2° jogos", "2°jogos","2 desenvolvimento de jogos",
+ "3° Desenvolvimento de jogos", "3 jogos", "3jogos","3° jogos", "3°jogos","3 desenvolvimento de jogos"]
 
 #notas que existem no sql
 opcao_notas = ["1", "nota 1", "nota1", "2", "nota 2", "nota2", "3", "nota 3", "nota3", "4", "nota 4", "nota4"]
