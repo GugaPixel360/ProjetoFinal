@@ -336,21 +336,21 @@ def coordenador():
                                     continue
                             
                             # criar login
-                            try:
-                                adicionar_alunos(Nome, idade, turma)
-                                
-                            except:
-                                print("Ocorreu um erro ao adicionar o aluno.")
+                                try:
+                                  adicionar_alunos(Nome, idade, turma)
+                                  break
+                                except Exception as e:
+                                 print(f"Ocorreu um erro ao adicionar o aluno.{e}")
                                 erro()
-                                continue
-                            break
-                        
-                        if not denovo():
-                            break
-                       
+                                break
+
+                            if not denovo():
+                                break
+                                
                     # excluir                                             
                     case "2":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de excluir (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -369,7 +369,8 @@ def coordenador():
 
                     # ver alunos 
                     case "3":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         if not denovo():
                             break
 
@@ -551,17 +552,17 @@ def diretor():
                                     continue
                             
                             # criar login
-                            try:
-                                adicionar_alunos(Nome, idade, turma)
-                                
-                            except:
-                                print("Ocorreu um erro ao adicionar o aluno.")
+                                try:
+                                  adicionar_alunos(Nome, idade, turma)
+                                  break
+                                except Exception as e:
+                                 print(f"Ocorreu um erro ao adicionar o aluno.{e}")
                                 erro()
-                                continue
-                            break
+                                break
+
+                            if not denovo():
+                                break
                         
-                        if not denovo():
-                            break
                        
                     # excluir                                             
                     case "2":
