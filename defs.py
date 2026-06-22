@@ -303,11 +303,11 @@ def coordenador():
                             #nome
                             while True:
                                 Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
-                                if not validar_nome(Nome):
+                                a, Nome = validar_nome(Nome)
+                                if not a:
                                     erro()
                                     print("Preencha o campo corretamente")
                                     continue
-                                a, Nome = validar_nome(Nome)
                                 break
 
                             #idade
@@ -410,7 +410,7 @@ def diretor():
                     case "1":
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de adicionar nota (Escreva o numero da matricula): ").strip()
                         if not validar_matricula(matricula) or not verificar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -422,9 +422,8 @@ def diretor():
 
                     # excluir                                             
                     case "2":
-                        
                         ler_alunos()
-                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de excluir nota (Escreva o número da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -439,7 +438,7 @@ def diretor():
                         if not a:
                             continue
 
-                        if excluir_nota(matricula, b):
+                        if not excluir_nota(matricula, b):
                             continue
                         if not denovo():
                             break
@@ -514,11 +513,11 @@ def diretor():
                             #nome
                             while True:
                                 Nome = input("Digite o nome completo do aluno: ").capitalize().strip()               
-                                if not validar_nome(Nome):
+                                a, Nome = validar_nome(Nome)
+                                if not a:
                                     erro()
                                     print("Preencha o campo corretamente")
                                     continue
-                                a, Nome = validar_nome(Nome)
                                 break
 
                             #idade
@@ -534,23 +533,20 @@ def diretor():
                                 turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
                                 if not validar_turma(turma):
                                     continue
-
-                                break
                             
-                            
-                            ## criar login
-                            # try:
-                            adicionar_alunos(Nome, idade, turma)
+                            # criar login
+                            try:
+                                adicionar_alunos(Nome, idade, turma)
                                 
-                            # except:
-                            #     print("Ocorreu um erro ao adicionar o aluno.")
-                            #     erro()
-                            #     continue
+                            except:
+                                print("Ocorreu um erro ao adicionar o aluno.")
+                                erro()
+                                continue
                             break
                         
                         if not denovo():
                             break
-                        
+                       
                     # excluir                                             
                     case "2":
                         ler_alunos()
@@ -580,7 +576,7 @@ def diretor():
                         erro()
                         print("tente novamente")
                         continue
-
+        
         #profesores
         elif op == "5":
             while True:
@@ -604,11 +600,11 @@ def diretor():
                              #nome
                             while True:
                                 Nome = input("Digite o nome completo do docente: ").capitalize().strip()               
-                                if not validar_nome(Nome):
+                                a, Nome = validar_nome(Nome)
+                                if not a:
                                     erro()
                                     print("Preencha o campo corretamente")
                                     continue
-                                a, Nome = validar_nome(Nome)
                                 break 
 
                             #email
@@ -642,7 +638,7 @@ def diretor():
                             #senha
                             while True:
 
-                                senha = input("Crie a senha do docente: ")
+                                senha = input("Crie a senha do docente: ").strip()
 
                                 if senha.strip() == "":
                                     print("Campo vazio!")   
@@ -906,7 +902,7 @@ def validar_id():
         conn = criar_conexao()
         cursor = conn.cursor()
         
-        id_docente = input("Digite seu ID: ")
+        id_docente = input("Digite seu ID: ").strip()
 
         if id_docente.strip() == "":
             print("Campo vazio!")
@@ -959,7 +955,7 @@ def verificar_funcao(funcao):
 def validar_senha():
     while True:
 
-        senha = input("Crie a sua senha: ")
+        senha = input("Crie a sua senha: ").strip()
 
         if senha.strip() == "":
             print("Campo vazio!")  
@@ -1120,8 +1116,6 @@ def adicionar_nota(matricula):
     while True:
         a, resultado = ler_notas_notas(matricula)
 
-       
-
         if resultado is None:
             print("Esse aluno não possui registro de notas.")           
             print ("Qual nota você gostaria de adicionar?")
@@ -1167,7 +1161,7 @@ def adicionar_nota(matricula):
         print ("Qual nota você gostaria de adicionar?")
         nota = input("Escreva aqui: ").strip().lower()
 
-        if nota == "nota 1" or nota == "1":
+        if nota == "nota 1" or nota == "1" or nota == "nota1":
             nota = "nota1"
             if resultado[1] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la?\n | 1 - Sim\n | 2 - Não")
@@ -1201,7 +1195,7 @@ def adicionar_nota(matricula):
                 
                 atualizar_nota(matricula, notaX, nota)
         
-        elif nota == "nota 2" or nota == "2":
+        elif nota == "nota 2" or nota == "2" or nota == "nota2":
             nota = "nota2"
             if resultado[2] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
@@ -1240,7 +1234,7 @@ def adicionar_nota(matricula):
                     continue
                 atualizar_nota(matricula, notaX, nota)
         
-        elif nota == "nota 3" or nota == "3":
+        elif nota == "nota 3" or nota == "3" or nota == "nota3":
             nota = "nota3"
             if resultado[3] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
@@ -1273,7 +1267,7 @@ def adicionar_nota(matricula):
                     continue
                 atualizar_nota(matricula, notaX, nota)
         
-        elif nota == "nota 4" or nota == "4":
+        elif nota == "nota 4" or nota == "4" or nota == "nota4":
             nota = "nota4"
             if resultado[4] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
@@ -1310,8 +1304,6 @@ def adicionar_nota(matricula):
             erro()
             print("Escolha uma das opções dadas")
             continue
-
-
 
         ler_notas_notas(matricula)
 
@@ -1350,69 +1342,6 @@ def atualizar_nota(matricula, notaX, nota):
 
     cursor.close()
     conexao.close()
-
-# #adicionar professor (funcao diretor)                          FUNCAO NAO ULTILIZADA (verificar)
-# def adicionar_professor():
-#     while True:
-#         Nome = input("Digite o nome do professor: ").capitalize().strip()
-
-#         if not validar_nome(Nome):
-#             print("Nome inválido!")
-#             erro()
-#             continue
-
-#         break
-
-  
-#     while True:
-#         Email = input("Digite o email do professor: ").strip()
-
-#         if not validar_email(Email):
-#             continue
-
-#         break
-
-#     while True:
-#         materia = input("Digite a matéria do professor: ").strip().lower()
-
-#         if not validar_materia(materia):
-#             continue
-
-#         break
-
-#     senha = validar_senha()
-
-    
-#     conexao = criar_conexao()
-
-#     cursor = conexao.cursor()
-
-#     try:
-#         sql = """
-#         INSERT INTO professor
-#         (nome_docente, email_docente, funcao_docente, materia_docente, senha)
-
-#         VALUES (%s, %s, %s, %s, %s)
-#         """
-
-#         valores = (
-#         Nome,
-#         Email,
-#         professor,
-#         materia,
-#         senha
-#         )
-
-#         cursor.execute(sql, valores)
-#         conexao.commit()
-
-
-#     except Error as professor:
-#         print(f"Erro ao cadastrar professor: {professor}")
-#         erro()
-
-#         cursor.close()
-#         conexao.close()
 
 #Cria a media de um aluno    
 def media(matricula):
