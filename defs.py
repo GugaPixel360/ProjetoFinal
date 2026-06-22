@@ -546,17 +546,17 @@ def diretor():
                                     continue
                             
                             # criar login
-                            try:
-                                adicionar_alunos(Nome, idade, turma)
-                                
-                            except:
-                                print("Ocorreu um erro ao adicionar o aluno.")
+                                try:
+                                  adicionar_alunos(Nome, idade, turma)
+                                  break
+                                except Exception as e:
+                                 print(f"Ocorreu um erro ao adicionar o aluno.{e}")
                                 erro()
-                                continue
-                            break
+                                break
+
+                            if not denovo():
+                                break
                         
-                        if not denovo():
-                            break
                        
                     # excluir                                             
                     case "2":
