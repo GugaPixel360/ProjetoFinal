@@ -4,7 +4,7 @@ from datetime import datetime
 
 ############################################################
 
-# MENU PRINCIPAL!!!!!!!!!!!
+# MENU PRINCIPAL!!!!!!!!!!! 
 
 ############################################################
 
@@ -39,13 +39,13 @@ while True:
 
             print("\33[31m===============\033[m")
             id_docente = validar_id() 
-            senha = input("Digite a sua senha: ")   
+            senha = input("Digite a sua senha: ").strip()
             print("\33[31m===============\033[m") 
 
             if not Entrar(id_docente, senha):
                 continue
 
-            match ler_funcao(id_docente):
+            match ler_funcao(id_docente):                
 
                 #professor
                 case 1:
@@ -60,9 +60,6 @@ while True:
                     diretor()
 
         case "2":                       
-
-           
-
                 print ("\33[34m===============\033[m")
                 
                 while True:
