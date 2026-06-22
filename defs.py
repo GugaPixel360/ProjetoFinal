@@ -1267,7 +1267,7 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                notaX = float(input("Digite a nota 1: ")).strip()
+                notaX = float(input("Digite a nota 1: "))
 
                 if notaX == "":
                     print("Campo vazio!")
@@ -1781,6 +1781,31 @@ def ler_notas_notas(matricula):
     conexao.close()
     return True, resultado
 
+def atualizar_dados_aluno(variavel):
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    if variavel == "nome":
+        nome = input(f"Digite o novo nome:").strip().capitalize()
+    if variavel == "idade":
+        idade = float(input(f"Digite a nova idade:"))
+    if variavel == "turma":
+        turma = input(f"Digite a nova turma:").strip()
+
+
+    sql = f"""
+        UPDATE alunos
+        SET {variavel} = %s
+        WHERE matricula_ID = %s
+        """
+    
+    valores = (nome, matricula)
+
+    cursor.execute(sql, valores)
+    conexao.commit()
+
+    cursor.close()
+    conexao.close() 
 
 #DEFs EXCLUIR
 
