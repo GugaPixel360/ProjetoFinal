@@ -591,7 +591,7 @@ def diretor():
                     #editar dados do aluno
                     case "4":
                         ler_alunos_completo()
-                        matricula = input("Qual o aluno que você gostaria de editar (Escreva o numero da matricula): ")
+                        matricula = input("\nQual o aluno que você gostaria de editar (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -600,7 +600,8 @@ def diretor():
                         if not matricula:
                             erro()
                             continue
-
+                        
+                        print("======================")
                         variavel = input("O que você gostaria de alterar? \n | 1 - Nome\n | 2 - Idade\n | 3 - Turma\n | Escreva aqui: ").strip().lower()
 
                         if variavel == "1":
@@ -609,7 +610,7 @@ def diretor():
                             variavel = "idade"
                         if variavel == "3":
                             variavel = "turma"
-                        
+                        print()
                         atualizar_dados_aluno(variavel, matricula)
                         ler_alunos_completo()
                         if not denovo():
@@ -791,7 +792,7 @@ def validar_turma(turma):
     if turma not in turmass:
         print("A turma selecionada não existe")
         print("Por favor selecione uma existente")
-        return False
+        return False, turma
 
     if turma in ["1° desenvolvimento de sistemas", "1 ds", "1ds", "1° ds", "1 desenvolvimento de sistemas"]:
         turma = "1 ds"
@@ -1781,17 +1782,39 @@ def ler_notas_notas(matricula):
     conexao.close()
     return True, resultado
 
-def atualizar_dados_aluno(variavel):
+def atualizar_dados_aluno(variavel, matricula):
     conexao = criar_conexao()
     cursor = conexao.cursor()
 
     if variavel == "nome":
-        nome = input(f"Digite o novo nome:").strip().capitalize()
-    if variavel == "idade":
-        idade = float(input(f"Digite a nova idade:"))
-    if variavel == "turma":
-        turma = input(f"Digite a nova turma:").strip()
+        while True:
+            variavel = "nome_aluno"
+            nome = input(f"Digite o novo nome:").strip().capitalize()
+            a, nome = validar_nome(nome)
+            if not a:
+                erro()
+                continue
+            break
 
+    if variavel == "idade":
+        while True:
+            variavel = "idade_aluno"
+            idade = float(input(f"Digite a nova idade:"))
+            a, idade = validar_idade(idade)
+            if not a:
+                erro()
+                continue
+            break
+
+    if variavel == "turma":
+        while True:
+            variavel = "turma_aluno"
+            turma = input(f"Digite a nova turma:").strip()
+            a, turma = validar_turma(turma)
+            if not a:
+                erro()
+                continue
+            break
 
     sql = f"""
         UPDATE alunos
@@ -1806,6 +1829,7 @@ def atualizar_dados_aluno(variavel):
 
     cursor.close()
     conexao.close() 
+
 
 #DEFs EXCLUIR
 
