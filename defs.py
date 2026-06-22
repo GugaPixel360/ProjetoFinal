@@ -114,7 +114,8 @@ def professor():
                                             
                     # ver notas 
                     case "3":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -238,7 +239,8 @@ def coordenador():
                                             
                     # ver notas 
                     case "3":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -451,7 +453,8 @@ def diretor():
                                             
                     # ver notas 
                     case "3":
-                        ler_alunos()
+                        if not ler_alunos():
+                            break
                         matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
