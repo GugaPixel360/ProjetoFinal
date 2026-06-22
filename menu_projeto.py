@@ -35,6 +35,8 @@ while True:
             if not ler_docente():
                 continue
 
+#oi - Péres
+
             print("\33[31m===============\033[m")
             id_docente = validar_id() 
             senha = input("Digite a sua senha: ")   

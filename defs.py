@@ -1130,18 +1130,34 @@ def adicionar_nota(matricula):
             if nota == "1" or nota == "nota 1" or nota == "nota1":
                 nota = "nota1"
                 notaX = float(input("Digite a nota 1: "))
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
             
             if nota == "2" or nota == "nota 2" or nota == "nota2":
                 nota = "nota2"
                 notaX = float(input("Digite a nota 2: "))
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
             
             if nota == "3" or nota == "nota 3" or nota == "nota3":
                 nota = "nota3"
                 notaX = float(input("Digite a nota 3: "))
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
             
             if nota == "4" or nota == "nota 4" or nota == "nota4":
                 nota = "nota4"
                 notaX = float(input("Digite a nota 4: "))
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
     
 
             if notaX < 0:
@@ -1175,7 +1191,7 @@ def adicionar_nota(matricula):
                 match escolha:
                     case "1":
                         try:
-                            notaX = float(input("Digite a nova nota 1: "))
+                            notaX = float(notaX)
                         except:
                             erro()
                             continue
@@ -1193,7 +1209,12 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                notaX = float(input("Digite a nota 1: "))
+                notaX = float(input("Digite a nota 1: ")).strip()
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
+
                 a, notaX = validar_nota(notaX)
                 if not a:
                     erro()
@@ -1210,6 +1231,10 @@ def adicionar_nota(matricula):
                     case "1":
                         try:
                             notaX = float(input("Digite a nova nota 2: "))
+
+                            if notaX == "":
+                                print("Campo vazio!")
+                                continue
 
                             a, notaX = validar_nota(notaX)
                             if not a:
@@ -1234,7 +1259,17 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 2: "))
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
+
                 a, notaX = validar_nota(notaX)
+
+                if nota == "":
+                    print("Campo vazio!")
+                    continue
+
                 if not a:
                     erro()
                     continue
@@ -1249,6 +1284,11 @@ def adicionar_nota(matricula):
                     case "1":
                         try:
                             notaX = float(input("Digite a nova nota 3: "))
+
+                            if notaX == "":
+                                print("Campo vazio!")
+                                continue
+                            
                         except:
                             erro()
                             continue
@@ -1267,6 +1307,11 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 3: "))
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
+
                 a, notaX = validar_nota(notaX)
                 if not a:
                     erro()
@@ -1277,11 +1322,22 @@ def adicionar_nota(matricula):
             nota = "nota4"
             if resultado[4] is not None:
                 print("Essa nota já está adicionada, você gostaria de altera-la? \n | 1 - Sim \n | 2 - Não ")
-                escolha = input("Escreva aqui: ")
+
+                escolha = input("Escreva aqui: ").strip()
+
+                if escolha == "":
+                    print("Campo vazio!")
+                    continue
+
                 match escolha:
                     case "1":
                         try:
                             notaX = float(input("Digite a nova nota 4: "))
+
+                            if notaX == "":
+                                print("Campo vazio!")
+                                continue
+
                         except:
                             erro()
                             continue
@@ -1300,6 +1356,11 @@ def adicionar_nota(matricula):
                         continue
             else:
                 notaX = float(input("Digite a nota 4: "))
+
+                if notaX == "":
+                    print("Campo vazio!")
+                    continue
+                
                 a, notaX = validar_nota(notaX)
                 if not a:
                     erro()
@@ -1778,6 +1839,11 @@ def excluir_nota(matricula, b):
 
     while True:
         nota = input("Qual nota você gostaria de excluir (Todas as notas - 5): ").strip()
+
+        if nota == "":
+            print("Campo vazio!")
+            continue
+
         if nota == "5":
             excluir_5(matricula)
 
