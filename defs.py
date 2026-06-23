@@ -60,7 +60,7 @@ def professor():
             print("Você saiu")
             exit()
 
-       # manipular nota
+        # manipular nota
         elif op == "1":
             while True:
                 print("\nO que você gostaria de mexer?")
@@ -86,8 +86,9 @@ def professor():
                             continue
 
                         adicionar_nota(matricula)
+                        
                         if not denovo():
-                            continue
+                            break
 
                     # excluir                                             
                     case "2":
@@ -213,8 +214,9 @@ def coordenador():
                             continue
 
                         adicionar_nota(matricula)
+                        
                         if not denovo():
-                            continue
+                            break
 
                     # excluir                                             
                     case "2":
@@ -429,8 +431,9 @@ def diretor():
                             continue
 
                         adicionar_nota(matricula)
+                        
                         if not denovo():
-                            continue
+                            break
 
                     # excluir                                             
                     case "2":
@@ -591,7 +594,7 @@ def diretor():
                     #editar dados do aluno
                     case "4":
                         ler_alunos_completo()
-                        matricula = input("\nQual o aluno que você gostaria de editar (Escreva o numero da matricula): ")
+                        matricula = input("\nQual o aluno que você gostaria de editar (Escreva o numero da matricula): ").replace(" ", "")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -603,13 +606,20 @@ def diretor():
                         
                         print("======================")
                         variavel = input("O que você gostaria de alterar? \n | 1 - Nome\n | 2 - Idade\n | 3 - Turma\n | Escreva aqui: ").strip().lower()
+                        
+
 
                         if variavel == "1":
                             variavel = "nome"
-                        if variavel == "2":
+                        elif variavel == "2":
                             variavel = "idade"
-                        if variavel == "3":
+                        elif variavel == "3":
                             variavel = "turma"
+                        else:
+                            erro()
+                            print("Selecione uma das opções")
+                            continue
+                        
                         print()
                         atualizar_dados_aluno(variavel, matricula)
                         ler_alunos_completo()
@@ -838,7 +848,7 @@ def validar_codigo(idd):
 
 #validar idade
 def validar_idade(idade):
-    if idade.strip() == "":
+    if idade.replace(" ", "") == "":
         print("Campo vazio!")
         return False
 
@@ -959,7 +969,7 @@ def validar_id():
         conn = criar_conexao()
         cursor = conn.cursor()
         
-        id_docente = input("Digite seu ID: ").strip()
+        id_docente = input("Digite seu ID: ").replace(" ", "")
 
         if id_docente.strip() == "":
             print("Campo vazio!")
@@ -1176,11 +1186,17 @@ def adicionar_nota(matricula):
         if resultado is None:
             print("Esse aluno não possui registro de notas.")           
             print ("Qual nota você gostaria de adicionar?")
-            nota = input("Escreva aqui: ").strip().lower()
+            nota = input("Escreva aqui: ").replace(" ", "").lower()
+            
+            
             
             if nota == "1" or nota == "nota 1" or nota == "nota1":
                 nota = "nota1"
-                notaX = float(input("Digite a nota 1: "))
+                try:
+                    notaX = float(input("Digite a nota 1: "))
+                except:
+                    erro()
+                    continue
 
                 if notaX == "":
                     print("Campo vazio!")
@@ -1188,7 +1204,11 @@ def adicionar_nota(matricula):
             
             if nota == "2" or nota == "nota 2" or nota == "nota2":
                 nota = "nota2"
-                notaX = float(input("Digite a nota 2: "))
+                try:
+                    notaX = float(input("Digite a nota 2: "))
+                except:
+                    erro()
+                    continue
 
                 if notaX == "":
                     print("Campo vazio!")
@@ -1196,7 +1216,11 @@ def adicionar_nota(matricula):
             
             if nota == "3" or nota == "nota 3" or nota == "nota3":
                 nota = "nota3"
-                notaX = float(input("Digite a nota 3: "))
+                try:
+                    notaX = float(input("Digite a nota 3: "))
+                except:
+                    erro()
+                    continue
 
                 if notaX == "":
                     print("Campo vazio!")
@@ -1204,13 +1228,15 @@ def adicionar_nota(matricula):
             
             if nota == "4" or nota == "nota 4" or nota == "nota4":
                 nota = "nota4"
-                notaX = float(input("Digite a nota 4: "))
-
+                try:
+                    notaX = float(input("Digite a nota 4: "))
+                except:
+                    erro()
+                    continue
                 if notaX == "":
                     print("Campo vazio!")
                     continue
     
-
             if notaX < 0:
                 print("Digite uma nota válida!")
                 continue
@@ -1232,7 +1258,7 @@ def adicionar_nota(matricula):
             conn.close()
 
         print ("Qual nota você gostaria de adicionar?")
-        nota = input("Escreva aqui: ").strip().lower()
+        nota = input("Escreva aqui: ").replace(" ", "").lower()
 
         if nota == "nota 1" or nota == "1" or nota == "nota1":
             nota = "nota1"
@@ -1268,7 +1294,11 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                notaX = float(input("Digite a nota 1: "))
+                try:
+                    notaX = float(input("Digite a nota 1: "))
+                except:
+                    erro()
+                    continue
 
                 if notaX == "":
                     print("Campo vazio!")
@@ -1317,7 +1347,11 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                notaX = float(input("Digite a nota 2: "))
+                try:
+                    notaX = float(input("Digite a nota 2: "))
+                except:
+                    erro()
+                    continue
 
                 if notaX == "":
                     print("Campo vazio!")
@@ -1365,7 +1399,11 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                notaX = float(input("Digite a nota 3: "))
+                try:
+                    notaX = float(input("Digite a nota 3: "))
+                except:
+                    erro()
+                    continue
 
                 if notaX == "":
                     print("Campo vazio!")
@@ -1414,7 +1452,11 @@ def adicionar_nota(matricula):
                         print("Escolha uma das opções dadas")
                         continue
             else:
-                notaX = float(input("Digite a nota 4: "))
+                try:
+                    notaX = float(input("Digite a nota 4: "))
+                except:
+                    erro()
+                    continue
 
                 if notaX == "":
                     print("Campo vazio!")
