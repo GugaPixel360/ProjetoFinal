@@ -1882,7 +1882,13 @@ def atualizar_dados_aluno(variavel, matricula):
     if variavel == "idade":
         while True:
             variavel = "idade_aluno"
+
             idade = input(f"Digite a nova idade: ").replace(" ", "")
+            if idade == "":
+                print("Campo vazio!")
+                erro()
+                continue
+
             a, idade = validar_idade(idade)
             if not a:
                 erro()
@@ -1893,6 +1899,10 @@ def atualizar_dados_aluno(variavel, matricula):
         while True:
             variavel = "turma_aluno"
             turma = input(f"Digite a nova turma: ").strip()
+            if turma == "":
+                print("Campo vazio!")
+                erro()
+                continue
             a, valor = validar_turma(turma)
             if not a:
                 erro()
