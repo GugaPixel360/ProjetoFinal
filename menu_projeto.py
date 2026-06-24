@@ -1,6 +1,6 @@
 from defs import *
 from datetime import datetime
-
+import pwinput
 
 ############################################################
 
@@ -36,8 +36,13 @@ while True:
                 continue
 
             print("\33[31m===============\033[m")
-            id_docente = validar_id() 
-            senha = input("Digite a sua senha: ").strip()
+            id_docente = validar_id()
+            op = input("Mostrar senha enquanto digita? (s/n): ").lower()
+
+            if op == "s":
+                senha = input("Digite a sua senha: ")
+            else:
+                senha = pwinput.pwinput("Digite a sua senha: ", mask="*").strip()
             print("\33[31m===============\033[m") 
 
             if not Entrar(id_docente, senha):
