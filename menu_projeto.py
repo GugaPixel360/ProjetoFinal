@@ -37,7 +37,7 @@ while True:
 
             print("\33[31m===============\033[m")
             id_docente = validar_id()
-            op = input("Mostrar senha enquanto digita? (s/n): ").lower()
+            op = input("Mostrar senha enquanto digita? (s/n): ").strip()
 
             if op == "s":
                 senha = input("Digite a sua senha: ")
