@@ -599,6 +599,10 @@ def diretor():
                             print("Selecione uma das opcoes")
                             erro()
                             continue
+                        if not verificar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
                         matricula = validar_matricula(matricula)
                         if not matricula:
                             erro()
@@ -1831,8 +1835,8 @@ def atualizar_dados_aluno(variavel, matricula):
     if variavel == "nome":
         while True:
             variavel = "nome_aluno"
-            nome = input(f"Digite o novo nome:").strip().capitalize()
-            a, nome = validar_nome(nome)
+            nome = input(f"Digite o novo nome: ").strip().capitalize()
+            a, valor = validar_nome(nome)
             if not a:
                 erro()
                 continue
@@ -1851,8 +1855,8 @@ def atualizar_dados_aluno(variavel, matricula):
     if variavel == "turma":
         while True:
             variavel = "turma_aluno"
-            turma = input(f"Digite a nova turma:").strip()
-            a, turma = validar_turma(turma)
+            turma = input(f"Digite a nova turma: ").strip()
+            a, valor = validar_turma(turma)
             if not a:
                 erro()
                 continue
@@ -1864,7 +1868,7 @@ def atualizar_dados_aluno(variavel, matricula):
         WHERE matricula_ID = %s
         """
     
-    valores = (nome, matricula)
+    valores = (valor, matricula)
 
     cursor.execute(sql, valores)
     conexao.commit()
