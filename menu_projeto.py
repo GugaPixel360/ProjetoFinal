@@ -121,3 +121,5 @@ while True:
             print("Escolha uma das opções dadas")
             continue
     
+
+
