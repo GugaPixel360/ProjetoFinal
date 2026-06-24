@@ -296,7 +296,7 @@ def coordenador():
         elif op == "4":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()   
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | 4 - Editar dados\n | Digite aqui: ").strip()   
 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -348,11 +348,10 @@ def coordenador():
 
                             if not denovo():
                                 break
-                                
+                          
                     # excluir                                             
                     case "2":
-                        if not ler_alunos():
-                            break
+                        ler_alunos()
                         matricula = input("Qual o aluno que você gostaria de excluir (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
@@ -371,11 +370,49 @@ def coordenador():
 
                     # ver alunos 
                     case "3":
-                        if not ler_alunos():
-                            break
+                        ler_alunos()
                         if not denovo():
                             break
+                    
+                    #editar dados do aluno
+                    case "4":
+                        ler_alunos_completo()
+                        matricula = input("\nQual o aluno que você gostaria de editar (Escreva o numero da matricula): ").replace(" ", "")
+                        if not validar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        if not verificar_matricula(matricula):
+                            print("Selecione uma das opcoes")
+                            erro()
+                            continue
+                        matricula = validar_matricula(matricula)
+                        if not matricula:
+                            erro()
+                            continue
+                        
+                        print("======================")
+                        variavel = input("O que você gostaria de alterar? \n | 1 - Nome\n | 2 - Idade\n | 3 - Turma\n | Escreva aqui: ").strip().lower()
+                        
 
+
+                        if variavel == "1":
+                            variavel = "nome"
+                        elif variavel == "2":
+                            variavel = "idade"
+                        elif variavel == "3":
+                            variavel = "turma"
+                        else:
+                            erro()
+                            print("Selecione uma das opções")
+                            continue
+                        
+                        print()
+                        atualizar_dados_aluno(variavel, matricula)
+                        ler_alunos_completo()
+                        if not denovo():
+                            break
+                        
                     case _:
                         erro()
                         print("tente novamente")
