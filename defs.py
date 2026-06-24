@@ -891,26 +891,26 @@ def validar_codigo(idd):
 def validar_idade(idade):
     if idade.replace(" ", "") == "":
         print("Campo vazio!")
-        return False
+        return False, None
 
     try:
         idade = int(idade)
     except:
         erro()
-        return False
+        return False, None
 
     if idade < 0:
         print("Sua idade deve ser maior que 0")
-        return False
+        return False, None
 
     if idade < 14:
         print("Não aceitamos alunos menores que 14 anos, pois temos apenas o ensino médio em nossa escola")
-        return False
-    
+        return False, None
+
     if idade > 116:
-        print("Não existe ninguem com mais de 116 anos, tente novamente")
+        print("Não existe ninguém com mais de 116 anos, tente novamente")
         print("Não aceitamos mortos em nossa escola")
-        return False
+        return False, None
 
     return True, idade
 
