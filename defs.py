@@ -1889,7 +1889,7 @@ def atualizar_dados_aluno(variavel, matricula):
                 erro()
                 continue
 
-            a, idade = validar_idade(idade)
+            a, valor = validar_idade(idade)
             if not a:
                 erro()
                 continue
