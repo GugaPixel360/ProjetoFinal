@@ -28,7 +28,7 @@ while True:
 
     match op:
         case "0":
-            print ("Você saiu")
+            print ("Você saiu")               
             break
         
         case "1":

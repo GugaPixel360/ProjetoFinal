@@ -1841,7 +1841,7 @@ def atualizar_dados_aluno(variavel, matricula):
     if variavel == "idade":
         while True:
             variavel = "idade_aluno"
-            idade = float(input(f"Digite a nova idade:"))
+            idade = input(f"Digite a nova idade:").replace(" ", "")
             a, idade = validar_idade(idade)
             if not a:
                 erro()
