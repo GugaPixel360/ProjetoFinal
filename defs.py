@@ -325,9 +325,9 @@ def coordenador():
                             #idade
                             while True:
                                 idade = input("Digite a idade do aluno: ").strip()
-                                if not validar_idade(idade):
-                                    continue
                                 a, idade = validar_idade(idade)
+                                if not a:
+                                    continue
                                 break
 
                             #turma do aluno
@@ -579,9 +579,9 @@ def diretor():
                             #idade
                             while True:
                                 idade = input("Digite a idade do aluno: ").strip()
-                                if not validar_idade(idade):
-                                    continue
                                 a, idade = validar_idade(idade)
+                                if not a:
+                                    continue
                                 break
 
                             #turma do aluno
@@ -1889,7 +1889,7 @@ def atualizar_dados_aluno(variavel, matricula):
                 erro()
                 continue
 
-            a, idade = validar_idade(idade)
+            a, valor = validar_idade(idade)
             if not a:
                 erro()
                 continue
