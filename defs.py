@@ -325,9 +325,9 @@ def coordenador():
                             #idade
                             while True:
                                 idade = input("Digite a idade do aluno: ").strip()
-                                if not validar_idade(idade):
-                                    continue
                                 a, idade = validar_idade(idade)
+                                if not a:
+                                    continue
                                 break
 
                             #turma do aluno
@@ -579,9 +579,9 @@ def diretor():
                             #idade
                             while True:
                                 idade = input("Digite a idade do aluno: ").strip()
-                                if not validar_idade(idade):
-                                    continue
                                 a, idade = validar_idade(idade)
+                                if not a:
+                                    continue
                                 break
 
                             #turma do aluno
@@ -814,24 +814,6 @@ def diretor():
             print("Selecioe uma das opcoes")
             print("tente novamente")
             continue
-
-#def para buscar matricula
-def buscar_matricula():
-    conn = criar_conexao()
-    cursor = conn.cursor()
-
-    #buscao ultimo adicionado
-    cursor.execute("""
-        SELECT matricula_ID
-        FROM alunos
-        ORDER BY id DESC
-        LIMIT 1
-    """)
-
-    resultado = cursor.fetchone()
-    conn.close()
-
-    return resultado[0] if resultado else None
 
 
 
@@ -2077,11 +2059,11 @@ materias_escola1 = ("Biologia, matemática, geografia, filosofia, sociologia, ar
 #array de turmas
 turmas = ("1° Desenvolvimento de sistemas, 2° Desenvolvimento de sistemas, 3° Desenvolvimento de sistemas, 1° Desenvolvimento de jogos, 2° Desenvolvimento de jogos, 3° Desenvolvimento de jogos")
 turmass = ["1° desenvolvimento de sistemas", "1 ds", "1ds", "1° ds", "1 desenvolvimento de sistemas",
- "2° Desenvolvimento de sistemas","2 ds", "2ds", "2° ds",  "2 desenvolvimento de sistemas",
- "3° Desenvolvimento de sistemas","3ds", "3 ds","3° ds", "3 desenvolvimento de sistemas",
- "1 jogos", "1° Desenvolvimento de jogos","1jogos","1° jogos", "1°jogos", "1 desenvolvimento de jogos",
- "2 jogos", "2° Desenvolvimento de jogos", "2jogos","2° jogos", "2°jogos","2 desenvolvimento de jogos",
- "3° Desenvolvimento de jogos", "3 jogos", "3jogos","3° jogos", "3°jogos","3 desenvolvimento de jogos"]
+ "2° desenvolvimento de sistemas","2 ds", "2ds", "2° ds",  "2 desenvolvimento de sistemas",
+ "3° desenvolvimento de sistemas","3ds", "3 ds","3° ds", "3 desenvolvimento de sistemas",
+ "1 jogos", "1° desenvolvimento de jogos","1jogos","1° jogos", "1°jogos", "1 desenvolvimento de jogos",
+ "2 jogos", "2° desenvolvimento de jogos", "2jogos","2° jogos", "2°jogos","2 desenvolvimento de jogos",
+ "3° desenvolvimento de jogos", "3 jogos", "3jogos","3° jogos", "3°jogos","3 desenvolvimento de jogos"]
 
 #notas que existem no sql
 opcao_notas = ["1", "nota 1", "nota1", "2", "nota 2", "nota2", "3", "nota 3", "nota3", "4", "nota 4", "nota4"]
