@@ -1595,6 +1595,10 @@ def ler_docente():
     print ("=================")
     conn = criar_conexao()
     cursor = conn.cursor()
+
+    if conn is None:
+        print("Erro ao conectar com o banco!")
+        return
     
     cursor.execute("SELECT * FROM professor")
     resultado = cursor.fetchall()
