@@ -446,7 +446,7 @@ def diretor():
         elif op == "1":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Visualizar \n | Digite aqui: ").strip()
                                 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -501,7 +501,7 @@ def diretor():
                     case "3":
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de visualizar as notas (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -550,7 +550,7 @@ def diretor():
         elif op == "4":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | 4 - Editar dados\n | Digite aqui: ").strip()   
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Visualizar \n | 4 - Editar dados\n | Digite aqui: ").strip()   
 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -586,7 +586,7 @@ def diretor():
 
                             #turma do aluno
                             while True:
-                                turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
+                                turma = input(f"Digite a turma em que o seu aluno entrará\n | Turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
                                 a, turma = validar_turma(turma)
                                 if not a:
                                     continue
@@ -676,7 +676,7 @@ def diretor():
         elif op == "5":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Desativar\n | 3 - Vizualizar \n | Digite aqui: ").strip()   
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Desativar\n | 3 - Visualizar \n | Digite aqui: ").strip()   
 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -720,7 +720,7 @@ def diretor():
                                 if funcao1 != "coordenador" and funcao1 != "diretor":
                                     
                                     #materia
-                                    materia = input(f"Digite a matéria dodocente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().replace(" ", "")
+                                    materia = input(f"Digite a matéria do docente \n | Matérias aceitas: {materias_escola1} \nDigite aqui: ").lower().replace(" ", "")
                                     if not validar_materia(materia):
                                         erro()
                                         continue
@@ -811,7 +811,7 @@ def diretor():
         #validacao
         else:
             erro()
-            print("Selecioe uma das opcoes")
+            print("Selecione uma das opcoes")
             print("tente novamente")
             continue
 
@@ -909,7 +909,6 @@ def validar_idade(idade):
 
     if idade > 116:
         print("Não existe ninguém com mais de 116 anos, tente novamente")
-        print("Não aceitamos mortos em nossa escola")
         return False, None
 
     return True, idade
