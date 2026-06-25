@@ -744,7 +744,7 @@ def diretor():
                                 carac = any(not caracter.isalnum() for caracter in senha)
                         
                                 if len(senha) > 10 or len(senha) < 1:
-                                    print("Coloque menos de 10 valores")
+                                    print("Coloque entre 1 e 10 valores")
                                     continue
                                 
                                 if letra and num and carac:
@@ -1056,7 +1056,7 @@ def validar_senha():
         carac = any(not caracter.isalnum() for caracter in senha)
  
         if len(senha) > 10 or len(senha) < 1:
-            print("Coloque menos de 10 valores")
+            print("Coloque entre 1 e 10 valores")
             continue
            
         if letra and num and carac:
