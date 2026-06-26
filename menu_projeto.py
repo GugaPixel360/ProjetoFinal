@@ -71,13 +71,17 @@ while True:
                 
                 while True:
                     #nome
-                    Nome = input("Digite seu nome completo: ").capitalize()               
-                    if not validar_nome(Nome):
+                    Nome = input("Digite seu nome completo: ").strip().capitalize()
+
+                    a, Nome = validar_nome(Nome)
+
+                    if not a:
                         erro()
                         print("Preencha o campo corretamente")
                         continue
-                    a, Nome = validar_nome(Nome)
+
                     break
+                
                 while True:
                     #email
                     Email = input("Digite a seu email: ").replace(" ", "")
