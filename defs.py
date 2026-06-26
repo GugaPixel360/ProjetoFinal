@@ -1909,6 +1909,68 @@ def atualizar_dados_aluno(variavel, matricula):
     cursor.close()
     conexao.close() 
 
+def turmas_separadas(turma):
+    conexao = criar_conexao()
+    cursor = conexao.cursor()
+
+    sql = """
+    SELECT matricula_ID, nome_aluno
+    FROM alunos
+    WHERE turma_aluno = %s
+    ORDER BY nome_aluno
+    """
+
+    cursor.execute(sql, (turma,))
+    resultado = cursor.fetchall()
+
+    cursor.close()
+    conexao.close()
+
+    return resultado
+
+def escolher_turma():
+
+    print("\n Turmas Disponiveis: \n")
+
+    for turma in turmas:
+        print(turma)
+
+    while True:
+        turma = input("\nDigite a turma: ").strip()
+
+        alunos = turmas_separadas(turma)
+
+        if not alunos:
+            print("Turma não encontrada!")
+            continue
+
+        print(f"\nAlunos da turma {turma}\n")
+
+        for matricula, nome in alunos:
+            print(f"{matricula} - {nome}")
+
+        break
+    
+    while True:
+        matricula = input("\nDigite a matrícula do aluno: ").strip()
+
+        if matricula == "":
+            print("Campo vazio!")
+            continue
+
+        try:
+            matricula = int(matricula)
+        except:
+            erro()
+            continue
+
+        matriculas_validas = [aluno[0] for aluno in alunos]
+
+        if matricula not in matriculas_validas:
+            print("Esse aluno não pertence a essa turma!")
+            continue
+
+        break
 
 #DEFs EXCLUIR
 
