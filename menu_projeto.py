@@ -119,10 +119,6 @@ while True:
 
                 denovo()
 
-        case "67":
-            while True:
-                print("NÃO PODE 67 NA AULA DO BRUNO!!!!!!")
-                break
 
         case _:
             erro()

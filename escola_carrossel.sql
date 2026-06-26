@@ -30,8 +30,6 @@ materia_docente VARCHAR (100) NOT NULL,
 funcao_docente VARCHAR (50) NOT NULL
 );
 
-insert into alunos (nome_aluno, idade_aluno, turma_aluno) values ("josue", 15, "1ds");
-insert into notas (nota1, nota2, nota3, nota4) values (7, 5, 8,10);
 
 SELECT * FROM professor;
 SELECT * FROM alunos;
