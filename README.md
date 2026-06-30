@@ -138,20 +138,6 @@ git clone https://github.com/GugaPixel360/ProjetoFinal.git
 
 ---
 
-## Melhorias Futuras
-
-- Interface gráfica.
-- Banco de dados MySQL ou PostgreSQL.
-- Cadastro de disciplinas.
-- Controle de frequência.
-- Histórico escolar.
-- Emissão de boletins.
-- Cadastro de turmas.
-- Recuperação de senha.
-- Criptografia de senhas.
-
----
-
 ## Autores
 
 - Josué
