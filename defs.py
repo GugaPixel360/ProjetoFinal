@@ -1883,6 +1883,7 @@ def atualizar_dados_aluno(variavel, matricula):
     if variavel == "turma":
         while True:
             variavel = "turma_aluno"
+            print(turmas)
             turma = input(f"Digite a nova turma: ").strip()
             if turma == "":
                 print("Campo vazio!")
