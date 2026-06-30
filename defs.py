@@ -64,7 +64,7 @@ def professor():
         elif op == "1":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Visualizar \n | Digite aqui: ").strip()
                                 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -119,7 +119,7 @@ def professor():
                     case "3":
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de visualizar as notas (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -192,7 +192,7 @@ def coordenador():
         elif op == "1":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | Digite aqui: ").strip()
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Visualizar \n | Digite aqui: ").strip()
                                 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -247,7 +247,7 @@ def coordenador():
                     case "3":
                         if not ler_alunos():
                             break
-                        matricula = input("Qual o aluno que você gostaria de vizualizar as notas (Escreva o numero da matricula): ")
+                        matricula = input("Qual o aluno que você gostaria de visualizar as notas (Escreva o numero da matricula): ")
                         if not validar_matricula(matricula):
                             print("Selecione uma das opcoes")
                             erro()
@@ -296,7 +296,7 @@ def coordenador():
         elif op == "4":
             while True:
                 print("\nO que você gostaria de mexer?")
-                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Vizualizar \n | 4 - Editar dados\n | Digite aqui: ").strip()   
+                op = input(" | 0 - Sair \n | 1 - Adicionar \n | 2 - Excluir\n | 3 - Visualizar \n | 4 - Editar dados\n | Digite aqui: ").strip()   
 
                 if op.strip() == "":
                     print("Campo vazio!")
@@ -332,7 +332,7 @@ def coordenador():
 
                             #turma do aluno
                             while True:
-                                turma = input(f"Digite a turma em que o seu aluno entrará\n | turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
+                                turma = input(f"Digite a turma em que o seu aluno entrará\n | Turmas: {turmas}\n \nEscreva aqui: ").lower().strip()
                                 a, turma = validar_turma(turma)
                                 if not a:
                                     continue
