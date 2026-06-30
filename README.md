@@ -132,9 +132,9 @@ git clone https://github.com/GugaPixel360/ProjetoFinal.git
 
 3. Compile o projeto:
 
-4. Execute:
+4. Rode no terminal: "pip install mysql-connector-python" e "pip install pwinput" 
 
-Ou simplesmente abra o projeto em uma IDE como IntelliJ IDEA, Eclipse ou NetBeans e execute a classe `Main`.
+5. Execute 
 
 ---
 
