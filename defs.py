@@ -593,11 +593,11 @@ def diretor():
                             
                             # criar login
                                 try:
-                                  adicionar_alunos(Nome, idade, turma)
-                                  break
+                                    adicionar_alunos(Nome, idade, turma)
+                                    break
                                 except Exception as e:
-                                 print(f"Ocorreu um erro ao adicionar o aluno.{e}")
-                                erro()
+                                    print(f"Ocorreu um erro ao adicionar o aluno.{e}")
+                                    erro()
                                 break
 
                             if not denovo():
@@ -1131,9 +1131,7 @@ def adicionar_alunos(nome, idade, turma):
     if conn is None:
         print("Falha na conexão")
         return
-
     
-
     cursor = conn.cursor()
 
     cursor.execute(
